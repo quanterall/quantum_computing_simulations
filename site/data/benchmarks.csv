@@ -1,0 +1,29 @@
+# state vector: random layers (Rx on every qubit, CNOTs on even then odd pairs) x n layers, 1,024 shots; one warm-up, then 5 runs (3 from 17 qubits); median and minimum in ms
+# timed: QxSim building the state and sampling inside the VM; the NumPy engine the same; Aer's run, its transpile excluded
+qubits,gates,runs,beam_median_ms,beam_min_ms,beam_note,numpy_median_ms,numpy_min_ms,aer_median_ms,aer_min_ms
+4,28,5,0.2,0.2,,0.14,0.14,0.99,0.88
+5,45,5,0.3,0.3,,0.22,0.21,1.21,0.93
+6,66,5,0.4,0.4,,0.31,0.3,2.25,2.08
+7,91,5,0.5,0.5,,0.44,0.43,3.42,2.13
+8,120,5,1.1,1.0,,0.6,0.59,3.55,3.18
+9,153,5,2.0,2.0,,0.83,0.82,3.34,3.2
+10,190,5,4.5,4.4,,1.18,1.18,4.7,4.59
+11,231,5,13.3,12.5,,1.73,1.72,6.0,5.75
+12,276,5,28.1,28.0,,2.66,2.64,7.86,7.49
+13,325,5,84.2,73.2,,4.52,4.49,9.89,5.74
+14,378,5,199.1,175.5,,8.37,8.33,8.61,8.34
+15,435,5,550.0,483.1,,17.69,17.58,65.4,10.56
+16,496,5,1304.3,1137.4,,36.28,36.0,78.73,42.1
+17,561,3,2993.6,2924.4,,81.13,80.83,29.08,27.18
+18,630,3,6394.4,5528.3,,195.68,192.0,90.51,69.64
+19,703,3,20542.1,13645.0,,584.63,575.37,210.07,137.54
+20,780,3,,,out of memory in the 1 GB container,1933.46,1867.27,207.69,202.72
+
+# stabilizer: memory circuits (circuit-level noise p = 0.001, d rounds), 100,000 shots; one warm-up, 5 runs
+# timed: QxStab reference tableau + sampling in parallel batches on 20 schedulers; Stim compile + sample, on one core, and in 20 worker processes of 5,000 shots each (pool already started)
+circuit,qubits,detectors,shots,beam_median_ms,beam_min_ms,stim_1core_median_ms,stim_1core_min_ms,stim_20proc_median_ms,stim_20proc_min_ms
+repetition_d9,17,80,100000,14.0,10.9,14.0,13.6,1.8,1.7
+surface_d3,17,24,100000,8.5,6.3,3.2,3.0,1.1,1.0
+surface_d5,49,120,100000,20.4,18.5,22.6,22.4,2.8,2.6
+surface_d7,97,336,100000,123.7,116.8,99.0,70.3,6.4,5.6
+surface_d9,161,720,100000,370.7,289.0,193.3,171.2,13.6,10.5

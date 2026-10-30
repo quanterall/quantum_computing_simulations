@@ -1,0 +1,8 @@
+Quantum computing simulations
+Copyright 2026 Quanterall Ltd.
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The BEAM demos began on qx (https://github.com/richarc/qx) by Craig Richards, Apache License 2.0. QxSim is a
+separate implementation and shares no code with any qx release; see CREDITS.md for this and for the tools the
+results are checked against (Stim, PyMatching, Qiskit Aer, Perceval).

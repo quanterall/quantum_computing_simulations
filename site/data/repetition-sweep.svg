@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" role="img" aria-label="Logical error rate against physical error rate for repetition codes of distance 3, 5, 7 and 9" font-family="IBM Plex Mono, monospace" font-size="11">
+<rect width="760" height="420" fill="#0f1726"/>
+<line x1="70" y1="370.0" x2="740" y2="370.0" stroke="#1e2a40"/><text x="62" y="374.0" fill="#7a879c" text-anchor="end">1e-14</text>
+<line x1="70" y1="320.0" x2="740" y2="320.0" stroke="#1e2a40"/><text x="62" y="324.0" fill="#7a879c" text-anchor="end">1e-12</text>
+<line x1="70" y1="270.0" x2="740" y2="270.0" stroke="#1e2a40"/><text x="62" y="274.0" fill="#7a879c" text-anchor="end">1e-10</text>
+<line x1="70" y1="220.0" x2="740" y2="220.0" stroke="#1e2a40"/><text x="62" y="224.0" fill="#7a879c" text-anchor="end">1e-8</text>
+<line x1="70" y1="170.0" x2="740" y2="170.0" stroke="#1e2a40"/><text x="62" y="174.0" fill="#7a879c" text-anchor="end">1e-6</text>
+<line x1="70" y1="120.0" x2="740" y2="120.0" stroke="#1e2a40"/><text x="62" y="124.0" fill="#7a879c" text-anchor="end">1e-4</text>
+<line x1="70" y1="70.0" x2="740" y2="70.0" stroke="#1e2a40"/><text x="62" y="74.0" fill="#7a879c" text-anchor="end">1e-2</text>
+<line x1="70" y1="20.0" x2="740" y2="20.0" stroke="#1e2a40"/><text x="62" y="24.0" fill="#7a879c" text-anchor="end">1e0</text>
+<line x1="70.0" y1="20" x2="70.0" y2="370" stroke="#1e2a40"/><text x="70.0" y="386" fill="#7a879c" text-anchor="middle">0.001</text>
+<line x1="318.2" y1="20" x2="318.2" y2="370" stroke="#1e2a40"/><text x="318.2" y="386" fill="#7a879c" text-anchor="middle">0.01</text>
+<line x1="566.5" y1="20" x2="566.5" y2="370" stroke="#1e2a40"/><text x="566.5" y="386" fill="#7a879c" text-anchor="middle">0.1</text>
+<line x1="740.0" y1="20" x2="740.0" y2="370" stroke="#1e2a40"/><text x="740.0" y="386" fill="#7a879c" text-anchor="middle">0.5</text>
+<text x="405.0" y="408" fill="#9aa6bb" text-anchor="middle">physical error rate p (independent bit flip per data qubit)</text>
+<text x="16" y="195.0" fill="#9aa6bb" text-anchor="middle" transform="rotate(-90 16 195.0)">logical error rate</text>
+<line x1="70.0" y1="95.0" x2="740.0" y2="27.5" stroke="#7a879c" stroke-dasharray="4 4"/>
+<polyline points="70.0,158.1 101.9,151.7 133.8,145.2 165.7,138.8 197.6,132.4 229.5,126.0 261.4,119.6 293.3,113.1 325.2,106.7 357.1,100.3 389.0,94.0 421.0,87.6 452.9,81.2 484.8,74.9 516.7,68.6 548.6,62.3 580.5,56.1 612.4,50.0 644.3,44.0 676.2,38.2 708.1,32.6 740.0,27.5" fill="none" stroke="#6ab0ff" stroke-width="2"/>
+<circle cx="261.4" cy="122.4" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="293.3" cy="111.4" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="325.2" cy="105.8" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="357.1" cy="101.9" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="389.0" cy="94.9" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="421.0" cy="87.2" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="452.9" cy="81.1" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="484.8" cy="75.3" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="516.7" cy="68.5" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="548.6" cy="62.2" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="580.5" cy="55.9" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="612.4" cy="50.0" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="644.3" cy="44.1" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="676.2" cy="38.2" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="708.1" cy="32.7" r="2.6" fill="none" stroke="#6ab0ff"/>
+<circle cx="740.0" cy="27.6" r="2.6" fill="none" stroke="#6ab0ff"/>
+<line x1="478" y1="270" x2="498" y2="270" stroke="#6ab0ff" stroke-width="2"/><text x="504" y="274" fill="#c8d4e8">d = 3 (5 qubits)</text>
+<polyline points="70.0,220.0 101.9,210.4 133.8,200.8 165.7,191.1 197.6,181.5 229.5,171.9 261.4,162.3 293.3,152.7 325.2,143.1 357.1,133.5 389.0,123.9 421.0,114.4 452.9,104.9 484.8,95.5 516.7,86.1 548.6,76.8 580.5,67.7 612.4,58.8 644.3,50.1 676.2,41.9 708.1,34.2 740.0,27.5" fill="none" stroke="#a8ff3e" stroke-width="2"/>
+<circle cx="421.0" cy="111.9" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="452.9" cy="106.1" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="484.8" cy="96.0" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="516.7" cy="84.2" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="548.6" cy="76.5" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="580.5" cy="67.5" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="612.4" cy="58.5" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="644.3" cy="50.3" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="676.2" cy="42.0" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="708.1" cy="34.3" r="2.6" fill="none" stroke="#a8ff3e"/>
+<circle cx="740.0" cy="27.5" r="2.6" fill="none" stroke="#a8ff3e"/>
+<line x1="478" y1="286" x2="498" y2="286" stroke="#a8ff3e" stroke-width="2"/><text x="504" y="290" fill="#c8d4e8">d = 5 (9 qubits)</text>
+<polyline points="70.0,281.4 101.9,268.6 133.8,255.7 165.7,242.9 197.6,230.1 229.5,217.3 261.4,204.4 293.3,191.6 325.2,178.9 357.1,166.1 389.0,153.4 421.0,140.7 452.9,128.1 484.8,115.6 516.7,103.1 548.6,90.9 580.5,78.9 612.4,67.1 644.3,55.9 676.2,45.2 708.1,35.6 740.0,27.5" fill="none" stroke="#f5c842" stroke-width="2"/>
+<circle cx="484.8" cy="119.0" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="516.7" cy="102.5" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="548.6" cy="91.9" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="580.5" cy="78.0" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="612.4" cy="67.1" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="644.3" cy="55.6" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="676.2" cy="45.2" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="708.1" cy="35.6" r="2.6" fill="none" stroke="#f5c842"/>
+<circle cx="740.0" cy="27.5" r="2.6" fill="none" stroke="#f5c842"/>
+<line x1="478" y1="302" x2="498" y2="302" stroke="#f5c842" stroke-width="2"/><text x="504" y="306" fill="#c8d4e8">d = 7 (13 qubits)</text>
+<polyline points="70.0,342.5 101.9,326.5 133.8,310.4 165.7,294.4 197.6,278.3 229.5,262.3 261.4,246.3 293.3,230.3 325.2,214.4 357.1,198.4 389.0,182.5 421.0,166.7 452.9,151.0 484.8,135.4 516.7,119.9 548.6,104.7 580.5,89.8 612.4,75.3 644.3,61.4 676.2,48.5 708.1,36.9 740.0,27.5" fill="none" stroke="#f472b6" stroke-width="2"/>
+<circle cx="516.7" cy="115.6" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="548.6" cy="103.7" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="580.5" cy="89.7" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="612.4" cy="74.5" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="644.3" cy="61.5" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="676.2" cy="48.4" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="708.1" cy="37.0" r="2.6" fill="none" stroke="#f472b6"/>
+<circle cx="740.0" cy="27.5" r="2.6" fill="none" stroke="#f472b6"/>
+<line x1="478" y1="318" x2="498" y2="318" stroke="#f472b6" stroke-width="2"/><text x="504" y="322" fill="#c8d4e8">d = 9 (17 qubits)</text>
+<text x="478" y="338" fill="#7a879c">— exact   - - logical = p</text>
+<text x="478" y="352" fill="#7a879c">○ Monte Carlo, 100,000 shots,</text>
+<text x="478" y="366" fill="#7a879c">  where ≥ 10 failures are expected</text>
+</svg>

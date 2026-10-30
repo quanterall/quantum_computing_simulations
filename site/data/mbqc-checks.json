@@ -1,0 +1,177 @@
+{
+ "one_bit_teleportation": {
+  "cases": 50,
+  "worst_fidelity_to_H_psi": 0.9999999999999991
+ },
+ "rotation_chain": {
+  "cases": 30,
+  "worst_fidelity_to_H_Rz_H_Rz_H_Rz": 0.9999999999999989,
+  "note": "adaptive angles (sign flipped by earlier X byproducts); byproduct X^(s1+s3) Z^(s2)"
+ },
+ "fig10": {
+  "chain CZ12 CZ23 CZ34 (Fig. 10)": [
+   {
+    "outcome": "00",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": false
+   },
+   {
+    "outcome": "01",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": false
+   },
+   {
+    "outcome": "10",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": false
+   },
+   {
+    "outcome": "11",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": false
+   }
+  ],
+  "Eq. 56 couplings 12, 23, 24": [
+   {
+    "outcome": "00",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": true,
+    "byproduct_on_q3": [
+     [
+      "(-1+0j)",
+      "(-0+0j)"
+     ],
+     [
+      "(-0+0j)",
+      "(-1+0j)"
+     ]
+    ],
+    "byproduct_on_q4": [
+     [
+      "(-1+0j)",
+      "0j"
+     ],
+     [
+      "0j",
+      "(-1+0j)"
+     ]
+    ]
+   },
+   {
+    "outcome": "01",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": true,
+    "byproduct_on_q3": [
+     [
+      "-0j",
+      "1j"
+     ],
+     [
+      "1j",
+      "0j"
+     ]
+    ],
+    "byproduct_on_q4": [
+     [
+      "(-1+0j)",
+      "0j"
+     ],
+     [
+      "0j",
+      "(-1+0j)"
+     ]
+    ]
+   },
+   {
+    "outcome": "10",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": true,
+    "byproduct_on_q3": [
+     [
+      "1j",
+      "-0j"
+     ],
+     [
+      "0j",
+      "-1j"
+     ]
+    ],
+    "byproduct_on_q4": [
+     [
+      "1j",
+      "0j"
+     ],
+     [
+      "0j",
+      "-1j"
+     ]
+    ]
+   },
+   {
+    "outcome": "11",
+    "unitary": true,
+    "makhlin_G1_re_im_G2": [
+     -0.0,
+     0.0,
+     1.0
+    ],
+    "equals_CNOT_up_to_output_locals": true,
+    "byproduct_on_q3": [
+     [
+      "0j",
+      "(1+0j)"
+     ],
+     [
+      "(-1+0j)",
+      "0j"
+     ]
+    ],
+    "byproduct_on_q4": [
+     [
+      "1j",
+      "0j"
+     ],
+     [
+      "0j",
+      "-1j"
+     ]
+    ]
+   }
+  ]
+ }
+}

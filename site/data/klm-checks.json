@@ -1,0 +1,59 @@
+{
+ "dual_rail_vs_qubit_engine": {
+  "cases": 50,
+  "max_diff": 2.482534153247273e-16
+ },
+ "hom": {
+  "points": 81,
+  "max_diff_from_formula": 1.6653345369377348e-16,
+  "at_zero_delay": 0
+ },
+ "ns": {
+  "cases": 50,
+  "both_forms": true,
+  "success_min": 0.2499999938745898,
+  "success_max": 0.2500000083137905,
+  "worst_fidelity": 0.9999999999999991
+ },
+ "cz": {
+  "process_fidelity": 0.9999999999999997,
+  "success": 0.062499999268879496,
+  "leakage_out_of_dual_rail": 0.0,
+  "heralded_map_over_quarter": [
+   [
+    0.999999972,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    1.000000012,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    1.000000012,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    -0.999999981
+   ]
+  ]
+ },
+ "power": {
+  "theta2_plus_half_degree": {
+   "process_fidelity_to_CZ": 0.9997097806992207
+  },
+  "without_pi_phase": {
+   "process_fidelity_to_CZ": 3.078933813743889e-16,
+   "process_fidelity_to_identity": 0.25000001119616544,
+   "success": 0.062499999268879496
+  }
+ }
+}

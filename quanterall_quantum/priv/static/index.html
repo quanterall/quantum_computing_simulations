@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quanterall — Quantum Demo Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --black:  #0c1220;
+  --deep:   #101828;
+  --surf:   #162035;
+  --border: rgba(120,170,255,0.10);
+  --bbright:rgba(106,176,255,0.28);
+  --blue:   #6ab0ff;
+  --amber:  #f5c842;
+  --white:  #d8e8f8;
+  --off:    #7a9cc0;
+  --muted:  #7a9cc0;
+  --green:  #4ade80;
+  --red:    #f87171;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Outfit',sans-serif;min-height:100vh;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(12,18,32,.96);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);padding:18px 48px;
+    display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:20px;color:var(--white);text-decoration:none;}
+.nav-logo sup{font-size:9px;color:var(--blue);font-family:'IBM Plex Mono',monospace;letter-spacing:1px;}
+.nav-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber);
+         border:1px solid rgba(245,200,66,.25);padding:4px 12px;letter-spacing:1px;}
+.back-link{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);
+           text-decoration:none;letter-spacing:1px;transition:color .2s;}
+.back-link:hover{color:var(--blue);}
+
+/* LAYOUT */
+.page{max-width:1200px;margin:0 auto;padding:48px 48px 80px;}
+
+.page-header{margin-bottom:56px;}
+.page-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--blue);
+          letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);
+            font-weight:300;color:var(--white);letter-spacing:-1px;line-height:1.05;margin-bottom:16px;}
+.page-title em{font-style:italic;color:var(--blue);}
+.page-desc{font-size:16px;color:var(--off);font-weight:300;line-height:1.75;max-width:620px;}
+
+/* TABS */
+.tabs{display:flex;gap:2px;margin-bottom:40px;background:var(--border);padding:2px;}
+.tab{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;
+     text-transform:uppercase;padding:10px 24px;border:none;background:transparent;
+     color:var(--muted);cursor:pointer;transition:all .2s;flex:1;text-align:center;}
+.tab.active{background:var(--surf);color:var(--blue);}
+.tab:hover:not(.active){color:var(--off);}
+
+/* DEMO GRID */
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);}
+.demo-card{background:var(--black);padding:36px 32px;transition:background .25s;}
+.demo-card:hover{background:var(--surf);}
+.demo-card.full{grid-column:span 2;}
+
+.demo-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:16px;}
+.demo-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--blue);
+          letter-spacing:2px;margin-bottom:8px;}
+.demo-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;
+           color:var(--white);line-height:1.2;}
+.demo-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;
+            padding:3px 8px;border-radius:2px;white-space:nowrap;flex-shrink:0;margin-top:4px;}
+.badge-ai{background:rgba(106,176,255,.12);color:var(--blue);border:1px solid rgba(106,176,255,.25);}
+.badge-qec{background:rgba(245,200,66,.1);color:var(--amber);border:1px solid rgba(245,200,66,.25);}
+
+.demo-desc{font-size:13px;color:var(--off);line-height:1.6;margin-bottom:20px;font-weight:300;}
+
+/* CONTROLS */
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:20px;}
+.ctrl-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);
+             letter-spacing:1px;text-transform:uppercase;}
+.ctrl-input{background:var(--deep);border:1px solid var(--border);color:var(--white);
+            font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;
+            width:80px;outline:none;transition:border-color .2s;}
+.ctrl-input:focus{border-color:var(--blue);}
+.ctrl-select{background:var(--deep);border:1px solid var(--border);color:var(--white);
+             font-family:'IBM Plex Mono',monospace;font-size:11px;padding:6px 10px;outline:none;}
+.run-btn{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;
+         text-transform:uppercase;padding:8px 20px;background:transparent;
+         border:1px solid var(--blue);color:var(--blue);cursor:pointer;transition:all .25s;}
+.run-btn:hover{background:var(--blue);color:var(--black);}
+.run-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+/* RESULT AREA */
+.result-area{min-height:200px;}
+.chart-wrap{position:relative;height:220px;margin-bottom:16px;}
+.chart-title{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);
+             letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+
+/* QEC extras */
+.qec-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.fidelity-bar-wrap{margin-bottom:16px;}
+.fidelity-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);
+                 letter-spacing:1px;margin-bottom:6px;display:flex;justify-content:space-between;}
+.fidelity-bar-bg{height:6px;background:var(--surf);border:1px solid var(--border);}
+.fidelity-bar{height:100%;transition:width .6s ease;}
+
+.meta-row{display:flex;gap:24px;flex-wrap:wrap;margin-top:12px;}
+.meta-item{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.5px;}
+.meta-item span{color:var(--white);}
+
+/* QASM */
+.qasm-toggle{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--blue);
+              letter-spacing:1px;background:none;border:none;cursor:pointer;
+              text-transform:uppercase;margin-top:12px;display:block;}
+.qasm-block{display:none;margin-top:10px;background:var(--deep);border:1px solid var(--border);
+            padding:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;
+            color:var(--off);line-height:1.6;overflow-x:auto;white-space:pre;max-height:200px;overflow-y:auto;}
+.qasm-block.open{display:block;}
+
+/* SPINNER */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);
+         border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;
+         vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.error-msg{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--red);
+           padding:12px;border:1px solid rgba(248,113,113,.2);background:rgba(248,113,113,.05);}
+
+/* ENDPOINT HINT */
+.endpoint{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);
+          letter-spacing:.5px;margin-bottom:4px;}
+
+/* STATUS BAR */
+.status-bar{position:fixed;bottom:0;left:0;right:0;background:var(--deep);
+            border-top:1px solid var(--border);padding:8px 48px;
+            display:flex;align-items:center;justify-content:space-between;z-index:50;}
+.status-node{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);}
+.status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+            background:var(--green);margin-right:6px;animation:pulse-dot 2s ease infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+@media(max-width:760px){
+  .page{padding:32px 20px 80px;}
+  nav{padding:16px 20px;}
+  .demo-grid{grid-template-columns:1fr;}
+  .demo-card.full{grid-column:span 1;}
+  .qec-row{grid-template-columns:1fr;}
+  .tabs{flex-wrap:wrap;}
+  .tab{flex:none;min-width:40%;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Quanterall<sup>QC</sup></a>
+  <div class="nav-tag">Live BEAM Demos</div>
+  <a href="/" class="back-link">← Back to main site</a>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-tag">// Quantum Demo Suite · BEAM Native · v2.5</div>
+    <h1 class="page-title">Running quantum circuits<br><em>on the Erlang VM</em></h1>
+    <p class="page-desc">Ten live demonstrations — five Quantum-AI algorithms and five Quantum Error Correction protocols — executed in real time on the BEAM using Elixir and the qx_sim simulator. Every result is computed fresh on each run.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs" role="tablist">
+    <button class="tab active" role="tab" onclick="switchTab('ai',this)">Quantum-AI (5)</button>
+    <button class="tab" role="tab" onclick="switchTab('qec',this)">Error Correction (5)</button>
+  </div>
+
+  <!-- AI DEMOS -->
+  <div id="tab-ai" class="demo-grid">
+
+    <!-- Bell -->
+    <div class="demo-card" id="card-bell">
+      <div class="endpoint">/quantum/bell</div>
+      <div class="demo-header">
+        <div><div class="demo-num">01</div><div class="demo-name">Bell State Entanglement</div></div>
+        <span class="demo-badge badge-ai">AI</span>
+      </div>
+      <p class="demo-desc">Creates the maximally entangled Bell state |Φ⁺⟩ = (|00⟩+|11⟩)/√2 using a Hadamard and a CNOT gate. Measurement outcomes should be perfectly correlated.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-bell" value="1024" min="10" max="10000">
+        <button class="run-btn" onclick="runDemo('bell')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-bell"></div>
+    </div>
+
+    <!-- Teleport -->
+    <div class="demo-card" id="card-teleport">
+      <div class="endpoint">/quantum/teleport</div>
+      <div class="demo-header">
+        <div><div class="demo-num">02</div><div class="demo-name">Quantum Teleportation</div></div>
+        <span class="demo-badge badge-ai">AI</span>
+      </div>
+      <p class="demo-desc">Teleports an arbitrary qubit state from Alice to Bob using a shared Bell pair and two classical bits. Demonstrates the standard three-qubit teleportation protocol.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-teleport" value="1024" min="10" max="10000">
+        <button class="run-btn" onclick="runDemo('teleport')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-teleport"></div>
+    </div>
+
+    <!-- Grover -->
+    <div class="demo-card" id="card-grover">
+      <div class="endpoint">/quantum/grover</div>
+      <div class="demo-header">
+        <div><div class="demo-num">03</div><div class="demo-name">Grover's Search</div></div>
+        <span class="demo-badge badge-ai">AI</span>
+      </div>
+      <p class="demo-desc">Grover's quantum search algorithm with oracle marking |11⟩. Amplitude amplification boosts the probability of the target state quadratically faster than classical search.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-grover" value="1024" min="10" max="10000">
+        <button class="run-btn" onclick="runDemo('grover')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-grover"></div>
+    </div>
+
+    <!-- QML -->
+    <div class="demo-card" id="card-qml">
+      <div class="endpoint">/quantum/qml</div>
+      <div class="demo-header">
+        <div><div class="demo-num">04</div><div class="demo-name">Quantum Classifier (QML)</div></div>
+        <span class="demo-badge badge-ai">AI</span>
+      </div>
+      <p class="demo-desc">A simple variational quantum classifier using parameterised Rx rotations and CNOT entanglement layers. Demonstrates the building block of quantum machine learning circuits.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-qml" value="1024" min="10" max="10000">
+        <button class="run-btn" onclick="runDemo('qml')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-qml"></div>
+    </div>
+
+    <!-- Shor15 -->
+    <div class="demo-card full" id="card-shor15">
+      <div class="endpoint">/quantum/shor15</div>
+      <div class="demo-header">
+        <div><div class="demo-num">05</div><div class="demo-name">Mini Shor's Algorithm (N=15)</div></div>
+        <span class="demo-badge badge-ai">AI · Skeleton</span>
+      </div>
+      <p class="demo-desc">QPE initialisation layer for Shor's algorithm targeting N=15. The full modular-exponentiation circuit requires hardware beyond current simulators — this demonstrates the superposition register setup and measurement layer that feeds the classical post-processing.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-shor15" value="1024" min="10" max="10000">
+        <button class="run-btn" onclick="runDemo('shor15')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-shor15"></div>
+    </div>
+
+  </div><!-- /tab-ai -->
+
+  <!-- QEC DEMOS -->
+  <div id="tab-qec" class="demo-grid" style="display:none;">
+
+    <!-- Bitflip -->
+    <div class="demo-card" id="card-bitflip">
+      <div class="endpoint">/quantum/qec/bitflip</div>
+      <div class="demo-header">
+        <div><div class="demo-num">06</div><div class="demo-name">3-Qubit Bit-Flip Code</div></div>
+        <span class="demo-badge badge-qec">QEC</span>
+      </div>
+      <p class="demo-desc">Classical repetition code in the computational basis. Majority-vote decoding corrects a single bit-flip error on any one of the three physical qubits.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-bitflip" value="1024" min="10" max="10000">
+        <span class="ctrl-label">Error qubit</span>
+        <select class="ctrl-select" id="eq-bitflip">
+          <option value="none">None</option>
+          <option value="0">Qubit 0</option>
+          <option value="1">Qubit 1</option>
+          <option value="2">Qubit 2</option>
+        </select>
+        <button class="run-btn" onclick="runQEC('bitflip')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-bitflip"></div>
+    </div>
+
+    <!-- Phaseflip -->
+    <div class="demo-card" id="card-phaseflip">
+      <div class="endpoint">/quantum/qec/phaseflip</div>
+      <div class="demo-header">
+        <div><div class="demo-num">07</div><div class="demo-name">3-Qubit Phase-Flip Code</div></div>
+        <span class="demo-badge badge-qec">QEC</span>
+      </div>
+      <p class="demo-desc">Repetition code in the X-basis (Hadamard-transformed). Corrects a single phase-flip (Z) error. Syndrome extraction uses Hadamard-conjugated ancilla measurements.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-phaseflip" value="1024" min="10" max="10000">
+        <span class="ctrl-label">Error qubit</span>
+        <select class="ctrl-select" id="eq-phaseflip">
+          <option value="none">None</option>
+          <option value="0">Qubit 0</option>
+          <option value="1">Qubit 1</option>
+          <option value="2">Qubit 2</option>
+        </select>
+        <button class="run-btn" onclick="runQEC('phaseflip')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-phaseflip"></div>
+    </div>
+
+    <!-- Shor9 -->
+    <div class="demo-card" id="card-shor9">
+      <div class="endpoint">/quantum/qec/shor9</div>
+      <div class="demo-header">
+        <div><div class="demo-num">08</div><div class="demo-name">Shor's 9-Qubit Code</div></div>
+        <span class="demo-badge badge-qec">QEC</span>
+      </div>
+      <p class="demo-desc">The first quantum error-correcting code. Concatenates a phase-flip outer code over three bit-flip inner codes to protect against arbitrary single-qubit errors.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-shor9" value="512" min="10" max="10000">
+        <span class="ctrl-label">Error qubit</span>
+        <select class="ctrl-select" id="eq-shor9">
+          <option value="none">None</option>
+          <option value="0">Q0</option><option value="1">Q1</option><option value="2">Q2</option>
+          <option value="3">Q3</option><option value="4">Q4</option><option value="5">Q5</option>
+          <option value="6">Q6</option><option value="7">Q7</option><option value="8">Q8</option>
+        </select>
+        <button class="run-btn" onclick="runQEC('shor9')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-shor9"></div>
+    </div>
+
+    <!-- Steane7 -->
+    <div class="demo-card" id="card-steane7">
+      <div class="endpoint">/quantum/qec/steane7</div>
+      <div class="demo-header">
+        <div><div class="demo-num">09</div><div class="demo-name">Steane [[7,1,3]] Code</div></div>
+        <span class="demo-badge badge-qec">QEC · CSS</span>
+      </div>
+      <p class="demo-desc">A CSS (Calderbank-Shor-Steane) code with distance 3. Simultaneously corrects bit-flip and phase-flip errors using separate stabiliser checks — simplified demonstration circuit.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-steane7" value="512" min="10" max="10000">
+        <span class="ctrl-label">Error qubit</span>
+        <select class="ctrl-select" id="eq-steane7">
+          <option value="none">None</option>
+          <option value="0">Q0</option><option value="1">Q1</option><option value="2">Q2</option>
+          <option value="3">Q3</option><option value="4">Q4</option><option value="5">Q5</option>
+          <option value="6">Q6</option>
+        </select>
+        <button class="run-btn" onclick="runQEC('steane7')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-steane7"></div>
+    </div>
+
+    <!-- Surface3 -->
+    <div class="demo-card full" id="card-surface3">
+      <div class="endpoint">/quantum/qec/surface3</div>
+      <div class="demo-header">
+        <div><div class="demo-num">10</div><div class="demo-name">Distance-3 Surface Code Patch</div></div>
+        <span class="demo-badge badge-qec">QEC · Surface</span>
+      </div>
+      <p class="demo-desc">Simplified demonstration of a distance-3 surface code patch — the leading candidate for fault-tolerant quantum computation. Syndrome extraction from a 2D stabiliser lattice with planar boundary conditions — simplified circuit.</p>
+      <div class="controls">
+        <span class="ctrl-label">Shots</span>
+        <input class="ctrl-input" type="number" id="shots-surface3" value="512" min="10" max="10000">
+        <span class="ctrl-label">Error qubit</span>
+        <select class="ctrl-select" id="eq-surface3">
+          <option value="none">None</option>
+          <option value="0">Q0</option><option value="1">Q1</option><option value="2">Q2</option>
+          <option value="3">Q3</option><option value="4">Q4</option><option value="5">Q5</option>
+          <option value="6">Q6</option><option value="7">Q7</option><option value="8">Q8</option>
+        </select>
+        <button class="run-btn" onclick="runQEC('surface3')">Run ↗</button>
+      </div>
+      <div class="result-area" id="result-surface3"></div>
+    </div>
+
+  </div><!-- /tab-qec -->
+</div><!-- /page -->
+
+<div class="status-bar">
+  <div class="status-node"><span class="status-dot"></span>BEAM node online · Erlang/OTP 27</div>
+  <div class="status-node" id="status-text">Ready</div>
+  <div class="status-node">qx_sim v0.5.1 · Nova v0.13</div>
+</div>
+
+<script>
+const BASE = window.location.origin;
+const charts = {};
+
+// ── TAB SWITCHING ──────────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-ai').style.display  = name === 'ai'  ? 'grid' : 'none';
+  document.getElementById('tab-qec').style.display = name === 'qec' ? 'grid' : 'none';
+}
+
+// ── FETCH HELPERS ──────────────────────────────────────────────────────────────
+async function fetchDemo(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+function setStatus(msg) {
+  document.getElementById('status-text').textContent = msg;
+}
+
+// ── CHART RENDERING ────────────────────────────────────────────────────────────
+function destroyChart(id) {
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+}
+
+function renderBar(canvasId, counts, label) {
+  destroyChart(canvasId);
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const states = Object.keys(counts);
+  const values = Object.values(counts);
+  const total  = values.reduce((a,b)=>a+b,0);
+  charts[canvasId] = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: states,
+      datasets: [{
+        label: label || 'Counts',
+        data: values,
+        backgroundColor: states.map(s =>
+          s === states[0] ? 'rgba(106,176,255,0.7)' : 'rgba(106,176,255,0.35)'
+        ),
+        borderColor: 'rgba(106,176,255,0.9)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const pct = ((ctx.parsed.y / total) * 100).toFixed(1);
+              return `${ctx.parsed.y} shots (${pct}%)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#7a9cc0', font: { family: 'IBM Plex Mono', size: 11 } },
+             grid: { color: 'rgba(120,170,255,0.06)' } },
+        y: { ticks: { color: '#7a9cc0', font: { family: 'IBM Plex Mono', size: 10 } },
+             grid: { color: 'rgba(120,170,255,0.06)' } }
+      }
+    }
+  });
+}
+
+function metaRow(data) {
+  return `<div class="meta-row">
+    <div class="meta-item">Qubits: <span>${data.qubits}</span></div>
+    <div class="meta-item">Shots: <span>${data.shots}</span></div>
+    <div class="meta-item">Time: <span>${data.execution_time_ms}ms</span></div>
+  </div>`;
+}
+
+function qasmBlock(qasm, id) {
+  return `<button class="qasm-toggle" onclick="toggleQasm('${id}')">Show QASM ▾</button>
+          <pre class="qasm-block" id="qasm-${id}">${qasm||''}</pre>`;
+}
+
+function toggleQasm(id) {
+  const el = document.getElementById('qasm-'+id);
+  el.classList.toggle('open');
+  el.previousElementSibling.textContent =
+    el.classList.contains('open') ? 'Hide QASM ▴' : 'Show QASM ▾';
+}
+
+// ── AI DEMO RUNNER ─────────────────────────────────────────────────────────────
+async function runDemo(name) {
+  const shotsEl = document.getElementById('shots-'+name);
+  const shots   = parseInt(shotsEl?.value) || 1024;
+  const resultEl = document.getElementById('result-'+name);
+  const btn = document.querySelector(`#card-${name} .run-btn`);
+
+  resultEl.innerHTML = `<div><span class="spinner"></span>Running on BEAM…</div>`;
+  btn.disabled = true;
+  setStatus(`Running ${name}…`);
+
+  try {
+    const data = await fetchDemo(`${BASE}/quantum/${name}?shots=${shots}`);
+    const cid  = `chart-${name}`;
+    resultEl.innerHTML = `
+      <div class="chart-title">Measurement Outcomes</div>
+      <div class="chart-wrap"><canvas id="${cid}"></canvas></div>
+      ${metaRow(data)}
+      ${qasmBlock(data.circuit_qasm, name)}`;
+    renderBar(cid, data.counts, 'Counts');
+    setStatus(`${name} complete — ${data.execution_time_ms}ms`);
+  } catch(e) {
+    resultEl.innerHTML = `<div class="error-msg">Error: ${e.message}</div>`;
+    setStatus('Error');
+  }
+  btn.disabled = false;
+}
+
+// ── QEC DEMO RUNNER ────────────────────────────────────────────────────────────
+async function runQEC(name) {
+  const shotsEl = document.getElementById('shots-'+name);
+  const eqEl    = document.getElementById('eq-'+name);
+  const shots   = parseInt(shotsEl?.value) || 512;
+  const eq      = eqEl?.value || 'none';
+  const resultEl = document.getElementById('result-'+name);
+  const btn = document.querySelector(`#card-${name} .run-btn`);
+
+  const endpoint = name === 'bitflip' || name === 'phaseflip'
+    ? `/quantum/qec/${name}`
+    : `/quantum/qec/${name}`;
+
+  resultEl.innerHTML = `<div><span class="spinner"></span>Running QEC on BEAM…</div>`;
+  btn.disabled = true;
+  setStatus(`Running QEC ${name}…`);
+
+  try {
+    const data = await fetchDemo(`${BASE}${endpoint}?shots=${shots}&error_qubit=${eq}`);
+    const fidPct = (data.logical_fidelity * 100).toFixed(1);
+    const fidColor = data.logical_fidelity >= 0.9 ? 'var(--green)' : data.logical_fidelity >= 0.6 ? 'var(--amber)' : 'var(--red)';
+    const bidBefore = `chart-${name}-before`;
+    const cidAfter  = `chart-${name}-after`;
+    const cidSyn    = `chart-${name}-syn`;
+
+    resultEl.innerHTML = `
+      <div class="fidelity-bar-wrap">
+        <div class="fidelity-label">
+          <span>Logical Fidelity</span>
+          <span style="color:${fidColor};font-weight:500;">${fidPct}%</span>
+        </div>
+        <div class="fidelity-bar-bg">
+          <div class="fidelity-bar" style="width:${fidPct}%;background:${fidColor};"></div>
+        </div>
+      </div>
+      <div class="qec-row">
+        <div>
+          <div class="chart-title">Before Correction</div>
+          <div class="chart-wrap"><canvas id="${bidBefore}"></canvas></div>
+        </div>
+        <div>
+          <div class="chart-title">After Correction</div>
+          <div class="chart-wrap"><canvas id="${cidAfter}"></canvas></div>
+        </div>
+      </div>
+      <div class="chart-title">Syndrome Measurements</div>
+      <div class="chart-wrap" style="height:160px;"><canvas id="${cidSyn}"></canvas></div>
+      ${metaRow(data)}
+      <div class="meta-row">
+        <div class="meta-item">Error type: <span>${data.error_type}</span></div>
+        <div class="meta-item">Injected qubit: <span>${eq === 'none' ? 'none' : 'Q'+eq}</span></div>
+      </div>
+      ${qasmBlock(data.circuit_qasm, name)}`;
+
+    renderBar(bidBefore, data.counts_before,    'Before');
+    renderBar(cidAfter,  data.corrected_counts, 'Corrected');
+    renderBar(cidSyn,    data.syndrome_counts,  'Syndrome');
+
+    setStatus(`QEC ${name} — fidelity ${fidPct}% — ${data.execution_time_ms}ms`);
+  } catch(e) {
+    resultEl.innerHTML = `<div class="error-msg">Error: ${e.message}</div>`;
+    setStatus('Error');
+  }
+  btn.disabled = false;
+}
+
+// ── AUTO-RUN BELL ON LOAD ──────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => runDemo('bell'), 500);
+});
+</script>
+</body>
+</html>

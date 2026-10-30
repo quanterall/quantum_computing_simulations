@@ -1,0 +1,110 @@
+{
+ "graph_rule": {
+  "cases": "n, m = 2..5, both outcomes",
+  "worst_fidelity_to_cluster_n_plus_m_minus_1": 0.9999999999999998,
+  "success_probability_each": 0.5
+ },
+ "growth": {
+  "method": "chain grown by type-I fusion of k-qubit pieces onto its end; each piece built from Bell pairs by type-I fusion; on a failure at the chain the chain loses one qubit and the piece its first; the leftover reused or not; 20 runs \u00d7 20,000 attempts",
+  "rows": [
+   {
+    "piece_qubits": 2,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": Infinity,
+    "std_error": NaN,
+    "expected_gain_per_attempt": 0.0
+   },
+   {
+    "piece_qubits": 2,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": Infinity,
+    "std_error": NaN,
+    "expected_gain_per_attempt": 0.0
+   },
+   {
+    "piece_qubits": 3,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": 7.9841714137719295,
+    "std_error": 0.04262349077682009,
+    "expected_gain_per_attempt": 0.5
+   },
+   {
+    "piece_qubits": 3,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": 7.014523950137352,
+    "std_error": 0.03937371930825323,
+    "expected_gain_per_attempt": 0.5
+   },
+   {
+    "piece_qubits": 4,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": 9.065685178450774,
+    "std_error": 0.03502733989913642,
+    "expected_gain_per_attempt": 1.0
+   },
+   {
+    "piece_qubits": 4,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": 7.007839007890736,
+    "std_error": 0.034483647822394554,
+    "expected_gain_per_attempt": 1.0
+   },
+   {
+    "piece_qubits": 5,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": 10.649663079013543,
+    "std_error": 0.03492076581526187,
+    "expected_gain_per_attempt": 1.5
+   },
+   {
+    "piece_qubits": 5,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": 7.681577268927631,
+    "std_error": 0.022017289896746717,
+    "expected_gain_per_attempt": 1.5
+   },
+   {
+    "piece_qubits": 6,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": 12.48237360934904,
+    "std_error": 0.021455072231735917,
+    "expected_gain_per_attempt": 2.0
+   },
+   {
+    "piece_qubits": 6,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": 8.464023135376086,
+    "std_error": 0.015325051767255248,
+    "expected_gain_per_attempt": 2.0
+   },
+   {
+    "piece_qubits": 7,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": 14.409957019532746,
+    "std_error": 0.03988927626953177,
+    "expected_gain_per_attempt": 2.5
+   },
+   {
+    "piece_qubits": 7,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": 9.40885193785293,
+    "std_error": 0.02638019252443448,
+    "expected_gain_per_attempt": 2.5
+   },
+   {
+    "piece_qubits": 8,
+    "reuse_leftover": false,
+    "pairs_per_added_qubit": 16.274986781091847,
+    "std_error": 0.038125099823708625,
+    "expected_gain_per_attempt": 3.0
+   },
+   {
+    "piece_qubits": 8,
+    "reuse_leftover": true,
+    "pairs_per_added_qubit": 10.328057176581893,
+    "std_error": 0.015596538153009102,
+    "expected_gain_per_attempt": 3.0
+   }
+  ]
+ }
+}

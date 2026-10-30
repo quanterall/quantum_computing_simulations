@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quanterall — Quantum Algorithms, Error Correction &amp; Circuit Simulation</title>
+<meta name="description" content="Quantum computing research in Varna, Bulgaria: algorithms, error correction and photonic schemes simulated live on the Erlang VM, checked against Stim and Qiskit.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quanterall — Quantum Algorithms, Error Correction &amp; Circuit Simulation">
+<meta property="og:description" content="Quantum algorithms and error correction, simulated live on the Erlang VM. What exists, what is simplified, and what comes next.">
+<meta property="og:url" content="https://quanterall.com/">
+<link rel="canonical" href="https://quanterall.com/">
+<meta property="og:image" content="https://quanterall.com/og-image.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Quanterall — quantum algorithms, error correction and quantum circuit simulation, Varna, Bulgaria.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quanterall — Quantum Algorithms, Error Correction &amp; Circuit Simulation">
+<meta name="twitter:description" content="Quantum algorithms and error correction, simulated live on the Erlang VM. What exists, what is simplified, and what comes next.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization", "ResearchOrganization"],
+  "name": "Quanterall",
+  "legalName": "Quanterall Ltd.",
+  "url": "https://quanterall.com",
+  "foundingDate": "2003-03-23",
+  "email": "contact@quanterall.com",
+  "description": "Quantum computing research company in Varna, Bulgaria: quantum algorithms, quantum error correction and quantum circuit simulation on the Erlang VM.",
+  "founder": {"@type": "Person", "name": "Anton Andonov", "jobTitle": "Founder and CEO"},
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ul. Ruse 15, Opera Building",
+    "addressLocality": "Varna",
+    "postalCode": "9000",
+    "addressCountry": "BG"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/quanterall",
+    "https://github.com/quanterall",
+    "https://twitter.com/quanterall"
+  ],
+  "knowsAbout": [
+    "quantum computing", "quantum error correction", "surface codes",
+    "quantum algorithms", "quantum machine learning",
+    "quantum-classical hybrid computing", "post-quantum cryptography",
+    "quantum circuit simulation", "Erlang", "Elixir", "BEAM"
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:    #0c1220;
+  --deep:     #101828;
+  --surface:  #162035;
+  --border:   rgba(120,170,255,0.10);
+  --border-bright: rgba(106,176,255,0.30);
+  --blue:     #6ab0ff;
+  --blue2:    #4a8fe0;
+  --amber:    #f5c842;
+  --white:    #d8e8f8;
+  --off:      #7a9cc0;
+  --muted:    #7a9cc0;
+  --text:     #b0cce8;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--black); color:var(--text); font-family:'Outfit',sans-serif; overflow-x:hidden; }
+@media(prefers-reduced-motion:reduce){ *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+.skip-link { position:absolute; left:-9999px; top:0; z-index:9999; padding:8px 20px; background:var(--blue); color:var(--black); font-family:'IBM Plex Mono',monospace; font-size:12px; text-decoration:none; }
+.skip-link:focus { left:24px; top:24px; }
+
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:28px 64px; }
+nav::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(12,18,32,.96),transparent); pointer-events:none; z-index:-1; }
+.nav-logo { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:20px; color:var(--white); text-decoration:none; }
+.nav-logo sup { font-size:9px; color:var(--blue); font-family:'IBM Plex Mono',monospace; letter-spacing:1px; vertical-align:super; margin-left:2px; }
+.nav-links { display:flex; gap:36px; list-style:none; }
+.nav-links a { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); text-decoration:none; letter-spacing:1px; text-transform:uppercase; transition:color .2s; }
+.nav-links a:hover { color:var(--blue); }
+.nav-links a.active { color:var(--blue); }
+.nav-date { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--amber); letter-spacing:1px; border:1px solid rgba(245,200,66,.2); padding:5px 12px; }
+.hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; padding:6px; cursor:pointer; }
+.hamburger span { display:block; width:22px; height:1.5px; background:var(--off); transition:all .3s; }
+.mobile-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(12,18,32,.97); z-index:190; flex-direction:column; align-items:center; justify-content:center; gap:36px; }
+.mobile-menu.open { display:flex; }
+.mobile-menu a { font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--off); text-decoration:none; letter-spacing:3px; text-transform:uppercase; transition:color .2s; }
+.mobile-menu a:hover { color:var(--blue); }
+.mobile-close { position:absolute; top:28px; right:24px; background:none; border:none; color:var(--off); font-size:24px; cursor:pointer; line-height:1; }
+
+/* HERO */
+#hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:136px 64px 72px 112px; overflow:hidden; }
+#waveCanvas { position:absolute; inset:0; width:100%; height:100%; opacity:.5; }
+.hero-overlay { position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 65%, rgba(12,18,32,0) 0%, rgba(12,18,32,.8) 100%); }
+.hero-side-label { position:absolute; top:50%; left:64px; transform:translateY(-50%); writing-mode:vertical-rl; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:3px; text-transform:uppercase; }
+.hero-content { position:relative; z-index:2; max-width:1000px; }
+.hero-eyebrow { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--amber); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; opacity:0; animation:riseIn 1s .3s ease forwards; }
+.hero-h1 { font-family:'Outfit',sans-serif; font-weight:400; font-size:clamp(20px,2.4vw,30px); line-height:1.3; color:var(--white); margin:-12px 0 32px; max-width:820px; opacity:0; animation:riseIn 1s .65s ease forwards; }
+.hero-ctas { display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
+.hero-ctas .btn-q { display:inline-block; padding:12px 30px; font-size:11px; }
+.btn-ghost { background:transparent; }
+.hero-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(48px,7vw,96px); line-height:.9; color:var(--white); letter-spacing:-2px; margin-bottom:36px; opacity:0; animation:riseIn 1s .5s ease forwards; }
+.hero-title em { font-style:italic; color:var(--blue); }
+.hero-title .dim { color:var(--off); }
+.hero-bottom { display:flex; align-items:flex-end; justify-content:space-between; gap:48px; opacity:0; animation:riseIn 1s .8s ease forwards; }
+.hero-desc { font-size:16px; font-weight:300; color:var(--off); max-width:500px; line-height:1.8; }
+.hero-desc strong { color:var(--white); font-weight:500; }
+.hero-stats { display:flex; gap:48px; flex-shrink:0; }
+.hs-num { font-family:'Cormorant Garamond',serif; font-size:46px; font-weight:600; color:var(--white); line-height:1; }
+.hs-num span { color:var(--blue); }
+.hs-lab { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px; }
+.scroll-hint { position:absolute; bottom:32px; right:64px; display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; z-index:2; opacity:0; animation:riseIn 1s 1.2s ease forwards; }
+.scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,transparent,var(--blue)); animation:dropLine 2.2s 1.5s ease infinite; }
+@keyframes dropLine { 0%{transform:scaleY(0);transform-origin:top;opacity:1} 50%{transform:scaleY(1);transform-origin:top} 51%{transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom;opacity:0} }
+@keyframes riseIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+/* ANNOUNCE */
+.announce { position:relative; z-index:1; background:var(--deep); border-top:1px solid var(--border-bright); border-bottom:1px solid var(--border-bright); padding:52px 64px; display:flex; align-items:center; gap:64px; overflow:hidden; }
+.announce::before { content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(to bottom,var(--amber),var(--blue)); }
+.ann-date { flex-shrink:0; text-align:center; }
+.ann-dd { font-family:'Cormorant Garamond',serif; font-size:76px; font-weight:300; color:var(--amber); line-height:1; }
+.ann-mmyy { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:3px; text-transform:uppercase; margin-top:6px; }
+.ann-div { width:1px; height:80px; background:var(--border); flex-shrink:0; }
+.ann-label { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--amber); letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+.ann-headline { font-family:'Cormorant Garamond',serif; font-size:clamp(22px,2.8vw,34px); font-weight:400; color:var(--white); line-height:1.3; }
+.ann-sub { margin-top:12px; font-size:15px; color:var(--off); font-weight:300; max-width:600px; line-height:1.7; }
+.ann-big { margin-left:auto; flex-shrink:0; font-family:'Cormorant Garamond',serif; font-size:130px; font-weight:300; color:rgba(106,176,255,.06); line-height:1; user-select:none; }
+
+/* SECTIONS */
+section { position:relative; z-index:1; padding:110px 64px; }
+.s-in { max-width:1120px; margin:0 auto; }
+.s-tag { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:3px; text-transform:uppercase; margin-bottom:20px; }
+.s-title { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,4.5vw,60px); font-weight:300; color:var(--white); line-height:1.1; letter-spacing:-1px; margin-bottom:20px; }
+.s-title em { font-style:italic; color:var(--blue); }
+.s-body { font-size:16px; color:var(--off); font-weight:300; line-height:1.8; max-width:600px; }
+
+/* DIRECTION */
+#pivot { background:var(--black); }
+.pivot-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:64px; background:var(--border); }
+.pc { background:var(--black); padding:52px 44px; transition:background .3s; }
+.pc:hover { background:var(--surface); }
+.pc.wide { grid-column:span 2; background:var(--deep); border:1px solid var(--border-bright); display:flex; align-items:center; gap:72px; padding:60px 56px; }
+.pc.wide .ghost-num { font-family:'Cormorant Garamond',serif; font-size:120px; font-weight:300; color:rgba(106,176,255,.12); line-height:1; flex-shrink:0; user-select:none; }
+.pc-name { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--white); margin-bottom:14px; line-height:1.2; }
+.pc-desc { font-size:14px; color:var(--off); line-height:1.8; font-weight:300; }
+.pc-kw { display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+.kw { font-family:'IBM Plex Mono',monospace; font-size:10px; padding:4px 10px; border:1px solid var(--border); color:var(--muted); transition:all .2s; }
+.kw:hover { border-color:var(--blue); color:var(--blue); }
+.kw.a { color:var(--amber); border-color:rgba(245,200,66,.2); }
+
+/* RESEARCH */
+#research { background:var(--deep); }
+.pillars { display:flex; flex-direction:column; margin-top:64px; }
+.pillar { display:grid; grid-template-columns:80px 1fr 1fr; align-items:start; gap:48px; padding:44px 0; border-bottom:1px solid var(--border); transition:background .3s; }
+.pillar:last-child { border-bottom:none; }
+.pillar:hover { background:rgba(106,176,255,.03); }
+.p-n { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); letter-spacing:2px; padding-left:64px; padding-top:4px; }
+.p-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:var(--white); line-height:1.2; }
+.p-title em { font-style:italic; color:var(--blue); }
+.p-body { font-size:14px; color:var(--off); line-height:1.8; font-weight:300; }
+
+/* QUANTUM VIZ */
+#qviz { background:var(--deep); padding:0; overflow:hidden; }
+.qv-wrap { display:grid; grid-template-columns:1fr 1fr; }
+.qv-text { padding:110px 64px; display:flex; flex-direction:column; justify-content:center; }
+.qv-canvas-box { position:relative; background:var(--black); border-left:1px solid var(--border); min-height:520px; display:flex; align-items:center; justify-content:center; }
+#blochCanvas { width:100%; height:100%; }
+.qv-items { margin-top:36px; display:flex; flex-direction:column; }
+.qv-item { display:flex; align-items:flex-start; gap:14px; padding:16px 0; border-bottom:1px solid var(--border); }
+.qv-item:last-child { border-bottom:none; }
+.qv-dot { width:6px; height:6px; background:var(--blue); border-radius:50%; flex-shrink:0; margin-top:7px; }
+.qv-text-p { font-size:14px; color:var(--off); line-height:1.65; }
+.qv-text-p strong { color:var(--white); font-weight:500; }
+
+/* LEGACY */
+#legacy { background:var(--black); }
+.leg-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-top:64px; }
+.tl { display:flex; flex-direction:column; }
+.tl-row { display:flex; gap:28px; padding:26px 0; border-bottom:1px solid var(--border); }
+.tl-row:first-child { padding-top:0; }
+.tl-row:last-child { border-bottom:none; }
+.tl-y { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:1px; flex-shrink:0; width:62px; padding-top:2px; }
+.tl-name { font-size:15px; font-weight:500; color:var(--text); margin-bottom:4px; }
+.tl-d { font-size:13px; color:var(--muted); line-height:1.55; }
+.leg-quote { font-family:'Cormorant Garamond',serif; font-size:27px; font-weight:300; font-style:italic; color:var(--white); line-height:1.45; border-left:2px solid var(--amber); padding-left:28px; margin-bottom:36px; }
+.leg-note { font-size:15px; color:var(--off); font-weight:300; line-height:1.8; }
+
+/* CONTACT */
+#contact { background:var(--black); }
+.ct-wrap { max-width:880px; margin:0 auto; text-align:center; }
+.ct-wrap .s-title,.ct-wrap .s-body { margin-left:auto; margin-right:auto; }
+.ct-wrap .s-body { margin-bottom:52px; }
+.ct-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--border); margin-bottom:48px; text-align:left; }
+.cc { background:var(--black); padding:36px 32px; transition:background .3s; }
+.cc:hover { background:var(--surface); }
+.cc-lab { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--blue); letter-spacing:2px; text-transform:uppercase; margin-bottom:14px; }
+.cc-val { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; color:var(--white); line-height:1.3; }
+.cc-sub { font-size:13px; color:var(--muted); margin-top:6px; }
+.btn-q { display:inline-block; padding:16px 52px; border:1px solid var(--blue); color:var(--blue); font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; text-decoration:none; transition:all .3s; }
+.btn-q:hover { background:var(--blue); color:var(--black); box-shadow:0 0 60px rgba(106,176,255,.25); }
+
+/* FOOTER */
+footer { background:var(--deep); border-top:1px solid var(--border); padding:36px 64px; position:relative; z-index:1; }
+.footer-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+.footer-bottom { display:flex; align-items:center; justify-content:space-between; padding-top:20px; border-top:1px solid var(--border); }
+.f-logo { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:18px; color:var(--white); text-decoration:none; }
+.f-logo sup { font-size:9px; color:var(--blue); font-family:'IBM Plex Mono',monospace; letter-spacing:1px; }
+.f-copy { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:1px; }
+.f-link { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); text-decoration:none; border-bottom:1px solid rgba(106,176,255,.3); padding-bottom:2px; }
+.f-link:hover { border-color:var(--blue); }
+.f-socials { display:flex; gap:20px; align-items:center; }
+.f-social { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); text-decoration:none; letter-spacing:1px; transition:color .2s; }
+.f-social:hover { color:var(--blue); }
+
+/* REVEAL */
+/* content is visible without JavaScript; the reveal runs only when the script has marked the page (.js) */
+.qv-eq { font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--blue); margin-top:28px; letter-spacing:1px; }
+section[id], #qviz { scroll-margin-top:84px; }   /* anchors land below the fixed navigation */
+.qd-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px; background:var(--border); border:1px solid var(--border); }
+.qd { background:var(--deep); padding:20px 20px 16px; display:flex; flex-direction:column; min-height:290px; }
+.qd-pair { display:flex; gap:8px; }
+.qd-sel { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); } .qd-sel select { background:var(--deep); color:var(--off); border:1px solid var(--border); font:inherit; margin-left:4px; } .qd-pair>div { flex:1; min-width:0; }
+.qd-cap { font-family:'IBM Plex Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:1px; margin-bottom:2px; }
+.qd-id { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--amber); letter-spacing:3px; }
+.qd-name { font-family:'Cormorant Garamond',serif; font-weight:400; font-size:21px; color:var(--white); margin:6px 0 6px; line-height:1.15; }
+.qd-desc { font-size:12.5px; color:var(--off); line-height:1.6; font-weight:300; margin:0 0 10px; }
+.qd-plot { flex:1; min-height:92px; display:flex; align-items:flex-end; }
+.qd-plot svg { width:100%; height:92px; display:block; }
+.qd-meta { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.5px; margin-top:8px; min-height:14px; }
+.qd-actions { display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
+.qd-run { background:none; border:1px solid rgba(106,176,255,.35); color:var(--blue); font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; padding:5px 10px; cursor:pointer; }
+.qd-run:hover { border-color:var(--blue); }
+.qd-open { font-size:12px; color:var(--blue); text-decoration:none; }
+.where-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--border); border:1px solid var(--border); margin-top:40px; }
+.wg { background:var(--deep); padding:22px 22px 18px; }
+.wg-h { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); margin-bottom:10px; }
+.wg ul, .person ul { margin:0; padding-left:16px; } .wg li, .person li { font-size:13px; color:var(--off); line-height:1.65; font-weight:300; margin-bottom:6px; }
+.log { margin-top:28px; } .log-row { display:flex; gap:20px; font-size:13px; color:var(--off); line-height:1.6; padding:8px 0; border-bottom:1px solid var(--border); font-weight:300; }
+.log-d { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); min-width:96px; padding-top:2px; }
+.repro { margin-top:28px; border:1px solid var(--border); background:var(--deep); padding:18px 22px; }
+.repro pre { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--blue); white-space:pre-wrap; word-break:break-all; margin:6px 0 10px; }
+.repro p { font-size:12.5px; color:var(--muted); line-height:1.6; margin:0; } .repro code { font-family:'IBM Plex Mono',monospace; color:var(--off); }
+.people { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); border:1px solid var(--border); margin-top:40px; }
+.person { background:var(--deep); padding:26px 28px; } .person p { font-size:13.5px; color:var(--off); line-height:1.7; font-weight:300; margin:0; }
+.person-role { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); letter-spacing:1px; margin:6px 0 14px; }
+.person a, .wg a, .p-body a, .pc-desc a { color:var(--blue); }
+.people-note { font-size:12px; color:var(--muted); margin-top:16px; line-height:1.6; max-width:760px; }
+.sweep { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:28px; margin-top:36px; align-items:start; }
+.sweep img { width:100%; height:auto; border:1px solid var(--border); background:#0f1726; }
+.sweep > * { min-width:0; } .sweep-text img { max-width:100%; }
+.sweep-text p { font-size:13.5px; color:var(--off); line-height:1.7; font-weight:300; margin:0 0 12px; } .sweep-text b { color:var(--white); font-weight:500; }
+.sweep-text a { color:var(--blue); }
+.sweep-links { font-family:'IBM Plex Mono',monospace; font-size:11.5px !important; } .sweep-links a { color:var(--blue); }
+.stab-live { margin-top:16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.stab-out { flex-basis:100%; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--off); line-height:1.6; min-height:20px; }
+.bench { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px; margin-top:36px; }
+.bench p { font-size:13px; color:var(--off); line-height:1.7; font-weight:300; margin:10px 0 0; }
+.btab { border-collapse:collapse; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--off); width:100%; }
+.btab th { text-align:left; color:var(--muted); font-weight:400; padding:3px 8px 3px 0; border-bottom:1px solid var(--border); }
+.btab td { padding:3px 8px 3px 0; border-bottom:1px solid rgba(106,176,255,.06); }
+.where-more { margin-top:14px; border:1px solid var(--border); padding:10px 16px; background:var(--deep); }
+.where-more summary { cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue); letter-spacing:1px; }
+.where-more li { font-size:13px; color:var(--off); line-height:1.65; font-weight:300; margin:8px 0; } .where-more b { color:var(--white); font-weight:500; }
+.ai-note { font-size:12.5px; color:var(--muted); line-height:1.65; margin:14px 0 0; max-width:900px; } .ai-note b { color:var(--off); }
+.engines { margin-top:28px; } .engines .btab td:first-child { color:var(--white); white-space:nowrap; } .xval { font-size:13px; color:var(--off); line-height:1.65; margin:0 0 12px; font-weight:300; }
+.xval a, .engines a, .log-row a { color:var(--blue); } .tscroll { overflow-x:auto; } .tscroll .btab { min-width:560px; } .bench > div { min-width:0; } .mn { color:var(--muted); font-size:10px; } .btab.nw td { white-space:nowrap; }
+.pm-head { margin-top:72px; }
+.pm-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(26px,3vw,40px); color:var(--white); line-height:1.15; margin:8px 0 14px; }
+.pm-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--border); border:1px solid var(--border); margin-top:28px; }
+.pm { background:var(--deep); padding:22px 24px 18px; display:flex; flex-direction:column; min-width:0; }
+.pm-desc { font-size:13px; color:var(--off); line-height:1.7; font-weight:300; margin:8px 0 12px; }
+.pm-desc b { color:var(--white); font-weight:400; }
+.pm-svg { width:100%; height:auto; display:block; margin:6px 0 10px; }
+.pm-svg text { font-family:'IBM Plex Mono',monospace; font-size:11px; fill:#9aa6bb; text-anchor:middle; }
+.pm-svg .lanes line { stroke:rgba(106,176,255,.25); stroke-dasharray:3 4; }
+.pm-svg .node { fill:rgba(106,176,255,.06); stroke:rgba(106,176,255,.35); }
+.pm-svg .node-l { fill:#f5c842; letter-spacing:2px; } .pm-svg .node-p { font-size:10px; }
+.pm-svg .chan { stroke:rgba(245,200,66,.45); stroke-dasharray:4 4; } .pm-svg .qchan { stroke:rgba(106,176,255,.35); stroke-dasharray:1 5; }
+.pm-svg .chan-l { font-size:9px; }
+.pm-svg .msg { fill:#6ab0ff; } .pm-svg .res { fill:#f5c842; font-size:10px; }
+.pm-phys { border-top:1px solid var(--border); margin:4px 0 12px; padding-top:12px; }
+.pm-phys-h { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--amber); }
+.pm-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.pm-note { font-size:11.5px; color:var(--muted); line-height:1.6; margin:4px 0 0; }
+.pm-stats { font-size:12.5px; color:var(--off); line-height:1.7; min-height:96px; }
+.pm-stats table { border-collapse:collapse; margin:4px 0 8px; font-family:'IBM Plex Mono',monospace; font-size:11px; }
+.pm-stats td, .pm-stats th { padding:2px 10px 2px 0; text-align:left; font-weight:400; } .pm-stats th { color:var(--muted); }
+.pm-time { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--muted); }
+.sbar { position:relative; height:14px; background:rgba(106,176,255,.08); margin:4px 0; }
+.sbar i { position:absolute; left:0; top:0; bottom:0; } .sbar .lim { position:absolute; top:-3px; bottom:-3px; width:1px; background:#f5c842; }
+.today { display:block; margin-top:12px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.5px; color:var(--amber); line-height:1.7; }
+.go { display:inline-block; margin-top:10px; color:var(--blue); }
+.demo-card { text-decoration:none; color:inherit; transition:background .3s ease; } .demo-card:hover { background:var(--deep); }
+.f-cols { display:flex; gap:56px; flex-wrap:wrap; }
+.f-cols a { display:block; color:var(--off); text-decoration:none; font-size:13px; margin-top:8px; }
+.f-cols a:hover { color:var(--blue); }
+.f-h { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--amber); letter-spacing:3px; text-transform:uppercase; }
+.expl-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+.js .rev { opacity:0; transform:translateY(30px); transition:opacity .8s ease,transform .8s ease; }
+.js .rev.in { opacity:1; transform:none; }
+.d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;}
+
+@media(max-width:600px){ .where-grid{grid-template-columns:1fr;} }
+@media(max-width:900px){
+  nav{padding:20px 24px;} .nav-links{display:none;} .nav-date{display:none;} .hamburger{display:flex;} section{padding:70px 24px;}
+  #hero{padding:112px 24px 60px;} .hero-side-label{display:none;} .hero-bottom{flex-direction:column;gap:24px;}
+  .announce{flex-direction:column;gap:24px;padding:36px 24px;} .ann-big{display:none;}
+  .pivot-grid{grid-template-columns:1fr;gap:14px;background:transparent;}
+  .pivot-grid>*{min-width:0;} .pc{padding:36px 24px;} .pc.wide{grid-column:span 1;flex-direction:column;gap:24px;padding:36px 24px;}
+  .sweep,.bench{grid-template-columns:1fr;} .btab{font-size:10.5px;} .where-grid{grid-template-columns:1fr 1fr;} .log-row{flex-direction:column;gap:2px;} .people{grid-template-columns:1fr;} .pm-grid{grid-template-columns:1fr;} .pm-scroll .pm-svg{min-width:600px;} .qd-grid{grid-template-columns:repeat(2,1fr);} .qd{padding:14px 12px 12px;min-height:0;} .qd-name{font-size:17px;} .qd-desc{font-size:11.5px;} .qd-plot svg{height:70px;} .qd-actions{flex-wrap:wrap;gap:6px;}
+  .pillar{grid-template-columns:1fr;gap:10px;padding:34px 24px;} .p-n{padding-left:0;} .expl-grid{grid-template-columns:1fr;}
+  .leg-grid,.qv-wrap,.ct-grid{grid-template-columns:1fr;}
+  .qv-canvas-box{min-height:280px;border-left:none;border-top:1px solid var(--border);}
+  .qv-text{padding:60px 24px;}
+  footer{padding:28px 24px;} .footer-top,.footer-bottom{flex-direction:column;gap:14px;text-align:center;} .f-socials{justify-content:center;}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <button class="mobile-close" id="menuClose" aria-label="Close menu">✕</button>
+  <a href="#where" onclick="closeMobileMenu()">Where we are</a>
+  <a href="#pivot" onclick="closeMobileMenu()">What we do</a>
+  <a href="#research" onclick="closeMobileMenu()">Research</a>
+  <a href="#demos" onclick="closeMobileMenu()">Demos</a>
+  <a href="#people" onclick="closeMobileMenu()">People</a>
+  <a href="#legacy" onclick="closeMobileMenu()">Foundation</a>
+</div>
+
+<!-- NAV -->
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Quanterall, home">Quanterall<sup>QC</sup></a>
+  <ul class="nav-links">
+    <li><a href="#where">Where we are</a></li>
+    <li><a href="#pivot">What we do</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#demos">Demos</a></li>
+    <li><a href="#people">People</a></li>
+    <li><a href="#legacy">Foundation</a></li>
+  </ul>
+  <div class="nav-date">23 · 03 · 2003 — 2026</div>
+  <button class="hamburger" id="menuOpen" aria-label="Open navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main id="main-content">
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="waveCanvas" aria-hidden="true"></canvas>
+  <noscript><div style="position:absolute;inset:0;background:linear-gradient(135deg,#0c1220,#162035);"></div></noscript>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Quantum Research Lab · Varna, Bulgaria · Est. 23 March 2003</div>
+    <p class="hero-title" aria-hidden="true">
+      Into the<br>
+      <em>quantum</em><br>
+      <span class="dim">unknown</span>
+    </p>
+    <h1 class="hero-h1">Quantum computing research,<br>built on 23 years of engineering.</h1>
+    <div class="hero-bottom">
+      <div>
+        <p class="hero-desc">Founded in Varna in 2003, Quanterall now works on quantum algorithms, quantum error correction and quantum circuit simulation. What exists: ten quantum circuits you can run on this page, simulated on the Erlang virtual machine, with their source code public; a simulation engine we built over the last two years for the EU research project TechUPGRADE, which we now use for simulations in other fields, quantum computing among them; and an Erlang practice that goes back to 2009.<br><br>The name was coined in 2002 at the Joint Institute for Nuclear Research in Dubna. The company was incorporated on 23 March 2003 to pursue it once the technology allowed.</p>
+        <div class="hero-ctas">
+          <a href="/demos" class="btn-q">Run the quantum demos →</a>
+          <a href="https://github.com/quanterall/quantum_computing_simulations" class="btn-q btn-ghost" target="_blank" rel="noopener noreferrer">Source code →</a>
+          <a href="#where" class="btn-q btn-ghost">Where we are ↓</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hs-num">23<span>yrs</span></div>
+          <div class="hs-lab">Since 2003</div>
+        </div>
+        <div>
+          <div class="hs-num">17<span>yrs</span></div>
+          <div class="hs-lab">Erlang, since 2009</div>
+        </div>
+        <div>
+          <div class="hs-num">10</div>
+          <div class="hs-lab">Live circuits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- WHERE WE ARE -->
+<section id="where" aria-labelledby="where-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Where we are · 29 October 2026</div>
+    <h2 id="where-heading" class="s-title rev">What exists, what is simplified,<br><em>what is missing.</em></h2>
+    <div class="where-grid rev">
+      <div class="wg"><div class="wg-h">Exists</div><ul>
+        <li>Live circuits on QxSim, our state-vector simulator in Elixir, cross-checked against Qiskit (<a href="#engines">which code runs what</a>).</li>
+        <li>Five codes with full correction cycles; the surface code under gate-level noise on QxStab, our stabilizer simulator, checked against Stim.</li>
+        <li>Reproductions of known results, with data: <a href="#sweeps">repetition sweeps</a>, a <a href="#noise">threshold study</a>, <a href="#benchmarks">benchmarks</a>, <a href="#photonic">photonic schemes</a> (HOM, the KLM gates).</li>
+      </ul></div>
+      <div class="wg"><div class="wg-h">Simplified</div><ul>
+        <li>Shor's modular multiplication is applied as one permutation unitary, not decomposed into gates; N up to 21.</li>
+        <li>State-vector codes: one error per run, noiseless gates; the surface code there uses one reused ancilla.</li>
+      </ul></div>
+      <div class="wg"><div class="wg-h">Missing</div><ul>
+        <li>A positive research result: our first hypothesis — a BEAM decoder with bounded tail latency near compiled speed — was falsified; a batched design is next.</li>
+        <li>An independent review of the physics, and a paper.</li>
+        <li>The public repository and a citable release.</li>
+      </ul></div>
+      <div class="wg"><div class="wg-h">Next</div><ul>
+        <li><a href="#question">Our research question</a>: the first answer is no; next, batches per process and a dedicated machine.</li>
+        <li>The repository with a DOI; a first preprint.</li>
+      </ul></div>
+    </div>
+    <details class="where-more rev">
+      <summary>All the details</summary>
+      <ul>
+        <li><b>Circuits (QxSim).</b> Bell pair; teleportation of a random state, undone on Bob's side so that his qubit reads 0 every shot; Grover's search on 2 to 10 qubits with its success probability per iteration against theory; a variational classifier; Shor's algorithm in two forms: compiled for N = 15, a = 7 — 7⁴ ≡ 1, so the period is built into the circuit; it shows the structure, not a speedup — and general, for N = 15 or 21 and any a: 2n counting qubits, controlled multiplication by a^(2^j) mod N (a permutation unitary), the inverse QFT, continued fractions; with a = 2 it factors 15 in about 75 % of shots and 21 in about 84 %, and a = 14 (for 15) or 5 (for 21) never, as theory says. Each outcome is named: factors, no period found, period odd, a^(r/2) ≡ −1; an a sharing a factor with N returns it without the circuit; the exact distribution from the state vector stands beside the samples. The modular multiplication is a permutation of basis states computed classically — an oracle, not a gate-level arithmetic circuit — so no gate counts or resource estimates follow from it. With 2n counting and n work qubits Shor needs 3n qubits: within QxSim's 19, N < 64; the public endpoint stops at 21 to keep runs short. Grover's oracle and diffusion are gates — H, X and a multi-controlled Z — with the multi-controlled Z applied as one gate, not decomposed. Every run repeats exactly with its seed.</li>
+        <li><b>Codes on the state vector.</b> Bit-flip (corrected by a majority vote of the readout), phase-flip, Shor-9, Steane-7 and the distance-3 surface code (all eight stabilizers measured one after another on one reused ancilla: 10 qubits, a lookup decoder) each correct every single-qubit error. One error per run; gates and measurements without noise.</li>
+        <li><b>Gate-level noise (QxStab).</b> The surface code with its 17 qubits (d = 3) up to 97 (d = 7), d rounds, noise on every gate, reset and measurement, decoded by PyMatching on Stim's detector error model.</li>
+        <li><b>Limits.</b> QxSim stops at 19 qubits in its 1 GB container and is about 100 times slower than Qiskit Aer there; QxStab is 8 to 30 times slower than Stim run on as many cores.</li>
+        <li><b>Process models.</b> Entanglement as linked processes (CHSH S measured live with its error); teleportation between two BEAM nodes.</li>
+      </ul>
+    </details>
+    <div class="log rev">
+      <div class="wg-h">Progress log · from the repository's commits</div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Photonic schemes, phase 7: one mode in continuous variables — GKP readout under shift noise (exact, sampled and closed form, in q and in p), cat parity under photon loss, the homodyne-heralded comb; QxCV (Elixir) and cv.py (Python) agree; the review's Fig. 5 read from its PDF; a sign mismatch between its Eqs. 22 and 25.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>The review's 2.7 % loss figure traced to Bartolucci et al. (2023) and reproduced from their formulas: the encoded 6-ring network with Bell-pair-boosted fusion, 10.4 % per four-photon fusion.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Phase 6 at circuit level: surface-code memories with heralded erasure, decoded with the heralds by QxDecode and PyMatching, and by PyMatching without them — the heralds cut the logical error about twentyfold at d = 5, 4 % erasure.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Phase 6, erasure decoding: QxDecode takes heralded erasures; pure erasure crosses at 50 % (d = 3–9), mixed erasure and flips shift the threshold as expected, agreeing with PyMatching; QxStab samples heralded erasure, checked against Stim.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Photonic schemes, phase 5: detector POVMs checked; the NS and CZ gates against detector efficiency (resolving and bucket); photon loss on a dual-rail qubit shown to be an exact erasure.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Photonic schemes, phase 4: measurement-based computation on small clusters; the review's Fig. 10 chain gives a CZ, its Eq. 56 star a CNOT with Pauli byproducts.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Photonic schemes, phase 3: type-I and type-II fusion photon by photon; the n + m − 1 graph rule on state vectors; the cost of growing a chain — 7 Bell pairs per qubit at best among the strategies simulated, not the review's 6.5.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Photonic schemes, phases 0–2 of our plan: QxFock (Elixir) and fock.py (Python), checked three ways with Perceval; the HOM dip; KLM's NS gate and CZ (1/4, 1/16, fidelity 1); the review's Fig. 8 angle sign found wrong against KLM's paper.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Night: the load test — QxDecode against union-find in C++ and Python and PyMatching, under open-loop load on the same cores. The hypothesis is falsified: 12–20 times less throughput than C++, a 99th percentile over 1 ms from 80 % load; the per-syndrome process is the bottleneck. Our first design's closed-loop load was itself flawed (Little's law), and is replaced.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Evening: QxDecode, our union-find decoder, compared with PyMatching on the same syndromes — 6 to 37 % more logical errors, 14 to 50 times slower per core; a peeling bug found by the comparison and fixed.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Later still: Shor names each failure and shows its exact distribution; power checks for every cross-check; exact tests on the logical error rates and with the observable; the NumPy engine's 20-qubit jump profiled (OpenBLAS threads); the research question's design tightened.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>Later: Shor's algorithm in general (N = 15 or 21, any a); QxSim checked against Aer's dynamic circuits; exact tests against Stim; the qx comparison published; the results called reproductions, and our research question stated.</span></div>
+      <div class="log-row"><span class="log-d">29 Oct 2026</span><span>03:06 — Grover on 2 to 10 qubits; the full distance-3 surface code; QxStab with gate-level noise, checked against Stim; the threshold study and benchmarks (f0b6d50). 02:20 — Shor's circuit compiled for a = 7, teleportation with corrections, seeds, the repetition sweeps (80faa5d). 01:29 — full correction cycles for three codes (94fa43a).</span></div>
+      <div class="log-row"><span class="log-d">28 Oct 2026</span><span>17:18–21:42 — the site moved to its own host; the circuits as a live grid; the process models and their photon pictures (f2eb632 … b6b3352).</span></div>
+      <div class="log-row"><span class="log-d">May 2026</span><span>The ten demo circuits and the BEAM service, on an earlier version of this site.</span></div>
+      <div class="log-row"><span class="log-d">23 Mar 2026</span><span>Quanterall becomes a quantum computing research company (below).</span></div>
+      <div class="log-row"><span class="log-d">Feb 2026</span><span>The project starts: quantum demos on the BEAM, begun on Craig Richards' <a href="https://github.com/richarc/qx" target="_blank" rel="noopener noreferrer">qx</a>.</span></div>
+      <p class="ai-note"><b>How this was built.</b> Most of the code since 28 October, and the checks around it, were written with an AI coding assistant (Claude, by Anthropic), directed by our team; that is why so much is dated within two days, after a project begun in February 2026. We rely on independent tools rather than on the assistant: the circuits are compared with Qiskit, the stabilizer sampler with Stim, the decoding is PyMatching's, and the scripts and data are published. No independent physicist has reviewed the work yet; that review belongs to the preprint.</p>
+    </div>
+    <div class="engines rev" id="engines">
+      <div class="wg-h">Which code runs what</div>
+      <p class="xval">QxSim checked against Qiskit: 55 random circuits on 2 to 12 qubits (2,310 gates: H, X, Rx, Ry, Rz, CNOT, CZ, controlled phase, swap), each final state vector compared with Qiskit's — the worst fidelity is 1 − 7 × 10⁻¹⁵, while one angle changed by 0.01 rad shows as 2.5 × 10⁻⁵ (<a href="/data/qxsim-vs-qiskit.json">data</a>, <code>tools/beam_runs.exs xval</code>). Circuits with measurement in the middle: every error-correcting code with every single error, before and after correction, and teleportation of random states, rebuilt in Qiskit as dynamic circuits — mid-circuit measurement, reset, corrections conditioned on the measured bits — and run on Aer, 4,000 shots each, each comparison with its own seeds. 8 comparisons have one outcome on both sides: all equal. For the other 61, chi-square tests: the smallest p-value is 0.03 and they spread over the whole range, with more near 1 than a uniform spread would give (the test is conservative on sparse tables; the comparisons are not all independent). Each check is shown to bite: Aer driving Bob's X and Z with the wrong bits, Aer's Steane decoder off by one position, a Qiskit circuit with one angle changed by 0.01 rad — each is caught at once (<a href="/data/dynamic-vs-aer.json">data</a>, <code>tools/dynamic_xval.py</code>).</p>
+      <div class="tscroll"><table class="btab"><thead><tr><th>engine</th><th>language · where</th><th>runs</th></tr></thead><tbody>
+        <tr><td>QxSim</td><td>Elixir · our BEAM service (lib/qx_demo.ex), served by Erlang/Nova</td><td>the live circuits and codes on this page; the state-vector benchmark</td></tr>
+        <tr><td>QxStab</td><td>Elixir · the same service (lib/qx_stab.ex)</td><td>gate-level noise: the threshold study, GHZ on 2,000 qubits, the live noise run; the stabilizer benchmark</td></tr>
+        <tr><td>QxProcesses</td><td>Elixir · the same service, plus a second BEAM node</td><td>the two process models</td></tr>
+        <tr><td>QxFock</td><td>Elixir · the same service (lib/qx_fock.ex)</td><td>photons in Fock space: the HOM dip, the KLM NS and CZ gates (and its twin fock.py in the TechUPGRADE engine)</td></tr>
+        <tr><td>QxCV</td><td>Elixir · the same service (lib/qx_cv.ex)</td><td>one optical mode in continuous variables: GKP readout under shift noise, cat parity under loss, the heralded comb (and its twin cv.py in the TechUPGRADE engine)</td></tr>
+        <tr><td>QxDecode</td><td>Elixir · the same service (lib/qx_decode.ex)</td><td>our union-find decoder, compared with PyMatching on the study's syndromes</td></tr>
+        <tr><td>our NumPy engine</td><td>Python · the simulation engine we built for TechUPGRADE (its quantum module; a copy in this repository's qsim/)</td><td>the repetition-code sweeps (each error pattern through the syndrome circuit); the NumPy column of the benchmark</td></tr>
+        <tr><td>Stim, PyMatching, Qiskit</td><td>Python · other people's open-source tools, run by our scripts in tools/</td><td>checking our work: Stim samples the same circuits and derives the detector error model; PyMatching decodes; Qiskit gives reference state vectors; Aer is benchmarked</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- TODAY -->
+<section id="today" aria-labelledby="today-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Check it yourself</div>
+    <h2 id="today-heading" class="s-title rev">Three things you can<br><em>check for yourself.</em></h2>
+    <div class="pillars rev">
+      <a class="pillar demo-card" href="/demos">
+        <div class="p-n">01</div>
+        <div class="p-title">Ten quantum circuits, <em>on the BEAM</em></div>
+        <div class="p-body">QxSim, a state-vector simulator written in Elixir on the Erlang virtual machine: a Bell pair, teleportation, Grover's search, a variational classifier, Shor's algorithm for N = 15, and five error-correcting codes in which you can inject an error and watch the syndrome. Every run is a real simulation, in its own Erlang process, and can be repeated exactly with its seed; the source code is on GitHub. <span class="go">Run them →</span></div>
+      </a>
+      <a class="pillar demo-card" href="https://demo.quanterall.com/" target="_blank" rel="noopener noreferrer">
+        <div class="p-n">02</div>
+        <div class="p-title">A simulation engine, <em>built for TechUPGRADE</em></div>
+        <div class="p-body">Over the last two years we built the simulation engine of TechUPGRADE, an EU Horizon Europe research project on thermochemical heat recovery: component models, scenario runs, physics-informed neural networks and 3D flow simulation of a real reactor. We now use the same engine to prepare simulations in other areas. For quantum computing it has its own state-vector module, in NumPy, which computes the repetition-code sweeps below; the circuits on this page run on QxSim. <span class="go">Watch the platform's films →</span></div>
+      </a>
+      <div class="pillar">
+        <div class="p-n">03</div>
+        <div class="p-title">Erlang, <em>since 2009</em></div>
+        <div class="p-body">We have built on Erlang since 2009, and we teach it: in our own academy; at <a href="https://www.vfu.bg/" target="_blank" rel="noopener noreferrer">Varna Free University</a>, now; and in the past at the Technical University of Varna and <a href="https://nbu.bg/" target="_blank" rel="noopener noreferrer">New Bulgarian University</a>. The BEAM was made for systems of very many small processes that must not fail, which is why we use it to model quantum circuits and protocols.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANNOUNCE -->
+<div class="announce rev">
+  <div class="ann-date">
+    <div class="ann-dd">23</div>
+    <div class="ann-mmyy">March · 2026</div>
+  </div>
+  <div class="ann-div"></div>
+  <div>
+    <div class="ann-label">Archive · 23 March 2026</div>
+    <div class="ann-headline">Quanterall returned to its founding purpose<br>after 23 years.</div>
+    <p class="ann-sub">On 23 March 2026, 23 years to the day after incorporation, Quanterall changed from a distributed-systems engineering firm into a quantum computing research company. The name "Quanter-all" was chosen in 2002 at the Joint Institute for Nuclear Research in Dubna as a statement of intent toward quantum computing.</p>
+  </div>
+  <div class="ann-big" aria-hidden="true">23</div>
+</div>
+
+<!-- DIRECTION -->
+<section id="pivot">
+  <div class="s-in">
+    <div class="s-tag rev">// What we do</div>
+    <h2 class="s-title rev">Quantum algorithms.<br>Error correction.<br><em>Simulated on the BEAM.</em></h2>
+    <p class="s-body rev">A research programme begun on 23 March 2026, not a product company. We keep it to what we can show: quantum algorithms and error-correcting codes, implemented and tested in a state-vector simulator in our demo service. Its first public pieces are the circuits and the simulation work above.</p>
+    <div class="pivot-grid rev">
+      <div class="pc">
+        <div class="pc-name">Quantum computing research</div>
+        <div class="pc-desc">We implement quantum algorithms and the error-correcting codes that let them survive noisy hardware, and check each against its exact prediction. Current threads: search and phase estimation; repetition, stabiliser and surface codes, and their decoders.</div>
+        <div class="pc-kw">
+          <span class="kw">Algorithms</span><span class="kw">Error correction</span><span class="kw">Decoders</span><span class="kw">Logical error rates</span>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pc-name">Quantum circuit simulation</div>
+        <div class="pc-desc">QxSim, a state-vector simulator written in Elixir on the Erlang virtual machine: each run its own process, isolated from the others, many runs in parallel. Beside it, the simulation engine we built for TechUPGRADE, for exact noise sweeps. Quantum machine learning stays a planned area until we have results to show.</div>
+        <div class="pc-kw">
+          <span class="kw">State vector</span><span class="kw">Elixir · Erlang</span><span class="kw">Noise sweeps</span><span class="kw a">Open source</span>
+        </div>
+      </div>
+      <div class="pc wide">
+        <div class="ghost-num" aria-hidden="true">∅→1</div>
+        <div>
+          <div class="pc-name" style="font-size:32px;">Why now</div>
+          <div class="pc-desc" style="font-size:15px;margin-top:12px;max-width:680px;line-height:1.85;">In 2024 a surface-code quantum memory was run below the error-correction threshold: its logical error rate fell by a factor of about 2.1 with each step up in code distance (from 3 to 5 to 7) (Google Quantum AI, <a href="https://doi.org/10.1038/s41586-024-08449-y" target="_blank" rel="noopener noreferrer">Nature 638, 920; 2025</a>). Fault-tolerant computation at a useful scale has not been demonstrated yet, and practical advantage on real problems is still argued over. That is the gap where simulation is useful: codes, decoders and noise can be studied before the hardware exists.<br><br>Where our past work carries over: we already test systems by injecting faults, and supervision trees and parallel Monte Carlo are how the BEAM runs many noisy shots with each failure isolated. The BEAM suits offline, parallel simulation and the orchestration around it; it is soft real-time, so it is not a decoder for real hardware, which needs microsecond latency from FPGAs or ASICs. Our track record in simulation is the two years building TechUPGRADE's simulation engine.<br><br>Where it does not: a quantum state cannot be copied (no-cloning), so redundancy cannot mean replication; and errors are found indirectly, by measuring syndromes without reading the data. Those are the parts we are learning.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH PILLARS -->
+<section id="research" aria-labelledby="research-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Research areas</div>
+    <h2 id="research-heading" class="s-title rev">Three core pillars, three planned,<br><em>two exploratory tracks</em></h2>
+    <div class="pillars rev">
+      <div class="pillar">
+        <div class="p-n">R-01</div>
+        <div class="p-title">Quantum <em>Algorithms</em></div>
+        <div class="p-body">We implement quantum algorithms in our simulator and check them against their exact predictions; a speedup is a claim to verify, not to assume. Focus: search, phase estimation and factoring; later, quantum simulation of physical systems.<span class="today">Today: Grover's search on 2 to 10 qubits; Shor's algorithm for N = 15 and 21 with any base a, from controlled modular multiplication to the factors (and a compiled N = 15 circuit that shows the structure).</span></div>
+      </div>
+      <div class="pillar">
+        <div class="p-n">R-02</div>
+        <div class="p-title">Quantum Error Correction and <em>Fault Tolerance</em></div>
+        <div class="p-body">Repetition, stabiliser and surface codes, and the decoders that make them practical: the field's central engineering problem, and the one where simulation helps most.<span class="today">Today: five codes among the live circuits, each with a full correction cycle (the surface code with all eight stabilizers); the surface code under gate-level noise on our stabilizer simulator, d = 3 to 7, <a href="#noise">with its threshold</a>. Exact noise sweeps of repetition codes of distance 3 to 9 under independent bit flips, <a href="#sweeps">published with their data</a>: they check the simulator against the closed form.</span></div>
+      </div>
+      <div class="pillar">
+        <div class="p-n">R-03</div>
+        <div class="p-title">Quantum circuit simulation <em>on the BEAM</em></div>
+        <div class="p-body">A pure-Elixir state-vector simulator (QxSim) inside our demo service, with no simulator library underneath. Every run is an Erlang process, isolated from the others, and runs go in parallel. Benchmarked against Qiskit Aer and Stim, including where the BEAM loses: raw single-thread numerical speed.<span class="today">Today: the circuits and the two process models on this page; QxStab, a stabilizer simulator for hundreds of qubits with gate-level noise; <a href="#benchmarks">benchmarks</a>; the source code on <a href="https://github.com/quanterall/quantum_computing_simulations" target="_blank" rel="noopener noreferrer">GitHub</a>.</span></div>
+      </div>
+      <div class="pillar">
+        <div class="p-n">P-01</div>
+        <div class="p-title">Quantum <em>Machine Learning</em></div>
+        <div class="p-body">When does quantum hardware give learning a real advantage, and when not? Kernel methods and variational classifiers, always with a tuned classical baseline beside them.<span class="today">Planned. Today: one variational classifier circuit among the live circuits.</span></div>
+      </div>
+      <div class="pillar">
+        <div class="p-n">P-02</div>
+        <div class="p-title">Quantum-Classical <em>Hybrid Architectures</em></div>
+        <div class="p-body">The orchestration layer where HPC and QPUs actually meet: VQE and QAOA implementations, workload scheduling, error-mitigation budgets, and the plumbing that decides whether near-term hardware is useful. Close to our engineering history.<span class="today">Planned. Nothing published yet.</span></div>
+      </div>
+      <div class="pillar">
+        <div class="p-n">P-03</div>
+        <div class="p-title">Post-Quantum <em>Cryptography Migration</em></div>
+        <div class="p-body">A service rather than research: cryptographic inventory and migration to the NIST post-quantum standards published in August 2024 — FIPS 203 (ML-KEM), FIPS 204 (ML-DSA) and FIPS 205 (SLH-DSA) — inside distributed systems where key rotation, latency budgets and legacy protocols are the real constraints. "Harvest now, decrypt later" concerns data protected by RSA or elliptic-curve cryptography that must stay secret for years: it can be recorded today and decrypted once a large enough quantum computer exists.<span class="today">Planned. Nothing published yet.</span></div>
+      </div>
+    </div>
+    <div style="margin-top:2px;background:var(--border);padding:2px;">
+      <div style="background:var(--deep);border:1px solid rgba(106,176,255,.12);padding:44px 48px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;">// Exploratory tracks — speculative, and labelled as such</div>
+        <div class="expl-grid">
+          <div>
+            <div class="p-title" style="font-size:22px;">X-01 · Entanglement as <em>linked processes</em></div>
+            <p class="p-body" style="margin-top:12px;">We model an entangled pair as two Erlang processes whose states are linked: measuring one fixes what the other will show. This is a classical simulation: a third process holds the shared state centrally and both sides ask it, so the model reproduces the statistics of entanglement, not nonlocality. The demo below measures S live and shows it with its standard error (about ±0.06 over 2000 rounds), against 2 for any classical model and 2√2 ≈ 2.83 in theory. For teaching: it makes visible that the correlation comes from the shared state, not from a message between the two.</p>
+          </div>
+          <div>
+            <div class="p-title" style="font-size:22px;">X-02 · Teleportation as <em>process migration</em></div>
+            <p class="p-body" style="margin-top:12px;">We model teleportation as a process that migrates between two BEAM nodes: the state leaves one node and is rebuilt on the other, carried only by a Bell pair shared in advance and two classical bits sent over the network — as in the protocol, where nothing quantum travels after the pair is made. The simulator knows ψ — it draws it at random and checks the result — so the demo shows the protocol's structure, not a physical transmission. For teaching and for prototyping protocols.</p>
+          </div>
+        </div>
+        <p class="p-body" style="margin-top:28px;color:var(--off);"><em>Why we publish the speculative work: a lab that only shows finished results is telling you nothing about how it thinks.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS: REPETITION-CODE SWEEPS -->
+<section id="sweeps" aria-labelledby="sweeps-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Reproduction · repetition-code sweeps</div>
+    <h2 id="sweeps-heading" class="s-title rev">Logical against physical error rate,<br><em>with the data.</em></h2>
+    <div class="sweep rev">
+      <img src="/data/repetition-sweep.svg" alt="Logical error rate against physical error rate, log-log, for repetition codes of distance 3, 5, 7 and 9: below p = 0.5 a larger distance gives a lower logical error rate" width="760" height="420" loading="lazy">
+      <div class="sweep-text">
+        <p><b>Noise model.</b> A bit-flip repetition code of distance d keeps logical |0⟩ on d data qubits, with d − 1 ancillas measuring neighbouring parities. Each data qubit flips (X) independently with probability p; gates and syndrome measurements are perfect; a minimum-weight decoder picks the correction.</p>
+        <p><b>Exact, and what it checks.</b> There are only 2ᵈ error patterns. Each is run once through the syndrome circuit on our NumPy state-vector engine (the TechUPGRADE engine's quantum module; <code>tools/repetition_sweep.py</code> calls it, and computes the closed form beside it), and the logical error rate is the sum of the failing patterns' probabilities. For this noise model a closed form exists — the binomial tail Σ<sub>k&gt;d/2</sub> C(d,k) pᵏ(1−p)ᵈ⁻ᵏ — and the two agree to 6 × 10⁻¹⁶. That agreement is close to guaranteed: bit flips on |0…0⟩ keep the state a single basis state, so it tests the circuit's logic, not superposition or phase. The test of those is the <a href="#engines">cross-check against Qiskit</a> below. A Monte Carlo experiment with 100,000 shots per point (seed 20261029) is drawn beside it.</p>
+        <p><b>What it does not show.</b> Circuit-level noise — errors in the gates and in the syndrome measurement itself — has no simple formula, and is where real study begins. That, and codes beyond the roughly 20 qubits a state vector allows, need a stabilizer simulator; both are on our list (see Where we are).</p>
+        <p class="sweep-links"><a href="/data/repetition-sweep.csv" download>Data (CSV, 88 rows)</a> · <a href="/data/repetition-sweep.svg" target="_blank" rel="noopener noreferrer">Chart (SVG)</a> · computed on the simulation engine we built for TechUPGRADE, 29 October 2026; the generator is <code>tools/repetition_sweep.py</code> in the repository</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STABILIZER SIMULATOR AND GATE-LEVEL NOISE -->
+<section id="noise" aria-labelledby="noise-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Reproduction · gate-level noise, on a stabilizer simulator</div>
+    <h2 id="noise-heading" class="s-title rev">The surface code under circuit noise,<br><em>checked against Stim.</em></h2>
+    <div class="sweep rev">
+      <img src="/data/surface-circuit-noise.svg" alt="Logical error per round against physical error rate for surface codes of distance 3, 5 and 7: the curves cross between 0.6 and 0.8 percent; our sampler and Stim agree" width="760" height="420" loading="lazy">
+      <div class="sweep-text">
+        <p><b>The simulator.</b> QxStab, a stabilizer simulator written in Elixir: a tableau (Aaronson–Gottesman) runs each circuit once without noise for a reference, then a Pauli-frame sampler runs the shots, bit-packed — 1,024 shots in one integer per qubit — in parallel batches, one BEAM process each. It is the method Stim uses, written for the BEAM.</p>
+        <p><b>The experiment.</b> Rotated surface codes of distance 3, 5 and 7 (17, 49 and 97 qubits) keep a logical |0⟩ for d rounds of stabilizer measurements. Noise at rate p everywhere: depolarizing after every gate (one- and two-qubit), bit flips after resets and before measurements, depolarizing on the data at each round.</p>
+        <p><b>Validation, and what it covers.</b> Each circuit is written out in Stim's format: Stim accepts every detector as deterministic and finds the code distance d for each (our first CNOT order gave only (d+1)/2, a hook-error mistake Stim caught). The detector error model, and so the decoding, comes from Stim; what is compared is the sampling alone. Sampled by Stim and by us, both decoded by <a href="https://github.com/oscarhiggott/PyMatching" target="_blank" rel="noopener noreferrer">PyMatching</a>: the logical error rates agree. Stricter, with exact binomial tests (our count against Stim's, given their sum): every detector's firing rate at all 21 points (3,360 tests, 0.30 % below p = 0.0027 against 0.27 % expected); every detector together with the logical observable, the correlation that sets the logical error rate (3,360 tests, 0.36 %); every pair of detectors for d = 5 at p = 0.6 % (7,140 tests, 0.18 %); and the decoded logical error rates themselves (21 tests, the smallest p-value 0.70 after Bonferroni correction). The detectors are not independent, so these shares are a guide, not a calibrated test. The tests have power: Stim at p = 0.65 % against Stim at 0.6 % is flagged on 97 % of detectors (<a href="/data/stim-agreement.json">numbers</a>, <code>tools/stim_exact.py</code>).</p>
+        <p><b>What it shows.</b> The curves cross between p = 0.6 % and 0.8 % — three distances and seven error rates bracket the crossing, they do not estimate it (that would need finer steps near it and a finite-size fit). The bracket is in line with published values for this noise model, roughly 0.5 to 1 %: below it, a larger code protects better. The decoder is PyMatching's, not ours.</p>
+        <p class="sweep-links"><a href="/data/surface-circuit-noise.csv" download>Data (CSV, 21 points, 100,000 shots each)</a> · <a href="/data/surface-circuit-noise.svg" target="_blank" rel="noopener noreferrer">Chart (SVG)</a> · <code>tools/beam_runs.exs</code>, <code>tools/stab_study.py</code> · stim 1.16.0, pymatching 2.4.0</p>
+        <div class="stab-live">
+          <button type="button" class="qd-run" id="stab-ghz">Run: GHZ on 2,000 qubits</button>
+          <button type="button" class="qd-run" id="stab-mem">Run: surface code d = 5, p = 0.5 %</button>
+          <div class="stab-out" id="stab-out" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENCHMARKS -->
+<section id="benchmarks" aria-labelledby="bench-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Benchmarks · 2026-10-29</div>
+    <h2 id="bench-heading" class="s-title rev">Measured against Qiskit Aer and Stim,<br><em>including where we lose.</em></h2>
+    <div class="bench rev">
+      <div>
+        <div class="wg-h">State vector · ms, median (minimum) of 5 runs, 3 from 17 qubits</div>
+        <div class="tscroll"><table class="btab"><thead><tr><th>qubits</th><th>gates</th><th>QxSim (BEAM)</th><th>our NumPy engine</th><th>Qiskit Aer</th></tr></thead><tbody><tr><td>8</td><td>120</td><td>1.1 <span class=mn>(1.0)</span></td><td>0.6 <span class=mn>(0.6)</span></td><td>3.5 <span class=mn>(3.2)</span></td></tr><tr><td>10</td><td>190</td><td>4.5 <span class=mn>(4.4)</span></td><td>1.2 <span class=mn>(1.2)</span></td><td>4.7 <span class=mn>(4.6)</span></td></tr><tr><td>12</td><td>276</td><td>28.1 <span class=mn>(28.0)</span></td><td>2.7 <span class=mn>(2.6)</span></td><td>7.9 <span class=mn>(7.5)</span></td></tr><tr><td>14</td><td>378</td><td>199 <span class=mn>(176)</span></td><td>8.4 <span class=mn>(8.3)</span></td><td>8.6 <span class=mn>(8.3)</span></td></tr><tr><td>16</td><td>496</td><td>1,304 <span class=mn>(1,137)</span></td><td>36.3 <span class=mn>(36.0)</span></td><td>78.7 <span class=mn>(42.1)</span></td></tr><tr><td>17</td><td>561</td><td>2,994 <span class=mn>(2,924)</span></td><td>81.1 <span class=mn>(80.8)</span></td><td>29.1 <span class=mn>(27.2)</span></td></tr><tr><td>18</td><td>630</td><td>6,394 <span class=mn>(5,528)</span></td><td>196 <span class=mn>(192)</span></td><td>90.5 <span class=mn>(69.6)</span></td></tr><tr><td>19</td><td>703</td><td>20,542 <span class=mn>(13,645)</span></td><td>585 <span class=mn>(575)</span></td><td>210 <span class=mn>(138)</span></td></tr><tr><td>20</td><td>780</td><td>out of memory</td><td>1,933 <span class=mn>(1,867)</span></td><td>208 <span class=mn>(203)</span></td></tr></tbody></table></div>
+        <p>The circuit: n layers of Rx on every qubit and CNOTs on neighbours, then 1,024 shots. Timed: building the state and sampling, after one warm-up run; Qiskit's transpilation is not timed. QxSim keeps the state as an Erlang tuple of boxed complex numbers, in one process, rebuilt for every gate: fine for teaching circuits, and about 100 times slower than Aer at 19 qubits; at 20 it runs out of its 1 GB container. Our NumPy engine runs with OpenBLAS on one thread: with its default of 20 threads, each one-qubit gate (a 2×2 matrix against 2ⁿ⁻¹ columns, through tensordot) spent its time starting threads — 15 ms per gate at 20 qubits against 3.5 ms on one thread — which made an earlier version of this table jump 15× at 20 qubits. Profiled, not guessed; one thread is also like for like with QxSim, a single process. Aer's times vary a lot from run to run, hence the minimum beside the median.</p>
+      </div>
+      <div>
+        <div class="wg-h">Stabilizer sampling · ms for 100,000 shots, p = 0.1 %, median of 5</div>
+        <div class="tscroll"><table class="btab"><thead><tr><th>circuit</th><th>qubits</th><th>QxStab, 20 schedulers</th><th>Stim, 1 core</th><th>Stim, 20 processes</th><th>QxStab / Stim ×20</th></tr></thead><tbody><tr><td>repetition d9</td><td>17</td><td>14.0</td><td>14.0</td><td>1.8</td><td>8×</td></tr><tr><td>surface d3</td><td>17</td><td>8.5</td><td>3.2</td><td>1.1</td><td>8×</td></tr><tr><td>surface d5</td><td>49</td><td>20.4</td><td>22.6</td><td>2.8</td><td>7×</td></tr><tr><td>surface d7</td><td>97</td><td>124</td><td>99.0</td><td>6.4</td><td>19×</td></tr><tr><td>surface d9</td><td>161</td><td>371</td><td>193</td><td>13.6</td><td>27×</td></tr></tbody></table></div>
+        <p>Timed: for QxStab, the reference tableau and the sampling, batches of 1,024 shots in parallel BEAM processes; for Stim, compiling the sampler and sampling — on one core, and split over 20 worker processes (started before timing). Like for like, on 20 cores, Stim is 8 to 30 times faster. Against one Stim core our sampler is between 2.8 times slower and about even. What the BEAM offers is not speed but a simple way to spread shots over cores and machines, with batches that cannot crash one another — and Stim spreads just as easily.</p>
+      </div>
+    </div>
+    <p class="sweep-links rev" style="margin-top:14px;"><a href="/data/benchmarks.csv" download>Data (CSV)</a> · where: one machine, 20 Arm (aarch64) cores; QxSim and QxStab in the quanterall_quantum container (1 GB memory limit, 20 schedulers), Python on the host (OpenBLAS on one thread) · stim 1.16.0, pymatching 2.4.0, qiskit-aer 0.18.2 (statevector) · <code>tools/beam_runs.exs</code>, <code>tools/stab_study.py</code></p>
+  </div>
+</section>
+
+<!-- REPRODUCTION: PHOTONIC SCHEMES -->
+<section id="photonic" aria-labelledby="photonic-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Reproduction · photonic schemes from the literature</div>
+    <h2 id="photonic-heading" class="s-title rev">Photons on a beamsplitter, the KLM gates,<br><em>fusion, detectors and loss.</em></h2>
+    <div class="sweep rev">
+      <img src="/data/hom-dip.svg" alt="The Hong–Ou–Mandel dip: coincidence probability falls to zero at zero delay; simulated points on the formula one half times one minus e to the minus gamma tau" width="760" height="360" loading="lazy">
+      <div class="sweep-text">
+        <p><b>What this is.</b> Simulations of schemes from the literature — not photonic hardware. A photon simulator in Fock space, written twice from one conventions file (<code>docs/optics_conventions.md</code>): <b>QxFock</b> in Elixir (this service) and <b>fock.py</b> in the TechUPGRADE engine. Each applies an interferometer two ways (expanding creation operators; permanents by Ryser's formula). On 60 random interferometers of 4–8 modes and 1–4 photons, every output amplitude agrees: the two routes to 1e-15, Python with <a href="https://perceval.quandela.net" target="_blank" rel="noopener noreferrer">Perceval</a> (Quandela) to 2e-16, Elixir with Python to 2 × 10⁻¹⁵; one beamsplitter sign flipped shows as 0.61.</p>
+        <p><b>Hong–Ou–Mandel.</b> Two photons meet on a balanced beamsplitter; when they overlap fully they always leave together. With exponential pulses offset by τ (overlap e^(−γ|τ|/2)) the coincidence probability is ½(1 − e^(−γ|τ|)): simulated at 81 delays, it matches to 2e-16 and is exactly 0 at τ = 0.</p>
+      </div>
+    </div>
+    <div class="sweep-text rev" style="max-width:980px;margin-top:28px;">
+        <p><b>The KLM gates</b> (Knill, Laflamme, Milburn, <i>Nature</i> 409, 46, 2001). The nonlinear sign gate, from KLM's own 3-mode unitary and from the beamsplitter form (angles 22.5°, 65.5302°, −22.5° and a π phase): on 50 random inputs α₀|0⟩ + α₁|1⟩ + α₂|2⟩ it gives α₀|0⟩ + α₁|1⟩ − α₂|2⟩ with probability 1/4 and fidelity 1 − 10⁻¹⁵. Two of them make a CZ on dual-rail qubits (8 modes, 4 photons): process fidelity 1 − 3 × 10⁻¹⁶, success exactly 1/16.</p>
+        <p><b>Checks that bite, and one that did not.</b> The middle angle off by 0.5° lowers the CZ fidelity to 0.9997. Leaving out the π phase was expected to break the gate; it does not — it gives diag(1, −1, −1) per NS gate, and the circuit becomes CZ followed by Z on both qubits, still a CZ up to single-qubit phases. So that is no power check, and we say so.</p>
+        <p><b>Fusion</b> (Browne and Rudolph, <i>PRL</i> 95, 010501, 2005). Type-I fusion, simulated photon by photon — polarising beamsplitter, 45° rotation, one polarisation-resolving detector — acts on the two input qubits as (|0⟩⟨00| ± |1⟩⟨11|)/√2 (to 10⁻¹⁶), succeeds with the input's weight on |HH⟩ and |VV⟩ (½ for cluster qubits), and its failures are Z measurements of both. Type II succeeds with probability ½ and projects onto one Bell state, Φ⁺ or Ψ⁺: linear optics tells apart two of the four. On state vectors, fusing the ends of linear clusters of n and m qubits (2–5) gives the cluster of n + m − 1 with fidelity 1 − 2 × 10⁻¹⁶.</p>
+        <p><b>Growing a chain.</b> A long linear cluster grows by fusing k-qubit pieces onto its end, each piece itself built from Bell pairs by fusion; on a failure the chain loses its end qubit and the piece its first. Bell pairs used per qubit gained (Monte Carlo, 20 × 20,000 attempts):</p>
+        <div class="tscroll"><table class="btab nw"><thead><tr><th>piece, qubits</th><th>leftover discarded</th><th>leftover reused</th></tr></thead><tbody><tr><td>2</td><td>never</td><td>never</td></tr><tr><td>3</td><td>7.98 ± 0.04</td><td>7.01 ± 0.04</td></tr><tr><td>4</td><td>9.07 ± 0.04</td><td>7.01 ± 0.03</td></tr><tr><td>5</td><td>10.65 ± 0.03</td><td>7.68 ± 0.02</td></tr><tr><td>6</td><td>12.48 ± 0.02</td><td>8.46 ± 0.02</td></tr></tbody></table></div>
+        <p>Bell pairs alone (k = 2) never grow the chain — success adds one qubit, failure takes one away. Three-qubit pieces cost 8 pairs per qubit, or 7 when the two-qubit leftover of a failure is reused: the review's "2 × 4 − 1 = 7". Its "6.5" we do not find in any strategy we simulated; the best are 7.0, with three- or four-qubit pieces and reuse (<a href="/data/cluster-growth.json">data</a>, <a href="/data/fusion-checks.json">fusion checks</a>, <code>/quantum/optics/fusion</code>).</p>
+        <p><b>Measurement-based computation</b> (on state vectors). One-bit teleportation through a two-node cluster and a rotation along a chain (adaptive angles, Pauli byproducts) reach fidelity 1 on random inputs. The review's four-node example does not hold as drawn: its Fig. 10 chain (CZ₁₂CZ₂₃CZ₃₄) gives a CZ between the teleported input and the fourth qubit — CNOT-class by its local invariants, but needing gates before as well as after; the couplings its Eq. 56 writes (1–2, 2–3, 2–4) do give a CNOT for every outcome and for superposition inputs, with Pauli byproducts when built from CZ gates (<a href="/data/mbqc-checks.json">data</a>).</p>
+        <p><b>Detectors and loss.</b> A detector of efficiency η is a beamsplitter onto an empty mode before an ideal detector: its outcome probabilities match the bucket and number-resolving formulas (the review's Eqs. 80–81) to 4 × 10⁻¹⁶. Through such detectors on the heralds, lost photons make false heralds; with bucket detectors, which cannot tell one photon from two, the gates fail even at η = 1:</p>
+        <div class="tscroll"><table class="btab nw"><thead><tr><th>η</th><th>NS fidelity, resolving</th><th>bucket</th><th>CZ fidelity on |++⟩, resolving</th><th>bucket</th><th>CZ herald rate</th></tr></thead><tbody><tr><td>1.00</td><td>1.0000</td><td>0.7216</td><td>1.0000</td><td>0.4667</td><td>0.0625</td></tr><tr><td>0.99</td><td>0.9941</td><td>0.7199</td><td>0.9836</td><td>0.4639</td><td>0.0623</td></tr><tr><td>0.95</td><td>0.9702</td><td>0.7130</td><td>0.9210</td><td>0.4529</td><td>0.0612</td></tr><tr><td>0.90</td><td>0.9398</td><td>0.7045</td><td>0.8493</td><td>0.4395</td><td>0.0596</td></tr><tr><td>0.80</td><td>0.8796</td><td>0.6877</td><td>0.7256</td><td>0.4139</td><td>0.0551</td></tr><tr><td>0.50</td><td>0.7271</td><td>0.6404</td><td>0.4714</td><td>0.3466</td><td>0.0331</td></tr></tbody></table></div>
+        <p>And a photon lost from a dual-rail qubit leaves exactly ηρ + (1 − η)|vac⟩⟨vac| (to 2 × 10⁻¹⁶): an erasure, heralded by the missing photon — the error model of our next step, decoding erasures (<a href="/data/loss-checks.json">data</a>, <a href="/data/heralded-vs-efficiency.csv" download>CSV</a>).</p>
+        <p><b>Erasure decoding — the part that is ours.</b> A lost photon is a heralded erasure: the qubit is known to hold a random Pauli. Our union-find decoder, QxDecode, takes erased edges as already grown and weightless in the peeling tree — for pure erasure the peeling decoder of Delfosse and Zémor, which is maximum-likelihood. At code capacity (the rotated surface code, perfect syndrome, 20,000 shots a point, PyMatching with the erased edges at weight 0 on the same shots beside it), pure erasure crosses at 50 % for d = 3 to 9, the percolation threshold, and the two decoders agree:</p>
+        <img src="/data/erasure-pure.svg" alt="Pure erasure: logical error against erasure probability for d = 3, 5, 7, 9; the curves cross at one half; QxDecode and PyMatching agree" width="760" height="380" loading="lazy" style="width:100%;max-width:760px;display:block;height:auto;border:1px solid var(--border);margin:6px 0 12px;">
+        <p>With bit flips on the other qubits the crossing falls as the erased share grows — near 8–10 % of flips without erasure, about 8 % with 10 % erasure, about 6 % with 20 % — in line with the usual linear trade-off; QxDecode is a little less accurate than matching without erasure (as union-find is) and close to it once erasures dominate:</p>
+        <img src="/data/erasure-mixed.svg" alt="Erasure and bit flips: logical error against flip probability, without erasure and with 20 percent erasure" width="760" height="380" loading="lazy" style="width:100%;max-width:760px;display:block;height:auto;border:1px solid var(--border);margin:6px 0 12px;">
+        <p>At circuit level, QxStab samples heralded erasure (Stim's <code>HERALDED_ERASE</code> semantics; on a d = 3 memory with 2 % erasure its 51 detectors and 27 heralds agree with Stim's sampler, exact tests, smallest corrected p 0.89). Surface-code memories, d rounds, Pauli noise 0.1 % on every operation and heralded erasure on every data qubit each round; the decoding graph from Stim's error model, each herald mapped to the edges its erasure can flip; 20,000 shots a point:</p>
+        <div class="tscroll"><table class="btab nw"><thead><tr><th>d</th><th>erasure per round</th><th>QxDecode, with heralds</th><th>PyMatching, with heralds</th><th>PyMatching, ignoring them</th></tr></thead><tbody><tr><td>3</td><td>0 %</td><td>0.06 %</td><td>0.05 %</td><td>0.05 %</td></tr><tr><td>3</td><td>2 %</td><td>0.29 %</td><td>0.29 %</td><td>1.31 %</td></tr><tr><td>3</td><td>4 %</td><td>0.66 %</td><td>0.64 %</td><td>2.99 %</td></tr><tr><td>3</td><td>8 %</td><td>1.51 %</td><td>1.49 %</td><td>8.48 %</td></tr><tr><td>5</td><td>0 %</td><td>0.01 %</td><td>0.01 %</td><td>0.01 %</td></tr><tr><td>5</td><td>2 %</td><td>0.03 %</td><td>0.06 %</td><td>0.65 %</td></tr><tr><td>5</td><td>4 %</td><td>0.12 %</td><td>0.10 %</td><td>2.70 %</td></tr><tr><td>5</td><td>8 %</td><td>0.47 %</td><td>0.41 %</td><td>9.96 %</td></tr><tr><td>7</td><td>0 %</td><td>0.00 %</td><td>0.00 %</td><td>0.00 %</td></tr><tr><td>7</td><td>2 %</td><td>0.03 %</td><td>0.03 %</td><td>0.34 %</td></tr><tr><td>7</td><td>4 %</td><td>0.04 %</td><td>0.03 %</td><td>1.82 %</td></tr><tr><td>7</td><td>8 %</td><td>0.14 %</td><td>0.14 %</td><td>10.43 %</td></tr></tbody></table></div>
+        <p>Knowing where the losses were is worth about twenty times in logical error at d = 5 and 4 % erasure, and keeps larger codes better even at 8 % per round — where, without the heralds, the larger code is already worse. QxDecode uses the heralds about as well as matching does (<a href="/data/erasure-circuit.csv" download>data</a>, <a href="/data/erasure-pure.csv" download>pure-erasure data</a>, <a href="/data/erasure-mixed.csv" download>mixed data</a>, <code>tools/erasure/</code>).</p>
+        <p><b>The 2.7 % loss figure.</b> Romero and Milburn's review (p. 27) says fusion-based computation "can tolerate a 2.7 % probability of suffering a single-photon loss". It comes from Bartolucci et al. (<i>Nat. Commun.</i> 14, 912, 2023, Sec. VI and Appendix B): the 6-ring fusion network with (2,2)-Shor-encoded resource states and fusions boosted with a Bell pair (failure 1/4, four photons per fusion). We reproduce it from their formulas — 2.71 % per photon, which is 10.4 % that at least one of the four photons is lost, and their 43.2 % failure threshold at zero loss — taking their simulated erasure threshold (11.98 %) as given; we have not simulated the fusion network itself. Unencoded, the same network tolerates no loss at failure 1/4; the 4-star network, encoded, about 1.0 % (<code>tools/optics/fbqc_loss.py</code>).</p>
+        <p><b>One mode: GKP and cat qubits</b> (Gottesman, Kitaev, Preskill, <i>PRA</i> 64, 012310, 2001; Ralph et al., <i>PRA</i> 68, 042319, 2003). A third simulator, for one optical mode in continuous variables, again written twice: <code>cv.py</code> in Python works in the Fock basis and on a grid in q, QxCV in Elixir on the grid alone, its p side summed analytically over the peaks instead of by FFT. Squeezed vacuum from the Fock basis matches the closed-form wavefunction to 8 × 10⁻¹⁵, and Eq. 24 holds to 9 × 10⁻¹⁴. Eq. 26 holds only if the phases of Eqs. 22 and 25 agree: with ζ = re^(−2iϕ) as printed, the rotation must be e^(+iϕ), not Eq. 25's e^(−iϕ) (flipping either sign works); as printed, the variances are off by up to 5.6 when ϕ ≠ 0.</p>
+        <p><b>GKP states</b> (Eq. 38; α = √π, peaks squeezed 10 dB, Δ² = 0.01). The logical Z̄ = e^(iπq/α) reads ±0.924 on |0̃⟩ and |1̃⟩, equal to an analytic sum over the Gaussian peaks to 10⁻¹⁰; X̄ = e^(−ipα) takes |0̃⟩ to |1̃⟩ with fidelity 0.984 — the envelope does not move with the peaks — also as predicted. Read out after a Gaussian shift of σ, the logical error from the exact integral, from 200,000 sampled readouts, and from the closed form for an ideal comb with σ² plus the peak's variance agree (the closed form to 1.5 × 10⁻⁷), in q and in p. Eq. 39's bounds show as an error of ½ (to 2 × 10⁻⁵) at a shift of α/2 in q or π/2α in p. QxCV's X readout (the Fourier sum) and Python's (the FFT) agree to 10⁻¹³:</p>
+        <img src="/data/gkp-readout.svg" alt="GKP logical error against shift-noise sigma for Z readout in q and X readout in p: exact, Monte Carlo and closed form agree" width="760" height="380" loading="lazy" style="width:100%;max-width:760px;display:block;height:auto;border:1px solid var(--border);margin:6px 0 12px;">
+        <p><b>The review's Fig. 5</b>, read from the vector curve in its PDF. The peaks sit at multiples of √π, as Eq. 38 gives with α = √π; each peak's variance fits 0.11 — near e^(−2r) = 0.09 for r = 1.2, while the caption says e^(2r) = 11; and the |1̃⟩ envelope falls off four times faster than the |0̃⟩ one (4.00), which a single Δ in Eq. 38 cannot give. With the caption's Δ̃ = 0.01, amplitudes e^(−Δ̃(sα)²) for |0̃⟩ and e^(−Δ̃[(2s+1)α]²) for |1̃⟩ fit both panels: the |0̃⟩ panel looks drawn with s where Eq. 38 has 2s.</p>
+        <img src="/data/gkp-fig5.svg" alt="The review's Figure 5 read from its PDF against Eq. 38 with one envelope: the zero state matches, the figure's one state is twice as narrow" width="760" height="350" loading="lazy" style="width:100%;max-width:760px;display:block;height:auto;border:1px solid var(--border);margin:6px 0 12px;">
+        <p><b>Cat states</b> (Eq. 75). From the Fock basis and from the grid they agree to 10⁻¹⁵; they hold only even or only odd photon numbers, and the Wigner function at the origin is ⟨Π⟩/π = ±1/π (to 2 × 10⁻¹⁶). Eq. 40's N±⁻¹ leaves the state with norm² 1/N±; Eq. 75's N±^(−1/2) is right. Photon loss is the cat code's error — one lost photon flips the parity — and after a loss 1 − η, ⟨Π⟩ = cosh(β²(1 − 2η))/cosh β² for the even cat (sinh for the odd): the generating function (QxCV) and the Fock amplitudes thinned photon by photon (Python) agree to 2 × 10⁻¹⁶.</p>
+        <img src="/data/cv-wigner.png" alt="Wigner functions: the odd cat with beta 2, negative fringes between two blobs; a GKP zero state, a grid of peaks with negative regions" width="1140" height="540" loading="lazy" style="width:100%;max-width:760px;display:block;height:auto;border:1px solid var(--border);margin:6px 0 12px;">
+        <p><b>A comb heralded by homodyne detection</b> (Eqs. 66–73). With Eq. 69's Kraus amplitude the outcomes y sum to one for every q (to 10⁻⁹); Eq. 70 as printed sums to 1/√2 — it lacks the ½ in the exponent. A phase-squeezed input with the outcome y = 0 gives peaks every π/θ (√π here: a GKP-like comb); other outcomes give pairs, with gaps 2 arccos(y/2β)/θ and the rest of the period, as sampled:</p>
+        <img src="/data/heralded-comb.svg" alt="Homodyne-heralded comb: for y = 0 evenly spaced peaks under the anti-squeezed input; for a sampled y, pairs of peaks" width="760" height="390" loading="lazy" style="width:100%;max-width:760px;display:block;height:auto;border:1px solid var(--border);margin:6px 0 12px;">
+        <p class="sweep-links"><a href="/data/cv-checks.json">checks</a> · <a href="/data/cv-xcheck.json">Elixir against Python</a> · <a href="/data/gkp-readout.csv" download>readout</a> · <a href="/data/gkp-shift.csv" download>Eq. 39 shifts</a> · <a href="/data/gkp-fig5-digitised.json">Fig. 5 as read</a> · <a href="/data/heralded-comb.csv" download>comb</a> · <code>tools/optics/cv_checks.py</code>, <code>xcheck_cv.py</code> · /quantum/optics/gkp, /cat, /comb</p>
+        <p><b>From the review we started from</b> (Romero and Milburn, arXiv:2404.03367): its Fig. 8 gives the third angle as +22.5°, which does not make an NS gate — only the text's −22.5° reproduces KLM's unitary; we also found slips in its Eqs. 13, 22, 40 and 70, a sign between Eqs. 22 and 25, its growth arithmetic, its Fig. 5 (caption and envelopes) and its Fig. 10 (above), listed in the repository's NOTES.md. Every number here comes from the primary paper or our own derivation.</p>
+        <p class="sweep-links"><a href="/data/hom-dip.csv" download>HOM data</a> · <a href="/data/klm-checks.json">KLM checks</a> · <a href="/data/fock-vs-perceval.json">against Perceval</a> · <code>tools/optics/</code> · <code>/quantum/optics/hom?gt=1</code>, <code>/quantum/optics/ns</code>, <code>/quantum/optics/cz?input=11&amp;shots=10000</code></p>
+        <div class="stab-live">
+          <button type="button" class="qd-run" id="opt-cz">Run: CZ, 10,000 shots, input |11⟩</button>
+          <button type="button" class="qd-run" id="opt-ns">Run: NS on a random input</button>
+          <button type="button" class="qd-run" id="opt-gkp">Run: GKP readout, σ = 0.4, 10,000 shots</button>
+          <button type="button" class="qd-run" id="opt-cat">Run: odd cat, 10 % loss</button>
+          <button type="button" class="qd-run" id="opt-comb">Run: heralded comb, y sampled</button>
+          <div class="stab-out" id="opt-out" aria-live="polite"></div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<!-- THE RESEARCH QUESTION -->
+<section id="question" aria-labelledby="question-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// The research question</div>
+    <h2 id="question-heading" class="s-title rev">Everything above reproduces known results.<br><em>This is the question we want to answer.</em></h2>
+    <div class="sweep-text rev" style="max-width:860px;margin-top:28px;">
+      <p><b>Question.</b> Under concurrent load, does a union-find decoder on the BEAM — every syndrome its own lightweight process, many decoded at once on all cores — keep its tail latency bounded, at a throughput near a compiled decoder's?</p>
+      <p><b>Baselines, to separate the algorithm from the language.</b> Union-find in a compiled language (Rust or C++), and in plain Python; and PyMatching 2.4 (minimum-weight matching, C++) — each run under the same load as ours: a worker pool on the same cores, fed from a queue, with 1, 100 and 10,000 syndromes in flight. Same machine, same syndromes (sampled by QxStab and by Stim from the threshold-study circuits, d = 3 to 9, p = 0.1 to 1 %). The decoding graph comes from Stim's detector error model for every decoder, ours included: there our work depends on Stim.</p>
+      <p><b>The deadline, and why the BEAM.</b> The BEAM is soft real-time: it will not decode for superconducting hardware, whose rounds take about a microsecond. Trapped-ion and neutral-atom machines run rounds of a millisecond or more, and the software that orchestrates any machine works in milliseconds; we test against a 1 ms deadline at d = 5. The question is whether preemptive per-process scheduling keeps the tail there when the queue grows, where a single-threaded decoder's queue waits pile up.</p>
+      <p><b>Hypothesis, and what falsifies it.</b> At d = 5: our 99th-percentile latency stays under 1 ms with 10,000 syndromes in flight, growing no more than 2× from 1 to 10,000; and our throughput per core is within 2× of compiled union-find. Either number missing falsifies it. We expect to lose against PyMatching, which decodes such syndromes in microseconds, and we report by how much — and the logical error rate, since union-find is a little less accurate than matching. A partial result still says something: bounded latency at a lower throughput would describe what the BEAM is for.</p>
+      <p><b>Protocol.</b> One warm-up pass; 10 repeated runs per point, medians with 95 % intervals by bootstrap; garbage collection left on and reported (BEAM processes collect their own heaps; we record the time spent); scripts, raw timings and syndromes published with the results.</p>
+      <div class="wg-h" style="margin-top:26px;">First results · 29 October 2026 · accuracy and speed against PyMatching</div>
+      <p><b>QxDecode</b> (<code>lib/qx_decode.ex</code>): union-find after Delfosse and Nickerson, weighted (edge lengths from the error probabilities, in quarter steps of the lightest edge), peeled over a minimum-weight spanning tree of each cluster. Its first version peeled over a breadth-first tree and failed a simple pattern — two detectors next to each other and the boundary — ten times too often at low noise; comparing with PyMatching shot by shot found it. On the same 100,000 syndromes per point, both on Stim's detector error model:</p>
+      <div class="tscroll"><table class="btab nw"><thead><tr><th>d</th><th>p</th><th>ours</th><th>PyMatching</th><th>ratio</th><th>µs/syndrome, ours, 1 process</th><th>µs, PyMatching, 1 core</th><th>ours, 20 cores, /s</th><th>PyMatching, 1 core, /s</th></tr></thead><tbody><tr><td>3</td><td>0.1 %</td><td>0.095 %</td><td>0.083 %</td><td>1.145×</td><td>1.6</td><td>0.04</td><td>7,001k</td><td>24,748k</td></tr><tr><td>3</td><td>0.4 %</td><td>1.30 %</td><td>1.23 %</td><td>1.057×</td><td>4.5</td><td>0.11</td><td>3,800k</td><td>9,407k</td></tr><tr><td>3</td><td>0.6 %</td><td>3.46 %</td><td>2.52 %</td><td>1.372×</td><td>3.1</td><td>0.16</td><td>2,637k</td><td>6,415k</td></tr><tr><td>3</td><td>0.8 %</td><td>4.85 %</td><td>4.18 %</td><td>1.161×</td><td>4.3</td><td>0.21</td><td>2,004k</td><td>4,716k</td></tr><tr><td>5</td><td>0.1 %</td><td>0.022 %</td><td>0.020 %</td><td>1.1×</td><td>5.0</td><td>0.33</td><td>1,779k</td><td>3,076k</td></tr><tr><td>5</td><td>0.4 %</td><td>0.830 %</td><td>0.731 %</td><td>1.135×</td><td>21.5</td><td>1.01</td><td>537k</td><td>994k</td></tr><tr><td>5</td><td>0.6 %</td><td>2.83 %</td><td>2.36 %</td><td>1.198×</td><td>34.5</td><td>1.65</td><td>367k</td><td>607k</td></tr><tr><td>5</td><td>0.8 %</td><td>6.08 %</td><td>5.04 %</td><td>1.205×</td><td>47.9</td><td>2.36</td><td>244k</td><td>424k</td></tr><tr><td>7</td><td>0.1 %</td><td>0.001 %</td><td>0.002 %</td><td>0.5×</td><td>17.2</td><td>1.23</td><td>625k</td><td>815k</td></tr><tr><td>7</td><td>0.4 %</td><td>0.528 %</td><td>0.429 %</td><td>1.231×</td><td>83.0</td><td>4.08</td><td>152k</td><td>245k</td></tr><tr><td>7</td><td>0.6 %</td><td>2.36 %</td><td>1.93 %</td><td>1.218×</td><td>134.1</td><td>6.51</td><td>88k</td><td>154k</td></tr><tr><td>7</td><td>0.8 %</td><td>6.48 %</td><td>5.25 %</td><td>1.234×</td><td>440.2</td><td>8.82</td><td>61k</td><td>113k</td></tr></tbody></table></div>
+      <p><b>What this says.</b> Accuracy: our logical error rate is 1.06 to 1.37 times PyMatching's where both have enough failures to tell — union-find's usual distance from matching; McNemar's exact test on the shots where they disagree finds the difference real at most points. Speed: per syndrome on one core we are 14 to 50 times slower than PyMatching; on all 20 cores our throughput is about one PyMatching core. That is the throughput half of the hypothesis already answered for PyMatching (we lose, as expected); the comparison against compiled union-find and the latency under load follow below (<a href="/data/decoder-vs-pymatching.csv" download>data</a>, <code>tools/dem_graph.py</code>, <code>tools/decode_runs.exs</code>, <code>tools/decoder_compare.py</code>).</p>
+
+    
+      <div class="wg-h" style="margin-top:30px;">Result · 29 October 2026 · the hypothesis is falsified</div>
+      <p><b>First, our design had a flaw.</b> With a fixed number of syndromes in flight, Little's law makes the mean latency that number divided by the throughput: 10,000 in flight at 1 ms needs 10 million syndromes a second from any decoder. That measures throughput, not scheduling. We kept the closed-loop runs, and added the usual test: syndromes arriving at random (Poisson) at 50, 80 and 95 % of what each decoder sustains through its own harness, and the latency from arrival to answer.</p>
+      <p><b>The setup.</b> The same 8 fast cores (of a 20-core Arm machine that also runs other services) for every decoder; the same graph and syndromes at p = 0.4 %. QxDecode on 8 BEAM schedulers, one process per syndrome, released by a dispatcher that spins on the clock; union-find in C++ (<code>tools/load/uf.cpp</code>, the same algorithm: identical predictions on 99.94–100 % of shots), a spinning dispatcher and 7 worker threads; PyMatching and union-find in Python, a dispatcher and 7 worker processes. Each harness also ran with a decoder that does nothing, to show its own cost. 10 seeds at d = 5, 3 at d = 3 and 7; medians.</p>
+      <div class="tscroll"><table class="btab nw"><thead><tr><th>d</th><th>decoder</th><th>decode only, /s</th><th>through harness, /s</th><th>p99 at 50 %</th><th>at 80 %</th><th>at 95 %</th><th>over 1 ms at 50 %</th><th>no-op p99 at 50 %</th></tr></thead><tbody><tr><td>3</td><td>QxDecode, BEAM</td><td>2,588k</td><td>505k</td><td>4.29 ms</td><td>6.23 ms</td><td>7.74 ms</td><td>2.4 %</td><td>2.41 ms</td></tr><tr><td>3</td><td>union-find, C++</td><td>15,900k</td><td>4,622k</td><td>310 µs</td><td>2 µs</td><td>2 µs</td><td>0.0 %</td><td>1 µs</td></tr><tr><td>5</td><td>QxDecode, BEAM</td><td>331k</td><td>184k</td><td>1.24 ms</td><td>13.57 ms</td><td>8.53 ms</td><td>1.2 %</td><td>45 µs</td></tr><tr><td>5</td><td>union-find, C++</td><td>3,940k</td><td>3,671k</td><td>1.58 ms</td><td>1.49 ms</td><td>1.98 ms</td><td>2.8 %</td><td>1 µs</td></tr><tr><td>7</td><td>QxDecode, BEAM</td><td>92k</td><td>59k</td><td>751 µs</td><td>3.07 ms</td><td>25.40 ms</td><td>0.6 %</td><td>36 µs</td></tr><tr><td>7</td><td>union-find, C++</td><td>1,358k</td><td>1,329k</td><td>14 µs</td><td>20 µs</td><td>108 µs</td><td>0.0 %</td><td>1 µs</td></tr></tbody></table></div>
+      <p><b>Against the hypothesis, at d = 5.</b> Throughput within 2× of compiled union-find: no — 12 times less decoding alone, 20 times less through the harness. 99th percentile under 1 ms: at half load 1.24 ms (95 % interval 894 µs–1.73 ms), at 80 % 13.57 ms, at 95 % 8.53 ms. Growth bounded: no. The hypothesis is falsified.</p>
+      <p><b>What it does show.</b> A process per syndrome costs the BEAM more than the decoding: its harness alone, with no decoding, has a 99th percentile of 2.41 ms at half load for d = 3 — spawning and messaging at a few hundred thousand a second is the bottleneck, not the scheduler's fairness. C++'s tails are bimodal across seeds — microseconds in some runs, milliseconds in others — which fits interference from the machine's other work on shared cores; a clean tail measurement needs a machine to itself. Python's harness costs more than any deadline here (its no-op p99 is tens of milliseconds), so for PyMatching and Python union-find only throughput is meaningful: about 124k and 93k syndromes a second through it at d = 5.</p>
+      <p><b>Next.</b> Decode many syndromes per process (batches) rather than one each, to separate the BEAM's scheduling from its spawning cost; a dedicated machine for the tails; then the question again. Data: <a href="/data/decoder-load.json">summary</a>, <a href="/data/decoder-load-raw.json">every run</a>; <code>tools/load/</code>.</p>
+</div>
+  </div>
+</section>
+
+<!-- BLOCH SPHERE -->
+<div id="qviz">
+  <div class="qv-wrap">
+    <div class="qv-text rev">
+      <div class="s-tag">// The substrate</div>
+      <h2 class="s-title" style="font-size:clamp(28px,3.5vw,48px);">The science of<br><em>superposition</em></h2>
+      <p class="s-body" style="font-size:15px;">A register of n qubits is described by 2<sup>n</sup> complex amplitudes. A measurement returns one outcome, with probability given by its amplitude squared; the amplitudes themselves are never read out. Speedups come from interference: an algorithm arranges the amplitudes so that wrong answers cancel and right ones reinforce before that one measurement.</p>
+      <div class="qv-items">
+        <div class="qv-item"><div class="qv-dot"></div><div class="qv-text-p"><strong>Superposition</strong> — n qubits, 2<sup>n</sup> amplitudes; a measurement returns one n-bit outcome. The demos' histograms are many such outcomes.</div></div>
+        <div class="qv-item"><div class="qv-dot"></div><div class="qv-text-p"><strong>Entanglement</strong> — correlated states that cannot be described independently: a resource for quantum communication and, in many algorithms, for speedups. See it in the <a href="/demos" style="color:var(--blue);">Bell pair</a>.</div></div>
+        <div class="qv-item"><div class="qv-dot"></div><div class="qv-text-p"><strong>Interference</strong> — amplitudes cancel wrong paths and reinforce right ones. Many quantum algorithms work this way. See it in the <a href="/demos" style="color:var(--blue);">Grover circuit</a>.</div></div>
+      </div>
+      <p class="qv-eq"><span role="math" aria-label="psi equals alpha ket zero plus beta ket one, with alpha squared plus beta squared equal to one">|ψ⟩ = α|0⟩ + β|1⟩,&nbsp; |α|² + |β|² = 1</span></p>
+    </div>
+    <div class="qv-canvas-box">
+      <canvas id="blochCanvas" role="img" aria-label="Bloch sphere showing a qubit state vector with superposition angle θ and phase φ"></canvas>
+      <noscript><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(106,176,255,.5);letter-spacing:2px;">|ψ⟩ = α|0⟩ + β|1⟩</div></noscript>
+    </div>
+  </div>
+</div>
+
+<!-- DEMOS -->
+<section id="demos" aria-labelledby="demos-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// Run it yourself</div>
+    <h2 id="demos-heading" class="s-title rev">Ten circuits,<br><em>simulated live on the BEAM.</em></h2>
+    <p class="s-body rev">Quantum circuit simulation on QxSim, written in Elixir and running on the Erlang virtual machine: four algorithms and protocols, one quantum ML circuit, five error-correcting codes. The charts below are not pictures: each card ran its circuit when this section came into view, and draws the outcomes it measured, shot by shot. Run any of them again, or open the full demo page for the circuits in OpenQASM and the error-correction details.</p>
+    <div class="qd-grid rev">
+      <article class="qd" data-path="bell" data-kind="ai">
+        <div class="qd-id">A-01 · Protocol</div>
+        <h3 class="qd-name">Bell state</h3>
+        <p class="qd-desc">Two qubits, maximally entangled: only 00 and 11 appear, half each.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="teleport" data-kind="ai">
+        <div class="qd-id">A-02 · Protocol</div>
+        <h3 class="qd-name">Teleportation</h3>
+        <p class="qd-desc">A random state sent from Alice to Bob through a Bell pair and two classical bits; Bob corrects it, then undoes its preparation: his qubit (leftmost) must read 0 every time.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="grover/search" data-kind="grover">
+        <div class="qd-id">A-03 · Algorithm</div>
+        <h3 class="qd-name">Grover's search, 2–10 qubits</h3>
+        <p class="qd-desc">A random marked state among N = 2ⁿ. Line: its probability after each iteration, exact; dots: theory sin²((2k+1)θ). The optimum is near (π/4)√N.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><label class="qd-sel">n <select class="qd-n" aria-label="Number of qubits"><option>2</option><option>3</option><option>4</option><option>5</option><option selected>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="qml" data-kind="ai">
+        <div class="qd-id">M-01 · Quantum ML</div>
+        <h3 class="qd-name">Variational classifier</h3>
+        <p class="qd-desc">Rx rotations and an entangling CNOT layer — the shape of a quantum ML model.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="shor15" data-kind="ai">
+        <div class="qd-id">A-04 · Algorithm</div>
+        <h3 class="qd-name">Shor's algorithm, N = 15, compiled</h3>
+        <p class="qd-desc">Compiled for a = 7: 7⁴ ≡ 1 (mod 15), so the period is built into the circuit — it shows the structure, not a speedup. k = 2, 6 give 3 × 5 directly; k = 4 after a check; k = 0 nothing.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="shor" data-kind="shor">
+        <div class="qd-id">A-05 · Algorithm</div>
+        <h3 class="qd-name">Shor's algorithm, general</h3>
+        <p class="qd-desc">N = 15 or 21, any a: 2n counting qubits, the inverse QFT, continued fractions; nothing about the period goes in. The multiplication by a^(2^j) mod N is a permutation computed classically (an oracle, not a gate circuit). Failing choices of a fail, and say why.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><label class="qd-sel">N, a <select class="qd-na" aria-label="N and a"><option value="21,2" selected>21, 2</option><option value="21,10">21, 10</option><option value="21,11">21, 11</option><option value="21,19">21, 19</option><option value="21,8">21, 8</option><option value="21,13">21, 13</option><option value="21,4">21, 4</option><option value="21,16">21, 16</option><option value="21,5">21, 5</option><option value="21,17">21, 17</option><option value="21,20">21, 20</option><option value="21,6">21, 6</option><option value="15,2">15, 2</option><option value="15,7">15, 7</option><option value="15,8">15, 8</option><option value="15,13">15, 13</option><option value="15,4">15, 4</option><option value="15,11">15, 11</option><option value="15,14">15, 14</option><option value="15,9">15, 9</option></select></label><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="qec/bitflip" data-kind="qec">
+        <div class="qd-id">E-01 · Code</div>
+        <h3 class="qd-name">Bit-flip code</h3>
+        <p class="qd-desc">Logical |0⟩ on three qubits, an X error on qubit 1; two ancillas measure the parities, a majority vote of the readout corrects it. Noiseless gates.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="qec/phaseflip" data-kind="qec">
+        <div class="qd-id">E-02 · Code</div>
+        <h3 class="qd-name">Phase-flip code</h3>
+        <p class="qd-desc">Logical |0⟩ as |+++⟩, a Z error on qubit 1; checks X₀X₁ and X₁X₂ on one reused ancilla find it, a Z corrects it. Read out in the X basis.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="qec/shor9" data-kind="qec">
+        <div class="qd-id">E-03 · Code</div>
+        <h3 class="qd-name">Shor's 9-qubit code</h3>
+        <p class="qd-desc">A Y error (bit and phase flip) on qubit 1; six Z checks and two X checks find both, the decoder corrects both. Bars: the logical qubit, 0 or 1.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="qec/steane7" data-kind="qec">
+        <div class="qd-id">E-04 · Code</div>
+        <h3 class="qd-name">Steane [[7,1,3]] code</h3>
+        <p class="qd-desc">A Y error on qubit 1; three Z and three X checks give its position twice, in binary; X and Z correct it. Bars: the logical qubit, 0 or 1.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+      <article class="qd" data-path="qec/surface3" data-kind="qec">
+        <div class="qd-id">E-05 · Code</div>
+        <h3 class="qd-name">Surface code, distance 3</h3>
+        <p class="qd-desc">The full distance-3 code: nine data qubits, all eight stabilizers on one reused ancilla, a Y error on qubit 1; a lookup decoder corrects both flips. Bars: the logical qubit.</p>
+        <div class="qd-plot" aria-live="polite"></div>
+        <div class="qd-meta"></div>
+        <div class="qd-actions"><button type="button" class="qd-run">Run again</button><a href="/demos" class="qd-open">Open →</a></div>
+      </article>
+    </div>
+    <div class="rev" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;"><a href="/demos" class="btn-q">Open the full demo page →</a><a href="https://github.com/quanterall/quantum_computing_simulations" class="btn-q btn-ghost" target="_blank" rel="noopener noreferrer">Source code →</a></div>
+    <div class="repro rev">
+      <div class="wg-h">Reproduce this</div>
+      <pre>curl "https://quanterall.com/quantum/bell?shots=1024&amp;seed=42"
+curl "https://quanterall.com/quantum/shor15?shots=1024&amp;seed=42"
+curl "https://quanterall.com/quantum/qec/steane7?shots=1024&amp;error_qubit=3&amp;seed=42"
+curl "https://quanterall.com/quantum/entangle?shots=2000"
+curl "https://quanterall.com/quantum/migrate?shots=100"</pre>
+      <p>Every card is one such call: the path is the demo's name (<code>bell</code>, <code>teleport</code>, <code>grover</code>, <code>qml</code>, <code>shor15</code>, <code>qec/…</code>), the answer is JSON with the counts and the circuit in OpenQASM. Add <code>seed</code> (0 to 2³²−1) and the same call gives the same counts; without one, the answer reports the seed it drew, so any run can be repeated. The process models run many processes of their own and are not seeded. Limits: up to 10,000 shots a call, 5 calls a second per visitor (bursts of 20), 4 simulations at once. About the code: the demos began on <a href="https://github.com/richarc/qx" target="_blank" rel="noopener noreferrer">qx</a>, Craig Richards' Elixir quantum simulator (Apache-2.0; we used version 0.5.1), and we credit it. The simulators now running are separate code, and the comparison is published (<code>tools/qx_compare.py</code>, <a href="/data/qx-comparison.json">result</a>): every qx release depends on Nx, our service does not depend on qx; none of 19 distinctive names of ours occurs in qx's 207 commits; and cut into 8-token sequences (comments and strings removed), at most 2 % of any of our files occurs in any qx release — while consecutive qx releases share 92 to 100 %, so the measure does find shared code where there is some. It measures textual copying only, not the same design written again in other words. Earlier labels here that read "qx_sim 0.5.1" named the starting point, not the code that runs.</p>
+    </div>
+
+    <div class="pm-head rev">
+      <div class="s-tag">// Process models on the BEAM</div>
+      <h3 class="pm-title">Entanglement as linked processes. <em>Teleportation as a process that migrates.</em></h3>
+      <p class="s-body">Two quantum concepts modelled with what the Erlang virtual machine does best — isolated processes and nodes — for teaching and for demonstrating the concepts. Both run live below, on real BEAM processes; the numbers are measured, not drawn.</p>
+    </div>
+    <div class="pm-grid rev">
+      <article class="pm" id="pm-ent">
+        <div class="qd-id">X-01 · Entanglement</div>
+        <p class="pm-desc">Each round spawns three processes: a <b>pair</b> process holding the shared state |Φ⁺⟩, and <b>Alice</b> and <b>Bob</b>. They never message each other; each asks the pair to measure its own qubit at an angle. Whoever asks first collapses the shared state, and the other reads a correlated result. A classical simulation: the pair process is a central state holder, so this shows the statistics of entanglement, not nonlocality.</p>
+        <svg class="pm-svg" viewBox="0 0 460 170" role="img" aria-label="Alice, the pair process and Bob: two measurement requests to the shared state, and the results">
+          <g class="lanes"><text x="70" y="18">Alice</text><text x="230" y="18">pair  |Φ⁺⟩</text><text x="390" y="18">Bob</text>
+            <line x1="70" y1="26" x2="70" y2="162"/><line x1="230" y1="26" x2="230" y2="162"/><line x1="390" y1="26" x2="390" y2="162"/></g>
+          <g id="ent-anim"></g>
+        </svg>
+        <div class="pm-phys">
+          <div class="pm-phys-h">The physical system: two photons with entangled polarization</div>
+          <div class="pm-scroll"><svg class="pm-svg" id="ent-photons" role="img" aria-label="A Bell test with photon pairs: the run's first pairs, polarizers at Alice's and Bob's angles, a detector click on each side"></svg></div>
+          <p class="pm-note">A crystal makes the photon pair; neither photon has a polarization of its own until one meets a polarizer. A polarizer turns half as much as the qubit's measurement axis, so the settings are 0° or 45° for Alice and 22.5° or 67.5° for Bob, as in the Bell tests of Aspect (1982) and Weihs (1998). Played: this run's first 24 pairs.</p>
+        </div>
+        <div class="pm-stats" id="ent-stats" aria-live="polite">running…</div>
+        <div class="qd-actions"><button type="button" class="qd-run" id="ent-run">Run 2000 rounds</button><span class="pm-time" id="ent-time"></span></div>
+      </article>
+      <article class="pm" id="pm-tel">
+        <div class="qd-id">X-02 · Teleportation</div>
+        <p class="pm-desc">Node A is this server's BEAM; node B is a <b>second BEAM node</b>, a separate operating-system process. Alice's process holds a qubit ψ, measures it against her half of a Bell pair and ends; only <b>two classical bits</b> go to node B, where a new process applies the correction and holds the same state. ψ is unknown to the protocol but known to the simulator, which checks the result: this shows the protocol's structure, not a physical transmission.</p>
+        <svg class="pm-svg" viewBox="0 0 460 170" role="img" aria-label="Two BEAM nodes: the qubit leaves node A as two classical bits and is rebuilt on node B">
+          <rect class="node" x="10" y="30" width="170" height="120" rx="6"/><rect class="node" x="280" y="30" width="170" height="120" rx="6"/>
+          <text class="node-l" x="95" y="22">node A</text><text class="node-l" x="365" y="22">node B</text>
+          <text class="node-p" id="tel-pa" x="95" y="142">OS pid —</text><text class="node-p" id="tel-pb" x="365" y="142">OS pid —</text>
+          <line class="chan" x1="180" y1="78" x2="280" y2="78"/><text class="chan-l" x="230" y="70">classical</text>
+          <line class="qchan" x1="180" y1="110" x2="280" y2="110"/><text class="chan-l" x="230" y="126">Bell pair (pre-shared)</text>
+          <g id="tel-anim"></g>
+        </svg>
+        <div class="pm-phys">
+          <div class="pm-phys-h">The physical system: a photon's polarization</div>
+          <div class="pm-scroll"><svg class="pm-svg" id="tel-photons" role="img" aria-label="Teleporting a photon's polarization: the Bell-state analyser at Alice, two bits by cable, Bob's Pockels cell, the polarization ellipse before and after"></svg></div>
+          <p class="pm-note">As in the first teleportation experiment (Bouwmeester et al., Innsbruck 1997) and from the ground to the Micius satellite over 1,400 km (2017): |0⟩ is horizontal and |1⟩ vertical polarization, ψ is drawn as its polarization ellipse. A Bell-state analyser built only from beam splitters tells apart two of the four outcomes; the model, like trapped-ion experiments, uses all four.</p>
+        </div>
+        <div class="pm-stats" id="tel-stats" aria-live="polite">running…</div>
+        <div class="qd-actions"><button type="button" class="qd-run" id="tel-run">Run 100 teleportations</button><span class="pm-time" id="tel-time"></span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PEOPLE -->
+<section id="people" aria-labelledby="people-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// People</div>
+    <h2 id="people-heading" class="s-title rev">Who leads this work,<br><em>and where else the founder works.</em></h2>
+    <div class="people rev">
+      <div class="person">
+        <div class="p-title">Anton <em>Andonov</em></div>
+        <div class="person-role">Founder and CEO, Quanterall</div>
+        <ul>
+          <li>Part of the <a href="https://iaps.nbu.bg/en" target="_blank" rel="noopener noreferrer">Institute for Advanced Physical Studies</a> (IAPS), New Bulgarian University, Sofia — a personal affiliation, not the company's.</li>
+          <li>Teaches Erlang at <a href="https://www.vfu.bg/" target="_blank" rel="noopener noreferrer">Varna Free University</a>; has taught at the Technical University of Varna and <a href="https://nbu.bg/" target="_blank" rel="noopener noreferrer">New Bulgarian University</a>.</li>
+          <li>Building on Erlang since 2009. Quanterall built the TechUPGRADE simulation engine.</li>
+        </ul>
+      </div>
+      <div class="person">
+        <div class="wg-h">Students and universities</div>
+        <p>We propose thesis topics and seminars around our circuit simulator — a decoder, a noise model, the full Shor circuit — for students at Varna Free University, and joint work through IAPS and New Bulgarian University where it fits. Students who take part are credited here. To propose or take a topic: <a href="mailto:contact@quanterall.com">contact@quanterall.com</a>.</p>
+        <div class="wg-h" style="margin-top:18px;">Collaborate, join, work with us</div>
+        <p>Write to <a href="mailto:contact@quanterall.com">contact@quanterall.com</a> — for research collaboration, to join, or to work with us. Or through the code: open an issue or a pull request on <a href="https://github.com/quanterall/quantum_computing_simulations" target="_blank" rel="noopener noreferrer">GitHub</a>; or on <a href="https://www.linkedin.com/company/quanterall" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+      </div>
+    </div>
+    <p class="people-note rev">Quanterall Ltd. is a private company, separate from the Institute for Advanced Physical Studies and from the universities named here. Their names say where our people work and teach; they do not endorse this site.</p>
+  </div>
+</section>
+
+<!-- LEGACY -->
+<section id="legacy" aria-labelledby="legacy-heading">
+  <div class="s-in">
+    <div class="s-tag rev">// 2003 – 2026 · The foundation</div>
+    <h2 id="legacy-heading" class="s-title rev">23 years.<br><em>The work behind the move.</em></h2>
+    <div class="leg-grid">
+      <div class="tl rev">
+        <div class="tl-row">
+          <div class="tl-y" style="color:var(--amber);">2002 ✦</div>
+          <div><div class="tl-name" style="color:var(--amber);">Dubna</div><div class="tl-d">At the Joint Institute for Nuclear Research, our founder coins "Quanter-all" with two colleagues, Penka Christova and Gizo Nanava — an explicit statement of intent toward quantum computing.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y">23 March 2003</div>
+          <div><div class="tl-name">Varna</div><div class="tl-d">Quanterall is incorporated as the vehicle for that intent, with the understanding that it may take decades. It did.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y">2003–2016</div>
+          <div><div class="tl-name">Systems at scale</div><div class="tl-d">Enterprise and industrial platforms across European markets — distributed systems where downtime is measured in revenue, not minutes.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y">2009</div>
+          <div><div class="tl-name">Erlang</div><div class="tl-d">We start building on Erlang. Teaching follows: our own academy, and for years courses at three universities.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y">2016–2020</div>
+          <div><div class="tl-name">Correctness · blockchain</div><div class="tl-d">A turn toward formal methods, functional programming, and provable behaviour. Blockchain and crypto products, built mainly in Erlang, Elixir and Haskell.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y">2020–2025</div>
+          <div><div class="tl-name">Breadth</div><div class="tl-d">Healthcare, logistics, finance, bioinformatics, communications, insurance.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y">2024–2026</div>
+          <div><div class="tl-name">A simulation engine</div><div class="tl-d">For the EU research project TechUPGRADE we build its simulation engine: physical models, scenarios, physics-informed neural networks and 3D flow simulation of a thermochemical reactor.</div></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-y" style="color:var(--amber);">23 March 2026 ✦</div>
+          <div><div class="tl-name" style="color:var(--amber);">Return</div><div class="tl-d">Full commitment to quantum computing research. The circle closes on schedule, 23 years late and 23 years early.</div></div>
+        </div>
+      </div>
+      <div class="leg-right rev d2">
+        <p class="leg-note">The twenty-three years behind this move are distributed and fault-tolerant software, not quantum physics. They carry over in specific places — concurrency, fault-injection testing, simulation — and not in others. What we lack is quantum-specific depth; we are building it in the open, on this page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <a href="/" class="f-logo" aria-label="Quanterall, home">Quanterall<sup>QC</sup></a>
+    <div class="f-cols">
+      <div><div class="f-h">Research</div><a href="#research">Algorithms</a><a href="#research">Error correction</a><a href="#research">Circuit simulation</a><a href="#research">Planned: QML, hybrid, PQC</a></div>
+      <div><div class="f-h">Lab</div><a href="#where">Where we are</a><a href="#pivot">What we do</a><a href="/demos">Quantum demos</a><a href="https://github.com/quanterall/quantum_computing_simulations" target="_blank" rel="noopener noreferrer">Source code</a><a href="#people">People</a><a href="https://demo.quanterall.com/" target="_blank" rel="noopener noreferrer">Platform films</a><a href="#legacy">Foundation</a></div>
+      <div><div class="f-h">Connect</div><a href="mailto:contact@quanterall.com">contact@quanterall.com</a><a href="https://www.linkedin.com/company/quanterall" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/quanterall" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://twitter.com/quanterall" target="_blank" rel="noopener noreferrer">X / Twitter</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="f-copy">© 2026 Quanterall Ltd. Founded 23 March 2003. Quantum computing research.</div>
+    <div class="f-copy">ul. Ruse 15, Opera Building, Varna 9000, Bulgaria</div>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+
+// HAMBURGER MENU — focus trap + scroll lock
+const menuOpen=document.getElementById('menuOpen'),mobileMenu=document.getElementById('mobileMenu'),menuClose=document.getElementById('menuClose');
+mobileMenu.setAttribute('aria-modal','true');
+const focusableInMenu=()=>[...mobileMenu.querySelectorAll('a,button')];
+function openMobileMenu(){
+  mobileMenu.classList.add('open');
+  menuOpen.setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+  const items=focusableInMenu();
+  if(items.length)items[0].focus();
+}
+function closeMobileMenu(){
+  mobileMenu.classList.remove('open');
+  menuOpen.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+  menuOpen&&menuOpen.focus();
+}
+menuOpen&&menuOpen.addEventListener('click',openMobileMenu);
+menuClose&&menuClose.addEventListener('click',closeMobileMenu);
+mobileMenu.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeMobileMenu();return;}
+  if(e.key!=='Tab')return;
+  const items=focusableInMenu(),first=items[0],last=items[items.length-1];
+  if(e.shiftKey){if(document.activeElement===first){e.preventDefault();last.focus();}}
+  else{if(document.activeElement===last){e.preventDefault();first.focus();}}
+});;
+
+// WAVE CANVAS — pause when hero off-screen
+(function(){
+  const c=document.getElementById('waveCanvas'),x=c.getContext('2d');
+  let W,H,t=0,raf=null,visible=true,resizeTimer;
+  function resize(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+  resize();
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,150);});
+  const waves=[
+    {amp:.055,freq:.011,spd:1.0,ph:0,   al:.45,r:106,g:176,b:255},
+    {amp:.045,freq:.017,spd:1.4,ph:1.2, al:.30,r:106,g:176,b:255},
+    {amp:.035,freq:.008,spd:.7, ph:2.5, al:.20,r:245,g:200,b:66 },
+    {amp:.07, freq:.005,spd:.5, ph:.8,  al:.10,r:80, g:140,b:255},
+    {amp:.025,freq:.024,spd:2.0,ph:3.8, al:.15,r:140,g:200,b:255},
+  ];
+  function draw(){
+    if(!visible){raf=null;return;}
+    x.clearRect(0,0,W,H);t+=.008;
+    waves.forEach(w=>{
+      x.beginPath();
+      for(let i=0;i<=W;i+=2){
+        const y=H/2+Math.sin(i*w.freq+t*w.spd+w.ph)*w.amp*H+Math.sin(i*w.freq*2.3+t*w.spd*.6+w.ph*1.7)*w.amp*H*.4;
+        i===0?x.moveTo(i,y):x.lineTo(i,y);
+      }
+      x.strokeStyle=`rgba(${w.r},${w.g},${w.b},${w.al})`;x.lineWidth=1.5;x.stroke();
+    });
+    for(let i=0;i<4;i++){
+      const px=W*.15+W*.23*i+Math.sin(t*.5+i)*40,py=H/2+Math.cos(t*.7+i*2)*H*.18;
+      const r=2.5+Math.sin(t+i)*1.5;
+      x.beginPath();x.arc(px,py,r,0,Math.PI*2);
+      x.fillStyle=`rgba(106,176,255,${.4+Math.sin(t+i)*.2})`;x.fill();
+      const g=x.createRadialGradient(px,py,0,px,py,55);
+      g.addColorStop(0,'rgba(106,176,255,.12)');g.addColorStop(1,'transparent');
+      x.beginPath();x.arc(px,py,55,0,Math.PI*2);x.fillStyle=g;x.fill();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  const heroEl=document.getElementById('hero');
+  new IntersectionObserver(entries=>{
+    visible=entries[0].isIntersecting;
+    if(visible&&!raf)raf=requestAnimationFrame(draw);
+  },{threshold:0}).observe(heroEl);
+  raf=requestAnimationFrame(draw);
+})();
+
+// BLOCH SPHERE — pause when off-screen
+(function(){
+  const c=document.getElementById('blochCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let t=0,raf=null,visible=false,resizeTimer;
+  function resize(){const w=c.parentElement;c.width=w.clientWidth;c.height=w.clientHeight||520;}
+  resize();
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(resize,150);});
+  function proj(x,y,z,cx,cy,R){return[cx+(x-z*.5)*R,cy+(-y+z*.3)*R];}
+  function frame(){
+    if(!visible){raf=null;return;}
+    const W=c.width,H=c.height,cx=W/2,cy=H/2,R=Math.min(W,H)*.3;
+    ctx.clearRect(0,0,W,H);
+    ctx.beginPath();ctx.ellipse(cx,cy,R,R*.38,0,0,Math.PI*2);
+    ctx.strokeStyle='rgba(106,176,255,.2)';ctx.lineWidth=1;ctx.stroke();
+    for(let a=0;a<Math.PI;a+=Math.PI/4){
+      ctx.beginPath();ctx.ellipse(cx,cy,R*Math.abs(Math.cos(a+t*.08)),R,0,0,Math.PI*2);
+      ctx.strokeStyle='rgba(106,176,255,.07)';ctx.lineWidth=1;ctx.stroke();
+    }
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(106,176,255,.22)';ctx.lineWidth=1.5;ctx.stroke();
+    [[[0,R*1.12,0],'|0⟩','rgba(245,200,66,.8)'],[[0,-R*1.12,0],'|1⟩','rgba(245,200,66,.4)'],
+     [[R*1.12,0,0],'|+⟩','rgba(106,176,255,.6)'],[[-R*1.12,0,0],'|−⟩','rgba(106,176,255,.35)']].forEach(([e,l,c2])=>{
+      const[px,py]=proj(e[0]/R,e[1]/R,e[2]/R,cx,cy,R);
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);
+      ctx.strokeStyle=c2;ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle=c2;ctx.font='11px "IBM Plex Mono",monospace';ctx.fillText(l,px+6,py+4);
+    });
+    const th=Math.PI/4+Math.sin(t*.4)*Math.PI/6,ph=t*.55;
+    const sx=Math.sin(th)*Math.cos(ph),sy=Math.cos(th),sz=Math.sin(th)*Math.sin(ph);
+    const[tx,ty]=proj(sx,sy,sz,cx,cy,R);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(tx,ty);
+    ctx.strokeStyle='rgba(106,176,255,.95)';ctx.lineWidth=2;ctx.stroke();
+    const ang=Math.atan2(ty-cy,tx-cx);
+    ctx.beginPath();ctx.moveTo(tx,ty);
+    ctx.lineTo(tx-10*Math.cos(ang-.38),ty-10*Math.sin(ang-.38));
+    ctx.lineTo(tx-10*Math.cos(ang+.38),ty-10*Math.sin(ang+.38));
+    ctx.closePath();ctx.fillStyle='rgba(106,176,255,.95)';ctx.fill();
+    const g=ctx.createRadialGradient(tx,ty,0,tx,ty,22);
+    g.addColorStop(0,'rgba(106,176,255,.35)');g.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.arc(tx,ty,22,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+    ctx.fillStyle='rgba(106,176,255,.75)';ctx.font='11px "IBM Plex Mono",monospace';ctx.fillText('|ψ⟩',tx+10,ty-6);
+    ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fillStyle='rgba(200,220,255,.3)';ctx.fill();
+    t+=.012;raf=requestAnimationFrame(frame);
+  }
+  new IntersectionObserver(entries=>{
+    visible=entries[0].isIntersecting;
+    if(visible&&!raf)raf=requestAnimationFrame(frame);
+  },{threshold:0}).observe(c.parentElement);
+})();
+
+// SCROLL REVEAL
+const io=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);io.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
+// NAV ACTIVE — class-based, passive listener
+const secs=document.querySelectorAll('section[id]'),nas=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let id='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)id=s.id;});
+  nas.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+},{passive:true});
+
+// LIVE DEMO GRID: each card runs its circuit on the BEAM service (/quantum/...) and draws what it measured
+(function(){
+  const grid=document.querySelector('.qd-grid'); if(!grid) return;
+  const cards=[...grid.querySelectorAll('.qd')];
+  const NS='http://www.w3.org/2000/svg';
+  function bars(counts, color){
+    const keys=Object.keys(counts).sort(); const max=Math.max(...keys.map(k=>counts[k]),1);
+    const svg=document.createElementNS(NS,'svg'); svg.setAttribute('viewBox','0 0 200 92'); svg.setAttribute('preserveAspectRatio','none');
+    svg.setAttribute('role','img'); svg.setAttribute('aria-label','Measured outcomes: '+keys.map(k=>k+' '+counts[k]).join(', '));
+    const n=keys.length, w=200/Math.max(n,1), gap=n>12?0.6:2;
+    const labels=n<=8 && (keys[0]||'').length*5.2<=w;          // a label only where it fits under its bar
+    keys.forEach((k,i)=>{ const h=Math.max(1,(counts[k]/max)*(labels?74:84));
+      const rc=document.createElementNS(NS,'rect'); rc.setAttribute('x',i*w+gap/2); rc.setAttribute('y',(labels?78:90)-h);
+      rc.setAttribute('width',Math.max(w-gap,0.4)); rc.setAttribute('height',h); rc.setAttribute('fill',color); svg.appendChild(rc);
+      if(labels){ const t=document.createElementNS(NS,'text'); t.setAttribute('x',i*w+w/2); t.setAttribute('y',90); t.setAttribute('text-anchor','middle');
+        t.setAttribute('font-size','8'); t.setAttribute('font-family','monospace'); t.setAttribute('fill','#7d8aa0'); t.textContent=k; svg.appendChild(t); } });
+    return svg;
+  }
+  // Grover: the marked state's probability per iteration (line, exact) and theory (dots); the optimum marked
+  function curve(pts,best){
+    const svg=document.createElementNS(NS,'svg'); svg.setAttribute('viewBox','0 0 200 92'); svg.setAttribute('preserveAspectRatio','none');
+    svg.setAttribute('role','img'); svg.setAttribute('aria-label','Success probability per Grover iteration, up to '+pts.length+' iterations');
+    const kx=k=>4+k/Math.max(pts.length-1,1)*192, py=p=>86-p*80;
+    const line=document.createElementNS(NS,'polyline'); line.setAttribute('points',pts.map(c=>kx(c.k)+','+py(c.p)).join(' '));
+    line.setAttribute('fill','none'); line.setAttribute('stroke','#6ab0ff'); line.setAttribute('stroke-width','1.6'); svg.appendChild(line);
+    pts.forEach(c=>{ const o=document.createElementNS(NS,'circle'); o.setAttribute('cx',kx(c.k)); o.setAttribute('cy',py(c.theory)); o.setAttribute('r','1.3'); o.setAttribute('fill','#f5c842'); svg.appendChild(o); });
+    const m=document.createElementNS(NS,'line'); m.setAttribute('x1',kx(best)); m.setAttribute('x2',kx(best)); m.setAttribute('y1',4); m.setAttribute('y2',88);
+    m.setAttribute('stroke','#7d8aa0'); m.setAttribute('stroke-dasharray','2 2'); svg.appendChild(m);
+    return svg;
+  }
+  async function run(card){
+    const plot=card.querySelector('.qd-plot'), meta=card.querySelector('.qd-meta'), qec=card.dataset.kind==='qec';
+    meta.textContent='running…';
+    try{
+      const grover=card.dataset.kind==='grover', gn=grover?+card.querySelector('.qd-n').value:0;
+      const gshor=card.dataset.kind==='shor', na=gshor?card.querySelector('.qd-na').value.split(','):null;
+      const url='/quantum/'+card.dataset.path+'?shots=512'+(qec?'&error_qubit=1':'')+(grover?'&n='+gn+'&marked='+Math.floor(Math.random()*(1<<gn)):'')+(gshor?'&N='+na[0]+'&a='+na[1]:'');
+      const res=await fetch(url,{cache:'no-store'});
+      if(res.status===429){ meta.textContent='busy — try again in a moment'; return; }
+      const d=await res.json(); if(d.status!=='ok') throw new Error(d.message||'error');
+      if(grover) plot.replaceChildren(curve(d.curve,d.optimal_iterations));
+      else if(gshor&&d.circuit_run===false){ const t=document.createElement('div'); t.className='qd-cap'; t.style.padding='30px 4px'; t.textContent='gcd(a, N) > 1: no circuit needed'; plot.replaceChildren(t); }
+      else if(!qec) plot.replaceChildren(bars(d.counts,'#6ab0ff'));
+      else {
+        // the error left in, and the same run corrected; a logical readout (0/1) always shows both outcomes
+        const both=c=>Object.keys(c).every(k=>k.length===1)?{0:0,1:0,...c}:c;
+        const pane=(title,c,col)=>{ const w=document.createElement('div'); const t=document.createElement('div'); t.className='qd-cap'; t.textContent=title;
+          w.append(t,bars(both(c),col)); return w; };
+        const pair=document.createElement('div'); pair.className='qd-pair';
+        pair.append(pane('with the error',d.counts_before,'#f5c842'));
+        if(d.correction||d.name==='bitflip') pair.append(pane('corrected',d.corrected_counts,'#6ab0ff'));   // the partial surface code has no correction yet
+        plot.replaceChildren(pair);
+      }
+      const fixed=qec&&d.correction?' · syndrome '+d.syndrome+' → '+(d.correction.join(', ')||'no correction')+' · logical 0 in '+Math.round(d.logical_fidelity*100)+' % of shots':'';
+      const shor=d.success_direct!==undefined?' · 15 = 3 × 5: directly in '+Math.round(d.success_direct*100)+' % of shots, '+Math.round(d.success_with_check*100)+' % with the check':'';
+      const tele=d.bob_zero_fraction!==undefined?' · ψ: θ '+d.state.theta_deg+'°, φ '+d.state.phi_deg+'° · Bob reads 0 in '+Math.round(d.bob_zero_fraction*100)+' %':'';
+      const fails=d.failures?Object.entries(d.failures).filter(([k])=>k!=='factors').map(([k,v])=>k+' '+Math.round(v/d.shots*100)+' %').join(', '):'';
+      const gs=!gshor?'':(d.circuit_run===false?' · '+d.note:' · N = '+d.N+', a = '+d.a+', period '+d.period_true+' · '+(d.success>0?'factors '+d.factors.join(' × ')+' in '+Math.round(d.success*100)+' % of shots (exact '+Math.round(d.success_exact*100)+' %)':'no factors')+(fails?' · '+fails:'')+' · '+d.counting_qubits+' counting qubits');
+      const gr=grover?' · marked |'+d.marked+'⟩ · '+d.iterations+' iterations (optimum) · found in '+Math.round(d.success*100)+' % of shots':'';
+      if(d.circuit_run===false){ meta.textContent='no circuit run · seed '+d.seed+gs; return; }
+      meta.textContent=d.qubits+' qubits · '+d.shots+' shots · '+d.execution_time_ms+' ms · seed '+d.seed+(qec?' · error on qubit 1':'')+fixed+shor+gr+tele+gs;
+    }catch(e){ meta.textContent='could not run — open the demo page'; }
+  }
+  cards.forEach(c=>c.querySelector('.qd-run').addEventListener('click',()=>run(c)));
+  let started=false;
+  new IntersectionObserver((es,obs)=>{ if(!started&&es.some(e=>e.isIntersecting)){ started=true; obs.disconnect();
+    cards.reduce((p,c)=>p.then(()=>run(c)),Promise.resolve()); } },{threshold:.15}).observe(grid);
+})();
+
+// the stabilizer simulator, live
+(function(){
+  const out=document.getElementById('stab-out'); if(!out) return;
+  async function go(url,fmt){ out.textContent='running…';
+    try{ const r=await fetch(url,{cache:'no-store'}); if(r.status===429){ out.textContent='busy — try again in a moment'; return; }
+      const d=await r.json(); if(d.status!=='ok') throw 0; out.textContent=fmt(d); }catch(e){ out.textContent='could not run'; } }
+  document.getElementById('stab-ghz').addEventListener('click',()=>go('/quantum/stabilizer/ghz?n=2000&shots=2000',
+    d=>`GHZ on ${d.qubits} qubits, ${d.shots} shots in ${d.execution_time_ms} ms: all 0 ×${d.counts['all 0']}, all 1 ×${d.counts['all 1']}, anything else ×${d.counts.other}. A state vector would need 2^${d.qubits} amplitudes.`));
+  document.getElementById('stab-mem').addEventListener('click',()=>go('/quantum/stabilizer/memory?code=surface&d=5&p=0.005&shots=10000',
+    d=>`Surface code d = ${d.distance}: ${d.qubits} qubits, ${d.rounds} rounds, ${d.detectors} detectors, ${d.shots.toLocaleString()} shots in ${d.execution_time_ms} ms. Detectors fired ${(d.detection_rate*100).toFixed(2)} % of the time; ${(d.shots_with_detections/d.shots*100).toFixed(1)} % of shots saw at least one; undecoded, the logical qubit flipped in ${(d.observable_flip_rate_undecoded*100).toFixed(1)} % — decoding brings it to about 1.4 % (the study above). Seed ${d.seed}.`));
+})();
+
+// photonic schemes, live
+(function(){
+  const out=document.getElementById('opt-out'); if(!out) return;
+  async function go(url,fmt){ out.textContent='running…';
+    try{ const r=await fetch(url,{cache:'no-store'}); if(r.status===429){ out.textContent='busy — try again in a moment'; return; }
+      const d=await r.json(); if(d.status!=='ok') throw 0; out.textContent=fmt(d); }catch(e){ out.textContent='could not run'; } }
+  document.getElementById('opt-cz').addEventListener('click',()=>go('/quantum/optics/cz?input=11&shots=10000',
+    d=>`CZ on |11⟩: ${d.shots.toLocaleString()} runs, the four ancilla detectors read each time; heralded (1, 0, 1, 0) in ${d.heralded} — ${(d.herald_rate*100).toFixed(2)} % against 1/16 = 6.25 %; heralded outputs ${Object.entries(d.heralded_outputs).map(([k,v])=>'|'+k+'⟩ ×'+v).join(', ')}. Exact: process fidelity 1 − ${(1-d.exact.process_fidelity).toExponential(0)}, success ${d.exact.success.toFixed(6)}. Seed ${d.seed}.`));
+  document.getElementById('opt-ns').addEventListener('click',()=>go('/quantum/optics/ns',
+    d=>`NS gate: input α = (${d.input.map(a=>a[0].toFixed(3)+(a[1]>=0?'+':'')+a[1].toFixed(3)+'i').join(', ')}); heralded with probability ${d.success.toFixed(6)} (1/4); the output equals α₀|0⟩ + α₁|1⟩ − α₂|2⟩ with fidelity 1 − ${Math.max(1-d.fidelity,1e-16).toExponential(0)}. Seed ${d.seed}.`));
+  document.getElementById('opt-gkp').addEventListener('click',()=>go('/quantum/optics/gkp?db=10&sigma=0.4&shots=10000',
+    d=>`GKP |0̃⟩ (10 dB, Δ² = 0.01) read in q after a Gaussian shift σ = 0.4: wrong in ${d.wrong.toLocaleString()} of ${d.shots.toLocaleString()} — ${(d.error_sampled*100).toFixed(2)} %; exact ${(d.error_exact*100).toFixed(3)} %, ideal comb with σ_eff ${(d.error_closed_form*100).toFixed(3)} %. ${(d.time_us/1000).toFixed(1)} ms. Seed ${d.seed}.`));
+  document.getElementById('opt-cat').addEventListener('click',()=>go('/quantum/optics/cat?beta=2&parity=odd&loss=0.1&shots=10000',
+    d=>`Odd cat, β = 2, 10 % loss: photons counted ${d.shots.toLocaleString()} times, parity flipped in ${(d.parity_flip_sampled*100).toFixed(2)} % (exact ${(d.parity_flip_exact*100).toFixed(2)} %); ⟨Π⟩ = ${d.parity_exact.toFixed(6)}, closed form ${d.parity_closed_form.toFixed(6)}; mean ${d.mean_photons.toFixed(3)} photons. Seed ${d.seed}.`));
+  document.getElementById('opt-comb').addEventListener('click',()=>go('/quantum/optics/comb',
+    d=>`Heralded comb: homodyne outcome y = ${d.y.toFixed(3)} (sampled from P(y), which sums to ${d.p_y_integral.toFixed(6)}); ${d.peaks} peaks, gaps ${d.gaps.join(', ')}; predicted ${d.gaps_predicted.map(g=>g.toFixed(2)).join(' and ')||'none (|y| > 2β)'}. Seed ${d.seed}.`));
+})();
+
+// PROCESS MODELS: entanglement (CHSH over linked processes) and teleportation (two BEAM nodes), live
+(function(){
+  const NS='http://www.w3.org/2000/svg', $=id=>document.getElementById(id);
+  if(!$('pm-ent')) return;
+  const el=(tag,attrs,text)=>{ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k,attrs[k]); if(text!=null) e.textContent=text; return e; };
+  const anim=(node,attr,from,to,dur,delay)=>{ const a=el('animate',{attributeName:attr,from,to,dur:dur+'s',begin:(delay||0)+'s',fill:'freeze'}); node.appendChild(a); return a; };
+  const sbar=(v,max,color)=>`<div class="sbar"><i style="width:${Math.min(100,v/max*100)}%;background:${color}"></i><span class="lim" style="left:${2/max*100}%"></span><span class="lim" style="left:${2*Math.SQRT2/max*100}%;background:#6ab0ff"></span></div>`;
+  // the photon pictures (js/photons.js, a module): played from the same run's data; the module may load later
+  const photonStop={}, photonData={};
+  function photons(kind,d){ photonData[kind]=d; const P=window.qxPhotons; if(!P) return;
+    photonStop[kind]&&photonStop[kind](); photonStop[kind]=P[kind]($(kind==='entangle'?'ent-photons':'tel-photons'),d); }
+  window.addEventListener('qx-photons',()=>{ for(const k in photonData) photons(k,photonData[k]); });
+  async function get(path){ const r=await fetch(path,{cache:'no-store'}); if(r.status===429) throw new Error('busy — try again in a moment'); const d=await r.json(); if(d.status!=='ok') throw new Error(d.message||'error'); return d; }
+
+  async function ent(){
+    const g=$('ent-anim'), st=$('ent-stats'); st.textContent='running…';
+    try{
+      const d=await get('/quantum/entangle?shots=2000'); g.replaceChildren(); photons('entangle',d);
+      const t=d.trace[0], ev=t.events, first=ev[3].who, second=first==='alice'?'bob':'alice', X={alice:70,bob:390};
+      // the two requests to the pair, then the two answers
+      ['alice','bob'].forEach((who,i)=>{ const c=el('circle',{r:5,class:'msg',cx:X[who],cy:44}); g.appendChild(c);
+        anim(c,'cx',X[who],230,.7,.2+i*.15); anim(c,'cy',44,70,.7,.2+i*.15); anim(c,'opacity',1,0,.2,1.05+i*.15); });
+      const col=el('text',{x:230,y:96,class:'res',opacity:0},'collapse'); g.appendChild(col); anim(col,'opacity',0,1,.3,1.0);
+      [[first,1.4],[second,1.9]].forEach(([who,dl])=>{ const v=t[who]; const tx=el('text',{x:230,y:122,class:'res',opacity:0},(v>0?'+1':'−1')); g.appendChild(tx);
+        anim(tx,'x',230,X[who],.6,dl); anim(tx,'y',122,150,.6,dl); anim(tx,'opacity',0,1,.2,dl); });
+      const err=r=>Math.sqrt(Object.values(r.correlations).reduce((a,x)=>a+(1-x.e*x.e)/Math.max(x.n,1),0));
+      const c=d.quantum.correlations, k=['a0b0','a0b1','a1b0','a1b1'], ang=[[d.settings.alice[0],d.settings.bob[0]],[d.settings.alice[0],d.settings.bob[1]],[d.settings.alice[1],d.settings.bob[0]],[d.settings.alice[1],d.settings.bob[1]]];
+      st.innerHTML=`<table><tr><th>Alice</th><th>Bob</th><th>rounds</th><th>E measured</th><th>cos(a−b)</th></tr>`+
+        k.map((x,i)=>`<tr><td>${ang[i][0]}°</td><td>${ang[i][1]}°</td><td>${c[x].n}</td><td>${c[x].e.toFixed(3)}</td><td>${Math.cos((ang[i][0]-ang[i][1])*Math.PI/180).toFixed(3)}</td></tr>`).join('')+`</table>`+
+        `Linked processes: <b style="color:var(--blue)">S = ${d.quantum.s.toFixed(2)} ± ${err(d.quantum).toFixed(2)}</b>${sbar(d.quantum.s,3.2,'#6ab0ff')}`+
+        `Shared classical secret only: <b style="color:#f5c842">S = ${d.classical.s.toFixed(2)} ± ${err(d.classical).toFixed(2)}</b>${sbar(d.classical.s,3.2,'#f5c842')}`+
+        `<span class="pm-time">marks: 2 (the most any classical model can reach) · 2√2 ≈ 2.83 (quantum). ± is one standard error of the finite sample.</span>`;
+      $('ent-time').textContent=d.rounds+' rounds · '+(d.rounds*3)+' processes · '+d.execution_time_ms+' ms';
+    }catch(e){ st.textContent='could not run: '+e.message; }
+  }
+
+  async function tel(){
+    const g=$('tel-anim'), st=$('tel-stats'); st.textContent='running…';
+    try{
+      const d=await get('/quantum/migrate?shots=100'); g.replaceChildren(); photons('teleport',d);
+      $('tel-pa').textContent='OS pid '+d.node_a.os_pid; $('tel-pb').textContent='OS pid '+d.node_b.os_pid;
+      const s=d.sample, bits=''+s.m1+s.m2;
+      const qa=el('circle',{cx:95,cy:78,r:13,fill:'#6ab0ff',opacity:1}); g.appendChild(qa); anim(qa,'opacity',1,0,.4,.9);
+      const la=el('text',{x:95,y:108,class:'res'},'|ψ⟩'); g.appendChild(la); anim(la,'opacity',1,0,.4,.9);
+      const pk=el('text',{x:180,y:83,class:'res',opacity:0},bits); g.appendChild(pk);
+      anim(pk,'opacity',0,1,.2,1.2); anim(pk,'x',180,280,1.0,1.3); anim(pk,'opacity',1,0,.2,2.3);
+      const qb=el('circle',{cx:365,cy:78,r:13,fill:'#6ab0ff',opacity:0}); g.appendChild(qb); anim(qb,'opacity',0,1,.5,2.4);
+      const lb=el('text',{x:365,y:108,class:'res',opacity:0},'|ψ⟩'); g.appendChild(lb); anim(lb,'opacity',0,1,.5,2.4);
+      const order=['00','01','10','11'], max=Math.max(...order.map(b=>d.bits_counts[b]||0),1);
+      st.innerHTML=`<table><tr><th></th><th>θ</th><th>φ</th></tr><tr><td>sent from A</td><td>${s.input.theta_deg}°</td><td>${s.input.phi_deg}°</td></tr>`+
+        `<tr><td>held on B</td><td>${s.output.theta_deg}°</td><td>${s.output.phi_deg}°</td></tr></table>`+
+        `Two bits sent: <b style="color:#f5c842">${bits}</b> · fidelity <b style="color:var(--blue)">${s.fidelity}</b><br>`+
+        `Over ${d.runs} random states: fidelity ${d.fidelity_min} at worst; the four messages ` + order.map(b=>`${b}: ${d.bits_counts[b]||0}`).join(' · ')+
+        `<br><span class="pm-time">Equally likely messages are why the bits alone tell an eavesdropper nothing about ψ.</span>`;
+      $('tel-time').textContent=d.runs+' teleportations · node A → node B · '+d.execution_time_ms+' ms';
+    }catch(e){ st.textContent='could not run: '+e.message; }
+  }
+  $('ent-run').addEventListener('click',ent); $('tel-run').addEventListener('click',tel);
+  let started=false;
+  const io=new IntersectionObserver((es,obs)=>{ if(!started&&es.some(e=>e.isIntersecting)){ started=true; obs.disconnect(); ent().then(tel); } },{threshold:.1});
+  io.observe($('pm-ent')); io.observe($('pm-tel'));
+})();
+</script>
+<script type="module">
+import { entangle, teleport } from '/js/photons.js?v=527f880';   // the version: caches held the old copy for a year
+window.qxPhotons = { entangle, teleport };
+window.dispatchEvent(new Event('qx-photons'));
+</script>
+</body>
+</html>

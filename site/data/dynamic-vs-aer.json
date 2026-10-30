@@ -1,0 +1,734 @@
+{
+ "comparisons": 69,
+ "shots_each": 4000,
+ "deterministic": {
+  "count": 8,
+  "all_equal": true
+ },
+ "random": {
+  "count": 61,
+  "min_chi2_p": 0.0331,
+  "max_tvd": 0.0823,
+  "p_histogram_tenths": [
+   4,
+   1,
+   7,
+   4,
+   8,
+   2,
+   7,
+   4,
+   8,
+   16
+  ]
+ },
+ "power_checks": [
+  {
+   "bug": "teleportation, Aer with X and Z driven by the wrong bits",
+   "tvd": 0.4893,
+   "chi2_p": 0.0
+  },
+  {
+   "bug": "Steane, Aer's decoder off by one position (error on qubit 3)",
+   "tvd": 1.0,
+   "chi2_p": 0.0
+  },
+  {
+   "bug": "state vectors: one rotation angle changed by 0.01 rad (12 qubits)",
+   "fidelity_gap": 2.499979167069899e-05
+  }
+ ],
+ "note": "QxSim's data readouts (with the error left in, and corrected) against Qiskit Aer dynamic circuits with mid-circuit measurement, reset and classically conditioned corrections; teleportation with Alice's bits measured and fed forward. Deterministic comparisons (one outcome on both sides) are checked for equality; for the others the chi-square p-values should be roughly uniform. Many comparisons share a circuit after correction, so they are not independent.",
+ "rows": [
+  {
+   "code": "phaseflip",
+   "error_qubit": null,
+   "stage": "with the error",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": null,
+   "stage": "corrected",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": 0,
+   "stage": "with the error",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": 0,
+   "stage": "corrected",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": 1,
+   "stage": "with the error",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": 1,
+   "stage": "corrected",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": 2,
+   "stage": "with the error",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "phaseflip",
+   "error_qubit": 2,
+   "stage": "corrected",
+   "outcomes_ours": 1,
+   "outcomes_aer": 1,
+   "tvd": 0.0,
+   "chi2_p": 1.0,
+   "deterministic": true
+  },
+  {
+   "code": "shor9",
+   "error_qubit": null,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0555,
+   "chi2_p": 0.9957,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": null,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0607,
+   "chi2_p": 0.9357,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 0,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0675,
+   "chi2_p": 0.8269,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 0,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0668,
+   "chi2_p": 0.6196,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 1,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.065,
+   "chi2_p": 0.602,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 1,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0555,
+   "chi2_p": 0.9632,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 2,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.075,
+   "chi2_p": 0.2983,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 2,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.079,
+   "chi2_p": 0.057,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 3,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.073,
+   "chi2_p": 0.3924,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 3,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0607,
+   "chi2_p": 0.9107,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 4,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0823,
+   "chi2_p": 0.0331,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 4,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0505,
+   "chi2_p": 0.9998,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 5,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0685,
+   "chi2_p": 0.6314,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 5,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0618,
+   "chi2_p": 0.914,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 6,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0783,
+   "chi2_p": 0.2264,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 6,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0725,
+   "chi2_p": 0.4309,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 7,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0612,
+   "chi2_p": 0.9444,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 7,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.078,
+   "chi2_p": 0.235,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 8,
+   "stage": "with the error",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0717,
+   "chi2_p": 0.4697,
+   "deterministic": false
+  },
+  {
+   "code": "shor9",
+   "error_qubit": 8,
+   "stage": "corrected",
+   "outcomes_ours": 64,
+   "outcomes_aer": 64,
+   "tvd": 0.0648,
+   "chi2_p": 0.8984,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": null,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.0205,
+   "chi2_p": 0.8021,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": null,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.0138,
+   "chi2_p": 0.9603,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 0,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.026,
+   "chi2_p": 0.2026,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 0,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.022,
+   "chi2_p": 0.4393,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 1,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.025,
+   "chi2_p": 0.4663,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 1,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.026,
+   "chi2_p": 0.2818,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 2,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.029,
+   "chi2_p": 0.1017,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 2,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.0145,
+   "chi2_p": 0.8012,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 3,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.0205,
+   "chi2_p": 0.4092,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 3,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.029,
+   "chi2_p": 0.2427,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 4,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.0183,
+   "chi2_p": 0.7475,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 4,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.01,
+   "chi2_p": 0.9749,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 5,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.0208,
+   "chi2_p": 0.6261,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 5,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.037,
+   "chi2_p": 0.0582,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 6,
+   "stage": "with the error",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.009,
+   "chi2_p": 0.9964,
+   "deterministic": false
+  },
+  {
+   "code": "steane7",
+   "error_qubit": 6,
+   "stage": "corrected",
+   "outcomes_ours": 8,
+   "outcomes_aer": 8,
+   "tvd": 0.024,
+   "chi2_p": 0.502,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": null,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0268,
+   "chi2_p": 0.8687,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": null,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0305,
+   "chi2_p": 0.8098,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 0,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0355,
+   "chi2_p": 0.4875,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 0,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0255,
+   "chi2_p": 0.9202,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 1,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0258,
+   "chi2_p": 0.8287,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 1,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0198,
+   "chi2_p": 0.9862,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 2,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.032,
+   "chi2_p": 0.6469,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 2,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0243,
+   "chi2_p": 0.943,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 3,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0288,
+   "chi2_p": 0.8435,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 3,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0245,
+   "chi2_p": 0.9775,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 4,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0328,
+   "chi2_p": 0.7088,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 4,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.031,
+   "chi2_p": 0.6072,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 5,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0283,
+   "chi2_p": 0.7668,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 5,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0163,
+   "chi2_p": 0.997,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 6,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0285,
+   "chi2_p": 0.4091,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 6,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0245,
+   "chi2_p": 0.9104,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 7,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0388,
+   "chi2_p": 0.308,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 7,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.036,
+   "chi2_p": 0.3444,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 8,
+   "stage": "with the error",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0358,
+   "chi2_p": 0.6056,
+   "deterministic": false
+  },
+  {
+   "code": "surface3",
+   "error_qubit": 8,
+   "stage": "corrected",
+   "outcomes_ours": 16,
+   "outcomes_aer": 16,
+   "tvd": 0.0375,
+   "chi2_p": 0.2622,
+   "deterministic": false
+  },
+  {
+   "code": "teleport",
+   "error_qubit": null,
+   "stage": "random \u03c8, seed 1",
+   "outcomes_ours": 4,
+   "outcomes_aer": 4,
+   "tvd": 0.0253,
+   "chi2_p": 0.0755,
+   "deterministic": false
+  },
+  {
+   "code": "teleport",
+   "error_qubit": null,
+   "stage": "random \u03c8, seed 2",
+   "outcomes_ours": 4,
+   "outcomes_aer": 4,
+   "tvd": 0.0152,
+   "chi2_p": 0.5496,
+   "deterministic": false
+  },
+  {
+   "code": "teleport",
+   "error_qubit": null,
+   "stage": "random \u03c8, seed 3",
+   "outcomes_ours": 4,
+   "outcomes_aer": 4,
+   "tvd": 0.0103,
+   "chi2_p": 0.7422,
+   "deterministic": false
+  },
+  {
+   "code": "teleport",
+   "error_qubit": null,
+   "stage": "random \u03c8, seed 4",
+   "outcomes_ours": 4,
+   "outcomes_aer": 4,
+   "tvd": 0.0183,
+   "chi2_p": 0.3213,
+   "deterministic": false
+  },
+  {
+   "code": "teleport",
+   "error_qubit": null,
+   "stage": "random \u03c8, seed 5",
+   "outcomes_ours": 4,
+   "outcomes_aer": 4,
+   "tvd": 0.0165,
+   "chi2_p": 0.472,
+   "deterministic": false
+  }
+ ]
+}

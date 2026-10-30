@@ -1,0 +1,35 @@
+{
+ "type1": {
+  "kraus_plus_vs_|0⟩⟨00|+|1⟩⟨11| over √2": 1.1102230246251565e-16,
+  "kraus_minus_vs_|0⟩⟨00|−|1⟩⟨11| over √2": 1.1102230246251565e-16,
+  "success_equals_HH_plus_VV_weight_max_diff": 2.220446049250313e-16,
+  "success_on_plus_plus": 0.5,
+  "HV_fails_with_port2_empty": 1.0,
+  "VH_fails_with_two_photons_on_port2": 1.0000000000000002
+ },
+ "type2": {
+  "success_outcomes": {
+   "1010": {
+    "bell_state": "Φ+",
+    "overlap": 0.9999999999999996,
+    "weight": 0.5000000000000001
+   },
+   "1001": {
+    "bell_state": "Ψ+",
+    "overlap": 0.9999999999999996,
+    "weight": 0.5000000000000001
+   },
+   "0110": {
+    "bell_state": "Ψ+",
+    "overlap": 0.9999999999999996,
+    "weight": 0.5000000000000001
+   },
+   "0101": {
+    "bell_state": "Φ+",
+    "overlap": 0.9999999999999996,
+    "weight": 0.5000000000000001
+   }
+  },
+  "success_probability_on_any_input_avg": 0.5000000000000001
+ }
+}

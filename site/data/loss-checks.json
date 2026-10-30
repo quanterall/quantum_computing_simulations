@@ -1,0 +1,122 @@
+{
+ "povm": {
+  "cases": "\u03b7 = 0.3, 0.7, 0.95; n = 0..4",
+  "max_diff_from_eqs_80_81": 4.440892098500626e-16
+ },
+ "heralded_vs_eta": [
+  {
+   "eta": 1.0,
+   "ns_herald_resolving": 0.25000000121136,
+   "ns_fidelity_resolving": 1.0,
+   "cz_herald_resolving": 0.0624999992688795,
+   "cz_fidelity_resolving": 0.9999999999999996,
+   "ns_herald_bucket": 0.513071187777858,
+   "ns_fidelity_bucket": 0.7216037434197062,
+   "cz_herald_bucket": 0.1339229312038311,
+   "cz_fidelity_bucket": 0.46668631508486236
+  },
+  {
+   "eta": 0.99,
+   "ns_herald_resolving": 0.2506728297768852,
+   "ns_fidelity_resolving": 0.9941323759129244,
+   "cz_herald_resolving": 0.0622783526482883,
+   "cz_fidelity_resolving": 0.9835881438510141,
+   "ns_herald_bucket": 0.5110292157702017,
+   "ns_fidelity_bucket": 0.7198874350131651,
+   "cz_herald_bucket": 0.13204778573345832,
+   "cz_fidelity_bucket": 0.46389455864921514
+  },
+  {
+   "eta": 0.97,
+   "ns_herald_resolving": 0.2520534794016179,
+   "ns_fidelity_resolving": 0.9822460591575698,
+   "cz_herald_resolving": 0.06179125699987395,
+   "cz_fidelity_resolving": 0.951692070485128,
+   "ns_herald_bucket": 0.5068356998936362,
+   "ns_fidelity_bucket": 0.7164576301493418,
+   "cz_herald_bucket": 0.1282971856742192,
+   "cz_fidelity_bucket": 0.4583596203069759
+  },
+  {
+   "eta": 0.95,
+   "ns_herald_resolving": 0.25346516471313274,
+   "ns_fidelity_resolving": 0.9702058009991806,
+   "cz_herald_resolving": 0.06124430601706326,
+   "cz_fidelity_resolving": 0.9210039758544804,
+   "ns_herald_bucket": 0.5024907531852615,
+   "ns_fidelity_bucket": 0.7130331917849637,
+   "cz_herald_bucket": 0.1245474766888078,
+   "cz_fidelity_bucket": 0.4528895393127829
+  },
+  {
+   "eta": 0.9,
+   "ns_herald_resolving": 0.2570071439713402,
+   "ns_fidelity_resolving": 0.9397673142164976,
+   "cz_herald_resolving": 0.05960593252361868,
+   "cz_fidelity_resolving": 0.8493282004728702,
+   "ns_herald_bucket": 0.49092386326782167,
+   "ns_fidelity_bucket": 0.7045075018842695,
+   "cz_herald_bucket": 0.11518815337240601,
+   "cz_fidelity_bucket": 0.4394983158044088
+  },
+  {
+   "eta": 0.85,
+   "ns_herald_resolving": 0.2603330457710969,
+   "ns_fidelity_resolving": 0.9093850926378638,
+   "cz_herald_resolving": 0.05756918411942317,
+   "cz_fidelity_resolving": 0.7843823073485288,
+   "ns_herald_bucket": 0.4782704864604455,
+   "ns_fidelity_bucket": 0.696053033023624,
+   "cz_herald_bucket": 0.1058733355940021,
+   "cz_fidelity_bucket": 0.4265120128540052
+  },
+  {
+   "eta": 0.8,
+   "ns_herald_resolving": 0.2631499768975175,
+   "ns_fidelity_resolving": 0.8795895685635933,
+   "cz_herald_resolving": 0.05512934963060203,
+   "cz_fidelity_resolving": 0.7255663235664049,
+   "ns_herald_bucket": 0.46443059119804053,
+   "ns_fidelity_bucket": 0.6876925902922789,
+   "cz_herald_bucket": 0.09663514887655733,
+   "cz_fidelity_bucket": 0.41392805823871853
+  },
+  {
+   "eta": 0.7,
+   "ns_herald_resolving": 0.26608535427080815,
+   "ns_fidelity_resolving": 0.8231574297119635,
+   "cz_herald_resolving": 0.04907649517982463,
+   "cz_fidelity_resolving": 0.6240258096984258,
+   "ns_herald_bucket": 0.43279111904777307,
+   "ns_fidelity_bucket": 0.6713287804463485,
+   "cz_herald_bucket": 0.07853592663431638,
+   "cz_fidelity_bucket": 0.38994891833834067
+  },
+  {
+   "eta": 0.6,
+   "ns_herald_resolving": 0.2634701303721287,
+   "ns_fidelity_resolving": 0.7721723503923188,
+   "cz_herald_resolving": 0.04162934968524976,
+   "cz_fidelity_resolving": 0.5404840552858525,
+   "ns_herald_bucket": 0.39520519429627793,
+   "ns_fidelity_bucket": 0.655537353820583,
+   "cz_herald_bucket": 0.061222514501075014,
+   "cz_fidelity_bucket": 0.367511852790717
+  },
+  {
+   "eta": 0.5,
+   "ns_herald_resolving": 0.2529611594823956,
+   "ns_fidelity_resolving": 0.7270901470261646,
+   "cz_herald_resolving": 0.03314562958480903,
+   "cz_fidelity_resolving": 0.47140452641699016,
+   "ns_herald_bucket": 0.35087256442281345,
+   "ns_fidelity_bucket": 0.6403995286484602,
+   "cz_herald_bucket": 0.04508695926958575,
+   "cz_fidelity_bucket": 0.34655253027364863
+  }
+ ],
+ "erasure_channel": {
+  "cases": 30,
+  "max_diff_from_eta_rho_plus_vacuum": 2.220446049250313e-16
+ }
+}

@@ -1,0 +1,205 @@
+{
+ "squeezed_vacuum_fock_vs_closed_form": {
+  "pass": true,
+  "cases": 10,
+  "max_diff": 8.252553640799243e-15,
+  "power_phi_flipped": 0.667894903246287
+ },
+ "eq24_canonical_transformation": {
+  "pass": true,
+  "cases": 5,
+  "max_diff": 8.632229426432535e-14,
+  "power_conjugate_phase": 2.5081023175502297
+ },
+ "eq26_quadrature_variances": {
+  "pass": true,
+  "cases": 5,
+  "max_diff_consistent_signs": 1.3322676295501878e-14,
+  "max_diff_eq22_with_eq25_as_printed": 5.591200236811391
+ },
+ "cat_fock_vs_q_grid": {
+  "pass": true,
+  "beta": 2.0,
+  "max_diff": 8.158435347918912e-16
+ },
+ "cat_normalised_and_parity": {
+  "pass": true,
+  "even_parity": 1.0,
+  "odd_parity": -0.9999999999999994
+ },
+ "eq40_normalisation_as_printed": {
+  "pass": true,
+  "norm_squared_with_N_inverse": 0.4998323249347668,
+  "expected_one_over_N": 0.4998323249347668
+ },
+ "coherent_overlap_e_minus_4_alpha_sq": {
+  "pass": true,
+  "alpha": 2.0,
+  "overlap": 1.1253517471941112e-07
+ },
+ "cat_wigner_origin_is_parity_over_pi": {
+  "pass": true,
+  "even": 0.3183098861837905,
+  "odd": -0.3183098861837905
+ },
+ "gkp_logical_z": {
+  "pass": true,
+  "Z_on_0": 0.9244652503761747,
+  "Z_on_1": -0.924465250376884,
+  "predicted": [
+   0.9244652503761743,
+   -0.9244652503761743
+  ],
+  "single_peak_value": 0.9244652503762558,
+  "overlap_0_1": 0.0007703324099419224,
+  "overlap_predicted": 0.0007703324099425982
+ },
+ "gkp_logical_x_shift": {
+  "pass": true,
+  "fidelity_X0_with_1": 0.9844147633651028,
+  "predicted": 0.9844147633517139
+ },
+ "gkp_p_combs": {
+  "pass": true,
+  "spacing_0": 1.7671458676442586,
+  "spacing_plus": 3.5342917352885173,
+  "minus_offset": 1.7671458676442586,
+  "expected": [
+   1.772453850905516,
+   3.544907701811032,
+   1.772453850905516
+  ],
+  "grid_dp": 0.06544984694983214
+ },
+ "fft_unitary": {
+  "pass": true,
+  "norm_in_p": 1.0000000000006846
+ },
+ "gkp_readout_mc_vs_exact": {
+  "pass": true,
+  "shots": 200000,
+  "points": 16
+ },
+ "gkp_readout_closed_form_vs_exact": {
+  "pass": true,
+  "max_abs_diff": 1.4792147635069226e-07,
+  "note": "closed form neglects the envelope; differences are the envelope's"
+ },
+ "gkp_readout_power": {
+  "pass": true,
+  "exact_at_0_3": 0.01785839669354503,
+  "wrong_spacing": 0.07066290478823209,
+  "closed_without_peak_width": 0.0031359278942524327
+ },
+ "eq39_correctable_shifts": {
+  "pass": true,
+  "max_dev_from_single_peak": 0.002389439339953614,
+  "q_error_at_bound": 0.5000001121790713,
+  "p_error_at_bound": 0.5000232783614487
+ },
+ "fig5_digitised": {
+  "pass": true,
+  "spacing_zero": 3.5450899110380183,
+  "spacing_one": 3.547426589250943,
+  "two_sqrt_pi": 3.5449077018110318,
+  "envelope_c_zero": 0.004999461749031152,
+  "envelope_c_one": 0.019978979090239473,
+  "ratio": 3.996226012552493,
+  "peak_var_zero": 0.11099999999999999,
+  "peak_var_one": 0.11099999999999999,
+  "caption_e_plus_2r": 11.023176380641601,
+  "e_minus_2r": 0.09071795328941251
+ },
+ "fig5_reading": "peaks at multiples of \u221a\u03c0 on the plotted axis (\u03b1 = \u221a\u03c0 on q); each peak's variance fits 0.11 (the plotted polyline is coarse at the tips) \u2014 near e^{\u22122r} = 0.09 for r = 1.2, nowhere near the caption's e^{2r} = 11; the |1\u0303\u27e9 envelope falls off four times faster than the |0\u0303\u27e9 one (ratio 4.00), which one \u0394 in Eq. 38 cannot give. With the caption's \u0394\u0303 = 0.01 both are matched by amplitudes e^{\u2212\u0394\u0303(s\u03b1)\u00b2} for |0\u0303\u27e9 and e^{\u2212\u0394\u0303[(2s+1)\u03b1]\u00b2} for |1\u0303\u27e9: the |0\u0303\u27e9 panel uses s where Eq. 38 has 2s.",
+ "eq69_povm_complete_eq70_not": {
+  "pass": true,
+  "eq69_integral": [
+   1.0000000000001554,
+   0.9999999990286824,
+   1.000000000000156,
+   1.0000000000001459
+  ],
+  "eq70_printed_integral": [
+   0.707106781186658,
+   0.707106781186658,
+   0.7071067811866583,
+   0.7071067811866579
+  ]
+ },
+ "eq73_probability_normalised": {
+  "pass": true,
+  "integral": 0.9999999998734167
+ },
+ "heralded_comb_gaps": {
+  "pass": true,
+  "max_dev": 0.025036571829651688,
+  "samples": 6
+ },
+ "heralded_comb_y0_uniform": {
+  "pass": true,
+  "gaps": [
+   1.77
+  ],
+  "expected": 1.772453850905516
+ },
+ "heralded_comb": {
+  "beta": 3.0,
+  "theta": 1.7724538509055159,
+  "phi": 0.0,
+  "input": "S(1.5) phase-squeezed (q anti-squeezed)",
+  "samples": [
+   {
+    "y": 0.0,
+    "peaks": 8,
+    "gaps": [
+     1.77
+    ]
+   },
+   {
+    "y": -3.3406427364439146,
+    "peaks": 8,
+    "gaps": [
+     1.1,
+     1.11,
+     2.43,
+     2.44
+    ]
+   },
+   {
+    "y": 1.8394529451593133,
+    "peaks": 8,
+    "gaps": [
+     1.41,
+     1.42,
+     2.12
+    ]
+   },
+   {
+    "y": -5.508567550685166,
+    "peaks": 8,
+    "gaps": [
+     0.45,
+     0.46,
+     3.06,
+     3.07
+    ]
+   },
+   {
+    "y": 6.149954942684601,
+    "peaks": 5,
+    "gaps": [
+     3.46,
+     3.51
+    ]
+   },
+   {
+    "y": -5.339013109495185,
+    "peaks": 8,
+    "gaps": [
+     0.53,
+     3.0
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" role="img" aria-label="Surface code with erasure and bit flips: logical error against the flip probability, without erasure and with 20 percent erasure" font-family="IBM Plex Mono, monospace" font-size="11">
+<rect width="760" height="380" fill="#0f1726"/>
+<line x1="64" y1="334.0" x2="740" y2="334.0" stroke="#1e2a40"/><text x="56" y="338.0" fill="#7a879c" text-anchor="end">0</text>
+<line x1="64" y1="264.2" x2="740" y2="264.2" stroke="#1e2a40"/><text x="56" y="268.2" fill="#7a879c" text-anchor="end">0.1</text>
+<line x1="64" y1="194.4" x2="740" y2="194.4" stroke="#1e2a40"/><text x="56" y="198.4" fill="#7a879c" text-anchor="end">0.2</text>
+<line x1="64" y1="124.7" x2="740" y2="124.7" stroke="#1e2a40"/><text x="56" y="128.7" fill="#7a879c" text-anchor="end">0.3</text>
+<line x1="64" y1="54.9" x2="740" y2="54.9" stroke="#1e2a40"/><text x="56" y="58.9" fill="#7a879c" text-anchor="end">0.4</text>
+<line x1="64.0" y1="20" x2="64.0" y2="334" stroke="#1e2a40"/><text x="64.0" y="350" fill="#7a879c" text-anchor="middle">0.02</text>
+<line x1="199.2" y1="20" x2="199.2" y2="334" stroke="#1e2a40"/><text x="199.2" y="350" fill="#7a879c" text-anchor="middle">0.04</text>
+<line x1="334.4" y1="20" x2="334.4" y2="334" stroke="#1e2a40"/><text x="334.4" y="350" fill="#7a879c" text-anchor="middle">0.06</text>
+<line x1="469.6" y1="20" x2="469.6" y2="334" stroke="#1e2a40"/><text x="469.6" y="350" fill="#7a879c" text-anchor="middle">0.08</text>
+<line x1="604.8" y1="20" x2="604.8" y2="334" stroke="#1e2a40"/><text x="604.8" y="350" fill="#7a879c" text-anchor="middle">0.1</text>
+<line x1="740.0" y1="20" x2="740.0" y2="334" stroke="#1e2a40"/><text x="740.0" y="350" fill="#7a879c" text-anchor="middle">0.12</text>
+<text x="402.0" y="370" fill="#9aa6bb" text-anchor="middle">bit-flip probability on the other qubits</text>
+<text x="14" y="177.0" fill="#9aa6bb" text-anchor="middle" transform="rotate(-90 14 177.0)">logical error</text>
+<polyline points="64.0,329.6 199.2,316.5 334.4,299.5 469.6,275.7 604.8,249.2 740.0,219.6" fill="none" stroke="#6ab0ff" stroke-width="2"/>
+<circle cx="64.0" cy="329.6" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="199.2" cy="316.5" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="334.4" cy="299.5" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="469.6" cy="275.7" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="604.8" cy="249.2" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="740.0" cy="219.6" r="3.5" fill="none" stroke="#6ab0ff"/>
+<polyline points="64.0,331.7 199.2,321.9 334.4,297.2 469.6,267.7 604.8,232.7 740.0,189.0" fill="none" stroke="#a8ff3e" stroke-width="2"/>
+<circle cx="64.0" cy="332.5" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="199.2" cy="324.4" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="334.4" cy="306.2" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="469.6" cy="280.5" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="604.8" cy="247.7" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="740.0" cy="209.3" r="3.5" fill="none" stroke="#a8ff3e"/>
+<polyline points="64.0,333.4 199.2,325.7 334.4,304.8 469.6,268.5 604.8,222.4 740.0,169.9" fill="none" stroke="#f472b6" stroke-width="2"/>
+<circle cx="64.0" cy="333.7" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="199.2" cy="328.6" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="334.4" cy="314.6" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="469.6" cy="285.3" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="604.8" cy="246.3" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="740.0" cy="198.1" r="3.5" fill="none" stroke="#f472b6"/>
+<polyline points="64.0,285.5 199.2,259.7 334.4,230.7 469.6,198.9 604.8,175.7 740.0,153.0" fill="none" stroke="#6ab0ff" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="64.0" cy="287.1" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="199.2" cy="259.8" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="334.4" cy="233.6" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="469.6" cy="206.3" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="604.8" cy="183.7" r="3.5" fill="none" stroke="#6ab0ff"/>
+<circle cx="740.0" cy="157.8" r="3.5" fill="none" stroke="#6ab0ff"/>
+<polyline points="64.0,304.1 199.2,270.3 334.4,231.6 469.6,191.9 604.8,155.4 740.0,120.2" fill="none" stroke="#a8ff3e" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="64.0" cy="304.7" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="199.2" cy="275.2" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="334.4" cy="234.1" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="469.6" cy="195.7" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="604.8" cy="159.0" r="3.5" fill="none" stroke="#a8ff3e"/>
+<circle cx="740.0" cy="124.3" r="3.5" fill="none" stroke="#a8ff3e"/>
+<polyline points="64.0,313.7 199.2,277.4 334.4,232.7 469.6,183.0 604.8,143.8 740.0,96.6" fill="none" stroke="#f472b6" stroke-width="2" stroke-dasharray="5 4"/>
+<circle cx="64.0" cy="313.5" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="199.2" cy="279.7" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="334.4" cy="237.4" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="469.6" cy="191.0" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="604.8" cy="149.3" r="3.5" fill="none" stroke="#f472b6"/>
+<circle cx="740.0" cy="109.3" r="3.5" fill="none" stroke="#f472b6"/>
+<line x1="80" y1="34" x2="100" y2="34" stroke="#6ab0ff" stroke-width="2"/><text x="106" y="38" fill="#c8d4e8">d = 3, no erasure</text>
+<line x1="80" y1="50" x2="100" y2="50" stroke="#a8ff3e" stroke-width="2"/><text x="106" y="54" fill="#c8d4e8">d = 5, no erasure</text>
+<line x1="80" y1="66" x2="100" y2="66" stroke="#f472b6" stroke-width="2"/><text x="106" y="70" fill="#c8d4e8">d = 7, no erasure</text>
+<line x1="80" y1="82" x2="100" y2="82" stroke="#6ab0ff" stroke-width="2" stroke-dasharray="5 4"/><text x="106" y="86" fill="#c8d4e8">d = 3, 20 % erasure</text>
+<line x1="80" y1="98" x2="100" y2="98" stroke="#a8ff3e" stroke-width="2" stroke-dasharray="5 4"/><text x="106" y="102" fill="#c8d4e8">d = 5, 20 % erasure</text>
+<line x1="80" y1="114" x2="100" y2="114" stroke="#f472b6" stroke-width="2" stroke-dasharray="5 4"/><text x="106" y="118" fill="#c8d4e8">d = 7, 20 % erasure</text>
+<text x="80" y="136" fill="#7a879c">— QxDecode   ○ PyMatching, erased edges at weight 0</text>
+</svg>

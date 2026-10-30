@@ -1,0 +1,7 @@
+# quanterall.com — every page may be indexed; the live simulation API is not a page (and is rate-limited)
+User-agent: *
+Allow: /
+Disallow: /quantum/
+Disallow: /health
+
+Sitemap: https://quanterall.com/sitemap.xml

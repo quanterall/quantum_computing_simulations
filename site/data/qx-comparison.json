@@ -1,0 +1,203 @@
+{
+ "qx": "https://github.com/richarc/qx",
+ "tags": [
+  "v0.2.0",
+  "v0.2.1",
+  "v0.2.2",
+  "v0.2.3",
+  "v0.2.4",
+  "v0.2.5",
+  "v0.3.0",
+  "v0.4.0",
+  "v0.5.0",
+  "v0.5.1",
+  "v0.5.2",
+  "v0.6.0",
+  "v0.7.0",
+  "v0.7.1",
+  "v0.8.0",
+  "v0.8.1",
+  "v0.9.0",
+  "v0.10.0",
+  "v0.10.1",
+  "v0.11.0"
+ ],
+ "commits_searched": 207,
+ "qx_depends_on_nx_at_every_tag": true,
+ "our_service_depends_on_qx": false,
+ "identifier_hits_in_qx_history": {
+  "QxSim": 0,
+  "QxDemo": 0,
+  "QxStab": 0,
+  "QxProcesses": 0,
+  "visualisation_hint": 0,
+  "counts_before": 0,
+  "syndrome_counts": 0,
+  "corrected_counts": 0,
+  "logical_fidelity": 0,
+  "majority_decode": 0,
+  "build_cdf": 0,
+  "bisect": 0,
+  "sample_low": 0,
+  "measure_reset": 0,
+  "cmulmod": 0,
+  "frame_batch": 0,
+  "qec_cycle": 0,
+  "run_bitflip_repetition": 0,
+  "tuple_state_vector": 0
+ },
+ "our_shingles_found_in_qx_max": {
+  "application.ex": 0.0,
+  "quantum_limiter.ex": 0.0091,
+  "qx_demo.ex": 0.0076,
+  "qx_processes.ex": 0.0198,
+  "qx_stab.ex": 0.0074
+ },
+ "positive_control_consecutive_qx_releases": {
+  "min": 0.9209,
+  "median": 0.9962
+ },
+ "method": "8-token shingles after removing comments, docs and string contents; containment = share of our shingles present in qx's lib/ at a release",
+ "per_tag": {
+  "v0.2.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.0049,
+   "qx_processes.ex": 0.0161,
+   "qx_stab.ex": 0.0047
+  },
+  "v0.2.1": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.005,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0047
+  },
+  "v0.2.2": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.005,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0047
+  },
+  "v0.2.3": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.005,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0047
+  },
+  "v0.2.4": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.005,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0043
+  },
+  "v0.2.5": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.005,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0043
+  },
+  "v0.3.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.005,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0043
+  },
+  "v0.4.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.0055,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0061
+  },
+  "v0.5.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.0055,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0063
+  },
+  "v0.5.1": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.0055,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0063
+  },
+  "v0.5.2": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0,
+   "qx_demo.ex": 0.0055,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0063
+  },
+  "v0.6.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0045,
+   "qx_demo.ex": 0.0064,
+   "qx_processes.ex": 0.0195,
+   "qx_stab.ex": 0.0065
+  },
+  "v0.7.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0071,
+   "qx_processes.ex": 0.0198,
+   "qx_stab.ex": 0.007
+  },
+  "v0.7.1": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0071,
+   "qx_processes.ex": 0.0198,
+   "qx_stab.ex": 0.007
+  },
+  "v0.8.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0074,
+   "qx_processes.ex": 0.0189,
+   "qx_stab.ex": 0.0074
+  },
+  "v0.8.1": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0076,
+   "qx_processes.ex": 0.0189,
+   "qx_stab.ex": 0.0074
+  },
+  "v0.9.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0076,
+   "qx_processes.ex": 0.0189,
+   "qx_stab.ex": 0.0074
+  },
+  "v0.10.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0058,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0054
+  },
+  "v0.10.1": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0058,
+   "qx_processes.ex": 0.0183,
+   "qx_stab.ex": 0.0054
+  },
+  "v0.11.0": {
+   "application.ex": 0.0,
+   "quantum_limiter.ex": 0.0091,
+   "qx_demo.ex": 0.0059,
+   "qx_processes.ex": 0.018,
+   "qx_stab.ex": 0.0054
+  }
+ }
+}

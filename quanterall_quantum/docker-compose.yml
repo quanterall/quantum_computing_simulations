@@ -1,0 +1,19 @@
+services:
+  quantum:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: quanterall-quantum:latest
+    container_name: quanterall_quantum
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - MIX_ENV=prod
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

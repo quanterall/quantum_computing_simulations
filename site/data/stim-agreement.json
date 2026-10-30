@@ -1,0 +1,186 @@
+{
+ "detectors": {
+  "tests": 3360,
+  "share_p_below_0.0027": 0.002976190476190476,
+  "expected_share": 0.0027,
+  "smallest_p": 0.0003266620799908526,
+  "smallest_p_bonferroni": 1.0
+ },
+ "detector_and_observable": {
+  "tests": 3360,
+  "share_p_below_0.0027": 0.0035714285714285713,
+  "expected_share": 0.0027,
+  "smallest_p": 0.00012454683852313264,
+  "smallest_p_bonferroni": 0.4184773774377257
+ },
+ "pairs": {
+  "tests": 7140,
+  "share_p_below_0.0027": 0.0018207282913165266,
+  "expected_share": 0.0027,
+  "smallest_p": 1.8908401575600287e-05,
+  "smallest_p_bonferroni": 0.13500598724978605
+ },
+ "logical_error_rates": {
+  "tests": 21,
+  "smallest_p": 0.03314396778750544,
+  "smallest_p_bonferroni": 0.6960233235376142,
+  "rows": [
+   {
+    "d": 3,
+    "p": 0.001,
+    "beam_failures": 83,
+    "stim_failures": 88,
+    "p_value": 0.7597940341218291
+   },
+   {
+    "d": 3,
+    "p": 0.002,
+    "beam_failures": 299,
+    "stim_failures": 314,
+    "p_value": 0.5718002290572527
+   },
+   {
+    "d": 3,
+    "p": 0.004,
+    "beam_failures": 1226,
+    "stim_failures": 1182,
+    "p_value": 0.3808846154049496
+   },
+   {
+    "d": 3,
+    "p": 0.006,
+    "beam_failures": 2521,
+    "stim_failures": 2518,
+    "p_value": 0.9775232639002855
+   },
+   {
+    "d": 3,
+    "p": 0.008,
+    "beam_failures": 4177,
+    "stim_failures": 4168,
+    "p_value": 0.9302156964512769
+   },
+   {
+    "d": 3,
+    "p": 0.01,
+    "beam_failures": 6097,
+    "stim_failures": 6296,
+    "p_value": 0.07530200767421161
+   },
+   {
+    "d": 3,
+    "p": 0.012,
+    "beam_failures": 8201,
+    "stim_failures": 8282,
+    "p_value": 0.5332067769797123
+   },
+   {
+    "d": 5,
+    "p": 0.001,
+    "beam_failures": 20,
+    "stim_failures": 18,
+    "p_value": 0.8714146793645341
+   },
+   {
+    "d": 5,
+    "p": 0.002,
+    "beam_failures": 101,
+    "stim_failures": 97,
+    "p_value": 0.8312377211582062
+   },
+   {
+    "d": 5,
+    "p": 0.004,
+    "beam_failures": 731,
+    "stim_failures": 755,
+    "p_value": 0.5507566065810623
+   },
+   {
+    "d": 5,
+    "p": 0.006,
+    "beam_failures": 2364,
+    "stim_failures": 2353,
+    "p_value": 0.8842376511064309
+   },
+   {
+    "d": 5,
+    "p": 0.008,
+    "beam_failures": 5042,
+    "stim_failures": 4974,
+    "p_value": 0.5032010886847522
+   },
+   {
+    "d": 5,
+    "p": 0.01,
+    "beam_failures": 8427,
+    "stim_failures": 8304,
+    "p_value": 0.3455843332670527
+   },
+   {
+    "d": 5,
+    "p": 0.012,
+    "beam_failures": 12401,
+    "stim_failures": 12505,
+    "p_value": 0.5139780128304257
+   },
+   {
+    "d": 7,
+    "p": 0.001,
+    "beam_failures": 2,
+    "stim_failures": 3,
+    "p_value": 1.0
+   },
+   {
+    "d": 7,
+    "p": 0.002,
+    "beam_failures": 37,
+    "stim_failures": 20,
+    "p_value": 0.03314396778750544
+   },
+   {
+    "d": 7,
+    "p": 0.004,
+    "beam_failures": 429,
+    "stim_failures": 456,
+    "p_value": 0.3821395612470304
+   },
+   {
+    "d": 7,
+    "p": 0.006,
+    "beam_failures": 1934,
+    "stim_failures": 1875,
+    "p_value": 0.34733575365950914
+   },
+   {
+    "d": 7,
+    "p": 0.008,
+    "beam_failures": 5249,
+    "stim_failures": 5292,
+    "p_value": 0.6824828351208629
+   },
+   {
+    "d": 7,
+    "p": 0.01,
+    "beam_failures": 10391,
+    "stim_failures": 10360,
+    "p_value": 0.8350281311836525
+   },
+   {
+    "d": 7,
+    "p": 0.012,
+    "beam_failures": 16675,
+    "stim_failures": 16746,
+    "p_value": 0.7017925847333898
+   }
+  ]
+ },
+ "power_check": {
+  "what": "Stim at p = 0.65 % against Stim at p = 0.6 %, d = 5, per detector: the tests must find this",
+  "tests": 120,
+  "share_p_below_0.0027": 0.9666666666666667,
+  "expected_share": 0.0027,
+  "smallest_p": 5.442264486299932e-15,
+  "smallest_p_bonferroni": 6.530717383559918e-13
+ },
+ "note": "exact two-sided binomial tests of our count against Stim's, conditional on their sum; the tests are correlated (detectors share error mechanisms), so the shares are a guide rather than a calibrated test"
+}
