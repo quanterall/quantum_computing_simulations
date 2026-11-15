@@ -10,6 +10,8 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "qsim"))
 from qsim.fock import FockState, random_unitary  # noqa: E402
+import os
+QX = os.environ.get("QX_CONTAINER", "quanterall_quantum")  # the service container (QX_CONTAINER to use another)
 
 rng = np.random.default_rng(7)
 cases = []
@@ -23,7 +25,7 @@ for m in range(4, 9):
         cases.append({"m": m, "t": t, "U": [[[float(z.real), float(z.imag)] for z in row] for row in U],
                       "py": {",".join(map(str, k)): [v.real, v.imag] for k, v in amps.items()}})
 Path("/tmp/fockx.json").write_text(json.dumps(cases))
-subprocess.run(["docker", "cp", "/tmp/fockx.json", "quanterall_quantum:/tmp/fockx.json"], check=True)
+subprocess.run(["docker", "cp", "/tmp/fockx.json", f"{QX}:/tmp/fockx.json"], check=True)
 code = r'''
 cases = File.read!("/tmp/fockx.json") |> JSON.decode!()
 worst = Enum.reduce(cases, 0.0, fn c, w ->
@@ -38,6 +40,6 @@ worst = Enum.reduce(cases, 0.0, fn c, w ->
   max(w, d) end)
 IO.puts(JSON.encode!(%{cases: length(cases), max_diff: worst}))
 '''
-out = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", "quanterall_quantum", "mix", "run", "--no-start", "-e", code],
+out = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", QX, "mix", "run", "--no-start", "-e", code],
                      capture_output=True, text=True).stdout
 print([l for l in out.splitlines() if l.startswith("{")][-1])

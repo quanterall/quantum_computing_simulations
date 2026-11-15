@@ -14,16 +14,18 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parents[1] / "qsim"))
 from qsim import cv  # noqa: E402
+import os
+QX = os.environ.get("QX_CONTAINER", "quanterall_quantum")  # the service container (QX_CONTAINER to use another)
 
 OUT = Path(sys.argv[1])
 A = cv.SQRT_PI
-subprocess.run(["docker", "exec", "quanterall_quantum", "mkdir", "-p", "/tmp/cv"], check=True)
-subprocess.run(["docker", "cp", str(HERE / "cv_beam.exs"), "quanterall_quantum:/tmp/cv/cv_beam.exs"], check=True)
+subprocess.run(["docker", "exec", QX, "mkdir", "-p", "/tmp/cv"], check=True)
+subprocess.run(["docker", "cp", str(HERE / "cv_beam.exs"), f"{QX}:/tmp/cv/cv_beam.exs"], check=True)
 args = []
 if len(sys.argv) > 2:
-    subprocess.run(["docker", "cp", sys.argv[2], "quanterall_quantum:/tmp/cv/qx_cv.ex"], check=True)
+    subprocess.run(["docker", "cp", sys.argv[2], f"{QX}:/tmp/cv/qx_cv.ex"], check=True)
     args = ["/tmp/cv/qx_cv.ex"]
-out = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", "quanterall_quantum", "mix", "run", "--no-start",
+out = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", QX, "mix", "run", "--no-start",
                       "/tmp/cv/cv_beam.exs", *args], capture_output=True, text=True).stdout
 B = json.loads([l for l in out.splitlines() if l.startswith("{")][-1])
 res = {}

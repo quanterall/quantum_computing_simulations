@@ -1,0 +1,10 @@
+%{
+  "cowboy": {:hex, :cowboy, "2.13.0", "09d770dd5f6a22cc60c071f432cd7cb87776164527f205c5a6b0f24ff6b38990", [:make, :rebar3], [{:cowlib, ">= 2.14.0 and < 3.0.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, ">= 1.8.0 and < 3.0.0", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm", "e724d3a70995025d654c1992c7b11dbfea95205c047d86ff9bf1cda92ddc5614"},
+  "cowlib": {:hex, :cowlib, "2.21.0", "3ea757c79784bdbdebac7857ce3adf2290af6b8680d4248c75e40ced2e98c89e", [:make, :rebar3], [], "hexpm", "0960248773762a5319b3c17285028bc76f54f58ef0f9451367401bdf67b46274"},
+  "erlydtl": {:hex, :erlydtl, "0.14.0", "964b2dc84f8c17acfaa69c59ba129ef26ac45d2ba898c3c6ad9b5bdc8ba13ced", [:rebar3], [], "hexpm", "d80ec044cd8f58809c19d29ac5605be09e955040911b644505e31e9dd8143431"},
+  "jhn_stdlib": {:hex, :jhn_stdlib, "5.4.0", "fac6f19b35351278f1cb156e23a5b2a6047a9dd5ab1fd9e1189a7918006df7ed", [:rebar3], [], "hexpm", "7eabd1b01d2deff495bf7c5ca1dba4d3fa0b84dc3af03ca85f31d52ebb03c6fc"},
+  "nova": {:hex, :nova, "0.13.7", "c37a2161ea1ee643635739282d1df9880d20d9521b6ad3abe6a71c6a6867c842", [:rebar3], [{:cowboy, "2.13.0", [hex: :cowboy, repo: "hexpm", optional: false]}, {:erlydtl, "0.14.0", [hex: :erlydtl, repo: "hexpm", optional: false]}, {:jhn_stdlib, "5.4.0", [hex: :jhn_stdlib, repo: "hexpm", optional: false]}, {:routing_tree, "1.0.11", [hex: :routing_tree, repo: "hexpm", optional: false]}, {:thoas, "1.2.1", [hex: :thoas, repo: "hexpm", optional: false]}], "hexpm", "22f4c3ffdc08db8568f3da198647823d63123520f69c7d718a8db468f4c7a1ea"},
+  "ranch": {:hex, :ranch, "2.3.0", "7de7b041a9a6a5091a3aa5898d66c0564be671d87db4f9d63b1b5ee775b097df", [:make, :rebar3], [], "hexpm", "6168ec49409d982f7cfbd83dd083144f6cbe67caa4036551d2f0a3ad67c9d023"},
+  "routing_tree": {:hex, :routing_tree, "1.0.11", "72acef2095f0ec804f7afd07ef781dde5009425a1ca0a28f0706b1db334a4812", [:rebar3], [], "hexpm", "85982c7ac502892c5179cd2a591331003bacd2d2a71723640ba7d23f45408e6e"},
+  "thoas": {:hex, :thoas, "1.2.1", "19a25f31177a17e74004d4840f66d791d4298c5738790fa2cc73731eb911f195", [:rebar3], [], "hexpm", "e38697edffd6e91bd12cea41b155115282630075c2a727e7a6b2947f5408b86a"},
+}

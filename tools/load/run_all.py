@@ -23,6 +23,8 @@ import statistics
 import subprocess
 import sys
 from pathlib import Path
+import os
+QX = os.environ.get("QX_CONTAINER", "quanterall_quantum")  # the service container (QX_CONTAINER to use another)
 
 LOAD, OUT = Path(sys.argv[1]), Path(sys.argv[2])
 CORES = "5-8,15-18"
@@ -43,7 +45,7 @@ def cmd(decoder, d, *args):
     if decoder == "cpp":
         return ["taskset", "-c", CORES, str(LOAD / "uf"), str(dd), *map(str, args)]
     if decoder == "beam":
-        return ["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", "-e", "ELIXIR_ERL_OPTIONS=+S 8:8", "quanterall_quantum",
+        return ["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", "-e", "ELIXIR_ERL_OPTIONS=+S 8:8", QX,
                 "taskset", "-c", CORES, "mix", "run", "--no-start", "/tmp/load/beam_load.exs", f"/tmp/load/d{d}", *map(str, args)]
     return ["taskset", "-c", CORES, PY, str(HERE / "load_py.py"), decoder, str(dd), *map(str, args)]
 

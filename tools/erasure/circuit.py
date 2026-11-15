@@ -18,8 +18,11 @@ import numpy as np
 import pymatching
 import scipy.sparse as sp
 import stim
+import os
+QX = os.environ.get("QX_CONTAINER", "quanterall_quantum")  # the service container (QX_CONTAINER to use another)
 
 CL, OUT = Path(sys.argv[1]), Path(sys.argv[2])
+HERE = Path(__file__).resolve().parent
 
 
 def graph_from_dem(c, heralds):
@@ -90,9 +93,11 @@ for stim_path in sorted(CL.glob("cl_d*_pe*.stim")):
             f.write(struct.pack(f"<H{len(fired)}H", len(fired), *fired))
             f.write(struct.pack(f"<H{len(er)}H", len(er), *er))
         f.write(obs.astype(np.uint8).tobytes())
-    subprocess.run(["docker", "cp", str(CL / f"{name}.graph.json"), f"quanterall_quantum:/tmp/erasure/cl/{name}.graph.json"], check=True)
-    subprocess.run(["docker", "cp", str(CL / f"{name}.samples.bin"), f"quanterall_quantum:/tmp/erasure/cl/{name}.samples.bin"], check=True)
-    o = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", "quanterall_quantum", "mix", "run", "--no-start",
+    subprocess.run(["docker", "exec", QX, "mkdir", "-p", "/tmp/erasure/cl"], check=True)
+    subprocess.run(["docker", "cp", str(HERE / "decode_erasure.exs"), f"{QX}:/tmp/erasure/decode_erasure.exs"], check=True)
+    subprocess.run(["docker", "cp", str(CL / f"{name}.graph.json"), f"{QX}:/tmp/erasure/cl/{name}.graph.json"], check=True)
+    subprocess.run(["docker", "cp", str(CL / f"{name}.samples.bin"), f"{QX}:/tmp/erasure/cl/{name}.samples.bin"], check=True)
+    o = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", QX, "mix", "run", "--no-start",
                         "/tmp/erasure/decode_erasure.exs", f"/tmp/erasure/cl/{name}.graph.json", f"/tmp/erasure/cl/{name}.samples.bin", str(S)],
                        capture_output=True, text=True).stdout
     uf = json.loads([l for l in o.splitlines() if l.startswith("{")][-1])["failures"]

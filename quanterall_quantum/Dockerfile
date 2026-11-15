@@ -14,7 +14,7 @@ RUN mix local.hex --force && \
     mix local.rebar --force
 
 # Resolve and compile deps
-COPY mix.exs ./
+COPY mix.exs mix.lock ./
 RUN mix deps.get --only prod && \
     mix deps.compile
 

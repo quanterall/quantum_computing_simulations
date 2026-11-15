@@ -3,11 +3,14 @@ shot by shot), on the same samples. (a) pure erasure, d = 3..9, e = 0.30..0.60: 
 (b) erasure plus bit flips, e ∈ {0, 0.1, 0.2}, p swept: the Pauli threshold as the erased share grows.
     ~/quanterall/.venv-tools/bin/python tools/erasure/sweep.py WORK_DIR site/data"""
 import csv
+import shutil
 import json
 import math
 import subprocess
 import sys
 from pathlib import Path
+import os
+QX = os.environ.get("QX_CONTAINER", "quanterall_quantum")  # the service container (QX_CONTAINER to use another)
 
 HERE = Path(__file__).resolve().parent
 PY = sys.executable
@@ -18,8 +21,8 @@ SHOTS = 20000
 
 def run(d, e, p, seed):
     subprocess.run([PY, str(HERE / "codecap.py"), "sample", str(d), str(e), str(p), str(SHOTS), str(seed), str(work)], check=True)
-    subprocess.run(["docker", "cp", f"{work}/.", "quanterall_quantum:/tmp/erasure/"], check=True)
-    o = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", "quanterall_quantum", "mix", "run", "--no-start",
+    subprocess.run(["docker", "cp", f"{work}/.", f"{QX}:/tmp/erasure/"], check=True)
+    o = subprocess.run(["docker", "exec", "-w", "/app", "-e", "MIX_ENV=prod", QX, "mix", "run", "--no-start",
                         "/tmp/erasure/decode_erasure.exs", f"/tmp/erasure/g_d{d}.json", f"/tmp/erasure/s_d{d}_e{e}_p{p}.bin", str(SHOTS)],
                        capture_output=True, text=True).stdout
     uf = json.loads([l for l in o.splitlines() if l.startswith("{")][-1])
@@ -32,6 +35,12 @@ def run(d, e, p, seed):
     print(f"d={d} e={e} p={p}: QxDecode {f1:.4f}, PyMatching {f2:.4f}", flush=True)
     return row
 
+
+# the decoding graphs and the BEAM decoder, sent to the container with every batch of samples
+for d in (3, 5, 7, 9):
+    subprocess.run([PY, str(HERE / "codecap.py"), "graph", str(d), str(work / f"g_d{d}.json")], check=True)
+shutil.copy(HERE / "decode_erasure.exs", work / "decode_erasure.exs")
+subprocess.run(["docker", "exec", QX, "mkdir", "-p", "/tmp/erasure"], check=True)
 
 rows = []
 for d in (3, 5, 7, 9):
