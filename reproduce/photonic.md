@@ -20,9 +20,13 @@ the two.
 ```sh
 git clone https://github.com/quanterall/quantum_computing_simulations.git
 cd quantum_computing_simulations
+git checkout 3c31766
 docker build -t qcs-tools -f tools/Dockerfile .          # about 5 minutes
 mkdir -p out
 ```
+
+`git checkout 3c31766` **reproduces the published run**: the commit this page was tested at. To **run the latest**
+version, leave it out; the results must still be the published ones.
 
 ## 1. The checks (Python, in the tools image)
 

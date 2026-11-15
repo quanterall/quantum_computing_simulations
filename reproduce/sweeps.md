@@ -27,9 +27,13 @@ Docker (or Python 3.9+ with NumPy) and git. Nothing else; it takes seconds.
 ```sh
 git clone https://github.com/quanterall/quantum_computing_simulations.git
 cd quantum_computing_simulations
+git checkout 3c31766
 docker run --rm -v "$PWD":/w -w /w python:3.12-slim \
   sh -c 'pip install -q numpy==1.26.4 && python tools/repetition_sweep_check.py site/data/repetition-sweep.csv'
 ```
+
+`git checkout 3c31766` **reproduces the published run**: the commit this page was tested at. To **run the latest**
+version, leave it out; the results must still be the published ones.
 
 (With Python and NumPy installed: `python3 tools/repetition_sweep_check.py site/data/repetition-sweep.csv`.)
 

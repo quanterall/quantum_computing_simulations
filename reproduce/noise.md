@@ -17,6 +17,7 @@ machine, and by Stim; both decoded by PyMatching; the logical error per round co
 ```sh
 git clone https://github.com/quanterall/quantum_computing_simulations.git
 cd quantum_computing_simulations
+git checkout 3c31766
 docker build -t quanterall-quantum quanterall_quantum
 docker build -t qcs-tools -f tools/Dockerfile .
 mkdir -p bench out
@@ -29,6 +30,9 @@ done
 docker run --rm -u "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD":/repo:ro -v "$PWD/bench":/bench -v "$PWD/out":/out \
   -w /repo qcs-tools python tools/stab_study.py /bench /out
 ```
+
+`git checkout 3c31766` **reproduces the published run**: the commit this page was tested at. To **run the latest**
+version, leave it out; the results must still be the published ones.
 
 - The image builds take about 2 minutes (the service) and 5 (the tools: on aarch64, Stim and PyMatching compile from
   source).

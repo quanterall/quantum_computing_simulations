@@ -16,12 +16,16 @@ machine and checks every endpoint.
 ```sh
 git clone https://github.com/quanterall/quantum_computing_simulations.git
 cd quantum_computing_simulations
+git checkout 3c31766
 docker build -t quanterall-quantum quanterall_quantum
 docker run -d --rm --name qcs-demo -p 127.0.0.1:8080:8080 quanterall-quantum
 curl 'http://127.0.0.1:8080/quantum/bell?shots=1000&seed=1'
 bash quanterall_quantum/test_all_quantum_demos.sh http://127.0.0.1:8080
 docker stop qcs-demo
 ```
+
+`git checkout 3c31766` **reproduces the published run**: the commit this page was tested at. To **run the latest**
+version, leave it out; the results must still be the published ones.
 
 The image builds in about 2 minutes. The service starts in a few seconds (`curl http://127.0.0.1:8080/health` answers
 when it is ready).

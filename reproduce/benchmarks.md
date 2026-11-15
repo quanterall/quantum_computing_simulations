@@ -17,7 +17,8 @@ timings mean most on a machine like the published one (20 cores; the BEAM given 
 
 ## Steps
 
-The benchmarks come out of the same pipeline as the noise study. From a clone of the repository:
+The benchmarks come out of the same pipeline as the noise study. From a clone of the repository, after
+`git checkout 3c31766` to **reproduce the published run** (leave it out to **run the latest** version):
 
 ```sh
 docker build -t quanterall-quantum quanterall_quantum
